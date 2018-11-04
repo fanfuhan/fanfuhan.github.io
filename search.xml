@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[简易安卓聊天软件之思路架构及源码]]></title>
+    <url>%2F2018%2F11%2F04%2F%E5%AE%89%E5%8D%93%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[安卓聊天软件完成的功能罗列1 登陆2 动态显示好友列表3 服务端程序4 客户端程序5 安全退出6 与多好友聊天，屏幕切换，可以保存原信息，每次新登陆，可以读取历史记录7 缓存消息，及离线完成 软件架构图 本地Sqlite数据库设计只有一张表，存储聊天消息，表中有三个属性，分别为：发送者 接收者 消息内容 客户端与服务端传输消息协议约定： 客户端新上线的时候，向服务端发送用户名，服务端向客户端发送好友列表与离线消息 客户端 ==&gt; 服务端：发送者：接收者：消息 服务端 ==&gt; 客户端：发送者：接收者：消息 服务端向客户端发送的是消息还是好友列表，以开头是否是”&amp;”符号区分 客户端目录结构（Android Studio） 客户端的基本思路Service负责与服务器进行网络连接与IO读写，无论是发送消息还是接受消息，Service都先把消息存到本地数据库，FriendListActivity与ChatActivity中ListView的显示，都是直接从数据库读取数据。Service与Activity的通信主要使用Intent和广播来进行。 服务端程序服务端基本思路（具体代码见文末源码地址）： 使用一个List存储所有好友 使用一个Map存储在线好友及对应Socket 使用一个Map存储离线消息 软件开发经验总结这次软件开发是以小组形式进行的，最后算是完成了聊天软件的基本功能，这次开发做的好的地方在于一开始小组就先把真个架构图设计好了，包括数据库，后面写代码基本很顺畅，得到的经验就是开发一个软件，做一个项目，写代码真的是很靠后的事情了，前期一定是先通过写用例，梳理好逻辑，画好架构图，后期按照梳理好的逻辑来写代码。后期还需要努力的地方在于UML类图，希望下次开发前期能把UML类图画出来，这样前期工作会更完善，加油，希望可以成为一个专业的程序员。 源码地址源码：github地址 注意：源码中的ImServeFinal.java文件时服务端程序，应该拿出来用java的IDE运行，记得更改ip与端口]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hello World]]></title>
     <url>%2F2018%2F10%2F26%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
