@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[服务器端安装Anaconda]]></title>
+    <url>%2F2018%2F11%2F29%2FinstallAnaconda%2F</url>
+    <content type="text"><![CDATA[步骤打开网址：Anaconda清华镜像，复制要下载的文件地址，执行以下命令：1234wget 复制的网址（会下载一个sh文件）sh sh文件名rm -rf sh文件名source ~/.bashrc （使conda生效） 注意事项 Anaconda3-5.2.0.Linux-x86_64.sh ==&gt; python3.6 Anaconda3-5.3.1.Linux-x86_64.sh ==&gt; python3.7 若wget显示网络不可达，执行以下操作：123456#centossudo yum -y install wget#ubuntusudo apt-get updatesudo apt-get install wget]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>Anaconda</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[linux终端bash美化教程]]></title>
     <url>%2F2018%2F11%2F29%2FbeautifyBash%2F</url>
     <content type="text"><![CDATA[美化步骤12345vim .bashrc添加下行export PS1="Time:\[\033[1;35m\]\T \[\033[0m\]User:\[\033[1;33m\]\u \[\033[0m\]Dir:\[\033[1;32m\]\w\[\033[0m\]\n\$"退出vimsource .bashrc 美化效果 PS1中参数的具体含义参考链接]]></content>
