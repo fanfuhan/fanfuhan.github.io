@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="python,jupyter notebook,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="1 登陆远程服务器2 生成配置文件1$ jupyter notebook --generate-config 3 生成密码打开ipython，创建一个密文的密码12345In [1]: from notebook.auth import passwdIn [2]: passwd()Enter password: Verify password: Out[2]: &apos;sha1:ce23d945972f">
+<meta name="keywords" content="python,jupyter notebook">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地访问服务器端jupyter notebook">
+<meta property="og:url" content="http://yoursite.com/2018/11/29/remoteJupyter/index.html">
 <meta property="og:site_name" content="范范">
+<meta property="og:description" content="1 登陆远程服务器2 生成配置文件1$ jupyter notebook --generate-config 3 生成密码打开ipython，创建一个密文的密码12345In [1]: from notebook.auth import passwdIn [2]: passwd()Enter password: Verify password: Out[2]: &apos;sha1:ce23d945972f">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-29T08:57:43.507Z">
+<meta property="og:updated_time" content="2018-11-29T10:38:19.241Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="标签">
+<meta name="twitter:title" content="本地访问服务器端jupyter notebook">
+<meta name="twitter:description" content="1 登陆远程服务器2 生成配置文件1$ jupyter notebook --generate-config 3 生成密码打开ipython，创建一个密文的密码12345In [1]: from notebook.auth import passwdIn [2]: passwd()Enter password: Verify password: Out[2]: &apos;sha1:ce23d945972f">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/29/remoteJupyter/">
 
 
 
 
 
-  <title>标签 | 范范</title>
+  <title>本地访问服务器端jupyter notebook | 范范</title>
   
 
 
@@ -279,40 +283,176 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/remoteJupyter/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fanfan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范范">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">标签</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 7 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Anaconda/" style="font-size: 12px; color: #ccc">Anaconda</a> <a href="/tags/Android/" style="font-size: 12px; color: #ccc">Android</a> <a href="/tags/Hexo发送文章/" style="font-size: 12px; color: #ccc">Hexo发送文章</a> <a href="/tags/bash/" style="font-size: 12px; color: #ccc">bash</a> <a href="/tags/java/" style="font-size: 12px; color: #ccc">java</a> <a href="/tags/jupyter-notebook/" style="font-size: 12px; color: #ccc">jupyter notebook</a> <a href="/tags/python/" style="font-size: 30px; color: #111">python</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">本地访问服务器端jupyter notebook</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-29T18:22:23+08:00">
+                2018-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/环境配置与安装/" itemprop="url" rel="index">
+                    <span itemprop="name">环境配置与安装</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h3 id="1-登陆远程服务器"><a href="#1-登陆远程服务器" class="headerlink" title="1 登陆远程服务器"></a>1 登陆远程服务器</h3><h3 id="2-生成配置文件"><a href="#2-生成配置文件" class="headerlink" title="2 生成配置文件"></a>2 生成配置文件</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jupyter notebook --<span class="keyword">generate</span>-<span class="keyword">config</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-生成密码"><a href="#3-生成密码" class="headerlink" title="3 生成密码"></a>3 生成密码</h3><p>打开<code>ipython</code>，创建一个密文的密码<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: from notebook.auth import passwd</span><br><span class="line">In [<span class="number">2</span>]: passwd()</span><br><span class="line">Enter password: </span><br><span class="line">Verify password: </span><br><span class="line">Out[<span class="number">2</span>]: 'sha1:ce23d<span class="number">945972</span>f:<span class="number">34769685</span>a7ccd3d08c84a18c<span class="number">6396</span>8a41f<span class="number">114027</span>4'</span><br></pre></td></tr></table></figure></p>
+<p>把生成的密文‘sha:ce…’复制下来</p>
+<h3 id="4-修改默认配置文件"><a href="#4-修改默认配置文件" class="headerlink" title="4 修改默认配置文件"></a>4 修改默认配置文件</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>vim ~<span class="regexp">/.jupyter/jupyter</span>_notebook_config.py</span><br></pre></td></tr></table></figure>
+<p>进行如下修改：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c<span class="selector-class">.NotebookApp</span><span class="selector-class">.ip</span>=<span class="string">'*'</span></span><br><span class="line">c<span class="selector-class">.NotebookApp</span><span class="selector-class">.password</span> = u<span class="string">'sha:ce...刚才复制的那个密文'</span></span><br><span class="line">c<span class="selector-class">.NotebookApp</span><span class="selector-class">.open_browser</span> = False</span><br><span class="line">c<span class="selector-class">.NotebookApp</span><span class="selector-class">.port</span> =<span class="number">8888</span> #随便指定一个端口</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-启动jupyter-notebook"><a href="#5-启动jupyter-notebook" class="headerlink" title="5 启动jupyter notebook"></a>5 启动jupyter notebook</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>jupyter notebook</span><br></pre></td></tr></table></figure>
+<h3 id="6-远程访问"><a href="#6-远程访问" class="headerlink" title="6 远程访问"></a>6 远程访问</h3><p>此时应该可以直接从本地浏览器直接访问<a href="http://address_of_remote:8888就可以看到jupyter的登陆界面。" target="_blank" rel="noopener">http://address_of_remote:8888就可以看到jupyter的登陆界面。</a></p>
+<h3 id="7-建立SSH通道"><a href="#7-建立SSH通道" class="headerlink" title="7 建立SSH通道"></a>7 建立SSH通道</h3><p>如果登陆失败，则有可能是服务器防火墙设置的问题，此时最简单的方法是在本地建立一个ssh通道：<br>在本地终端中输入：<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh fanfan@<span class="number">222.92</span><span class="meta">.146</span><span class="meta">.251</span> -L127<span class="meta">.0</span><span class="meta">.0</span><span class="meta">.1</span>:<span class="number">1234</span>:<span class="number">127.0</span><span class="meta">.0</span><span class="meta">.1</span>:<span class="number">6666</span></span><br></pre></td></tr></table></figure></p>
+<p>便可以在<code>localhost:1234</code>直接访问远程的jupyter了。</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/jupyter-notebook/" rel="tag"># jupyter notebook</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/29/installAnaconda/" rel="next" title="服务器端安装Anaconda">
+                <i class="fa fa-chevron-left"></i> 服务器端安装Anaconda
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -345,8 +485,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -408,6 +557,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-登陆远程服务器"><span class="nav-number">1.</span> <span class="nav-text">1 登陆远程服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-生成配置文件"><span class="nav-number">2.</span> <span class="nav-text">2 生成配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-生成密码"><span class="nav-number">3.</span> <span class="nav-text">3 生成密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-修改默认配置文件"><span class="nav-number">4.</span> <span class="nav-text">4 修改默认配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-启动jupyter-notebook"><span class="nav-number">5.</span> <span class="nav-text">5 启动jupyter notebook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-远程访问"><span class="nav-number">6.</span> <span class="nav-text">6 远程访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-建立SSH通道"><span class="nav-number">7.</span> <span class="nav-text">7 建立SSH通道</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

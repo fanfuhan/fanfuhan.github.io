@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[本地访问服务器端jupyter notebook]]></title>
+    <url>%2F2018%2F11%2F29%2FremoteJupyter%2F</url>
+    <content type="text"><![CDATA[1 登陆远程服务器2 生成配置文件1$ jupyter notebook --generate-config 3 生成密码打开ipython，创建一个密文的密码12345In [1]: from notebook.auth import passwdIn [2]: passwd()Enter password: Verify password: Out[2]: 'sha1:ce23d945972f:34769685a7ccd3d08c84a18c63968a41f1140274' 把生成的密文‘sha:ce…’复制下来 4 修改默认配置文件1$ vim ~/.jupyter/jupyter_notebook_config.py 进行如下修改：1234c.NotebookApp.ip='*'c.NotebookApp.password = u'sha:ce...刚才复制的那个密文'c.NotebookApp.open_browser = Falsec.NotebookApp.port =8888 #随便指定一个端口 5 启动jupyter notebook1$ jupyter notebook 6 远程访问此时应该可以直接从本地浏览器直接访问http://address_of_remote:8888就可以看到jupyter的登陆界面。 7 建立SSH通道如果登陆失败，则有可能是服务器防火墙设置的问题，此时最简单的方法是在本地建立一个ssh通道：在本地终端中输入：1ssh fanfan@222.92.146.251 -L127.0.0.1:1234:127.0.0.1:6666 便可以在localhost:1234直接访问远程的jupyter了。]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>jupyter notebook</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[服务器端安装Anaconda]]></title>
     <url>%2F2018%2F11%2F29%2FinstallAnaconda%2F</url>
-    <content type="text"><![CDATA[步骤打开网址：Anaconda清华镜像，复制要下载的文件地址，执行以下命令：1234wget 复制的网址（会下载一个sh文件）sh sh文件名rm -rf sh文件名source ~/.bashrc （使conda生效） 注意事项 Anaconda3-5.2.0.Linux-x86_64.sh ==&gt; python3.6 Anaconda3-5.3.1.Linux-x86_64.sh ==&gt; python3.7 若wget显示网络不可达，执行以下操作：123456#centossudo yum -y install wget#ubuntusudo apt-get updatesudo apt-get install wget]]></content>
+    <content type="text"><![CDATA[步骤打开网址：Anaconda清华镜像，复制要下载的文件地址，执行以下命令：12345678910wget 复制的网址（会下载一个sh文件）sh sh文件名 #执行后，会显示使用条款，按enter继续阅读，会让回答几个问题，全部yesrm -rf sh文件名source ~/.bashrc （使conda生效）#设置清华conda镜像conda config --prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ 注意事项 Anaconda3-5.2.0.Linux-x86_64.sh ==&gt; python3.6 Anaconda3-5.3.1.Linux-x86_64.sh ==&gt; python3.7 若wget显示网络不可达，执行以下操作：123456#centossudo yum -y install wget#ubuntusudo apt-get updatesudo apt-get install wget]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>
