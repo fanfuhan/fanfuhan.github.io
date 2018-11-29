@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[linux终端bash美化教程]]></title>
+    <url>%2F2018%2F11%2F29%2FbeautifyBash%2F</url>
+    <content type="text"><![CDATA[美化步骤12345vim .bashrc添加下行export PS1="Time:\[\033[1;35m\]\T \[\033[0m\]User:\[\033[1;33m\]\u \[\033[0m\]Dir:\[\033[1;32m\]\w\[\033[0m\]\n\$"退出vimsource .bashrc 美化效果 PS1中参数的具体含义参考链接]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>bash</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Hexo写博客步骤]]></title>
     <url>%2F2018%2F11%2F29%2FwriteArtical%2F</url>
-    <content type="text"><![CDATA[博客编写步骤1 进入D:\Blog文件夹下，打开终端 2 输入：hexo new &quot;文件名&quot;，在Blog\source\_posts目录下创建了文件名.md文件 3 打开文件名.md，编写博客 4 终端输入：hexo d -g提交博客 md文件编写注意事项1234567---title: 博客名categories: 分类名tags: - 标签1 - 标签2---]]></content>
+    <content type="text"><![CDATA[博客编写步骤1 进入D:\Blog文件夹下，打开终端 2 输入：hexo new &quot;文件名&quot;，在D:\Blog\source\\_posts目录下创建了文件名.md文件 3 打开文件名.md，编写博客 4 终端输入：hexo d -g提交博客 md文件编写注意事项1234567---title: 博客名categories: 分类名tags: - 标签1 - 标签2---]]></content>
       <tags>
         <tag>Hexo发送文章</tag>
       </tags>
