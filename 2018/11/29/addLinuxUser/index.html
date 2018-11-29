@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="##">
+<meta name="description" content="创建用户123# 在root用户下不用写sudosudo adduser fanfan  # 在/home 下会自动创建同名文件夹passwd fanfan        # 设置密码，上个命令有时会直接让输入密码，就不需要执行这一步了 删除用户1sudo userdel fanfan 添加sudo权限 su -切换到root vim /etc/sudoers ，在root ALL=(ALL)">
 <meta name="keywords" content="linux添加用户">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux添加用户并赋予sudo权限">
 <meta property="og:url" content="http://yoursite.com/2018/11/29/addLinuxUser/index.html">
 <meta property="og:site_name" content="范范">
-<meta property="og:description" content="##">
+<meta property="og:description" content="创建用户123# 在root用户下不用写sudosudo adduser fanfan  # 在/home 下会自动创建同名文件夹passwd fanfan        # 设置密码，上个命令有时会直接让输入密码，就不需要执行这一步了 删除用户1sudo userdel fanfan 添加sudo权限 su -切换到root vim /etc/sudoers ，在root ALL=(ALL)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-29T14:41:59.453Z">
+<meta property="og:updated_time" content="2018-11-29T15:24:55.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux添加用户并赋予sudo权限">
-<meta name="twitter:description" content="##">
+<meta name="twitter:description" content="创建用户123# 在root用户下不用写sudosudo adduser fanfan  # 在/home 下会自动创建同名文件夹passwd fanfan        # 设置密码，上个命令有时会直接让输入密码，就不需要执行这一步了 删除用户1sudo userdel fanfan 添加sudo权限 su -切换到root vim /etc/sudoers ，在root ALL=(ALL)">
 
 
 
@@ -384,7 +384,16 @@
       
 
       
-        <p>## </p>
+        <h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在root用户下不用写sudo</span></span><br><span class="line">sudo <span class="keyword">adduser </span>fanfan  <span class="comment"># 在/home 下会自动创建同名文件夹</span></span><br><span class="line">passwd fanfan        <span class="comment"># 设置密码，上个命令有时会直接让输入密码，就不需要执行这一步了</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo userdel fanfan</span></span><br></pre></td></tr></table></figure>
+<h3 id="添加sudo权限"><a href="#添加sudo权限" class="headerlink" title="添加sudo权限"></a>添加sudo权限</h3><ul>
+<li><code>su -</code>切换到root</li>
+<li><p><code>vim /etc/sudoers</code> ，在<code>root ALL=(ALL)   ALL</code>的下一行添加：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sudo时需要输入密码</span></span><br><span class="line"><span class="attribute">fanfan</span>  <span class="literal">ALL</span>=(<span class="literal">ALL</span>)   <span class="literal">ALL</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># sudo时不需要输入密码</span></span><br><span class="line"><span class="attribute">fanfan</span> <span class="literal">ALL</span>=(<span class="literal">ALL</span>) NOPASSWD: <span class="literal">ALL</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>按<code>Esc</code>，再输入<code>:wq!</code>保存文件，要加<code>!</code>，不然保存会出问题</p>
+</li>
+</ul>
 
       
     </div>
@@ -475,8 +484,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -538,6 +556,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建用户"><span class="nav-number">1.</span> <span class="nav-text">创建用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除用户"><span class="nav-number">2.</span> <span class="nav-text">删除用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加sudo权限"><span class="nav-number">3.</span> <span class="nav-text">添加sudo权限</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
