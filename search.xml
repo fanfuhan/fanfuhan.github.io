@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[opencv+tensorflow实时检测人脸]]></title>
+    <url>%2F2018%2F12%2F29%2FfaceDetection%2F</url>
+    <content type="text"><![CDATA[关于人脸检测的说明本文代码使用了opencv自带的人脸检测算法和mtcnn算法，mtcnn有明显的优势，检测成功率基本维持在100%，而且人脸各角度都可以检测成功，所以建议使用mtcnn来进行人脸检测，电脑cpu也可以流畅运行。 需要提前配置的环境：python + opencv + tensorflow 关于mtcnn的介绍，请参见压缩包中的电子书 代码结构说明 detect_face.py定义了mtcnn模型 det 1-3.npy是预训练好的模型，所以不用再对mtcnn进行训练 detect 1-3.py是三种实现方式，下面一一介绍 代码演示detect1.py使用mtcnn对一张图片进行检测，效果如下： detect2.py使用opencv自带的HAAR进行实时人脸检测，当人脸倾斜时无法检测到，效果如下： detect3.py使用MTCNN进行实时人脸检测，无论人脸各个角度，都可以检测到，效果如下： 代码地址github地址 百度云地址 注意：github地址中没有mtcnn的预训练模型，需要自己下载，百度云是完整的]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>人脸检测</tag>
+        <tag>计算机视觉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
     <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
