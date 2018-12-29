@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[aliyun_gpu]]></title>
-    <url>%2F2018%2F12%2F08%2Faliyun-gpu%2F</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
     <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
     <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
