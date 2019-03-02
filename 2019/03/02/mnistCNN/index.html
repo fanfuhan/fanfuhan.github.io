@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/e52819eagy1g0oghnd4edj20hu0bm3yw.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/e52819eagy1g0ogop3czcj20ft09xdgj.jpg">
-<meta property="og:updated_time" content="2019-03-02T08:00:14.273Z">
+<meta property="og:updated_time" content="2019-03-02T16:04:47.731Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用keras用卷积神经网络训练MNIST数据集">
 <meta name="twitter:description" content="加载mnist数据集123456from keras.datasets import mnist(x_train,y_train),(x_test,y_test) = mnist.load_data() # 将下载好的mnist.npz方在 ~/.keras/datasets/ 目录下print(x_train.shape,type(x_train))print(y_train.shape,typ">
@@ -465,7 +465,8 @@ Epoch 5/5
 Test Accuracy: 99.11%
 Classified correctly count: 9911
 Classified incorrectly count: 89
-</code></pre>
+</code></pre><h3 id="代码地址"><a href="#代码地址" class="headerlink" title="代码地址"></a>代码地址</h3><p><a href="https://github.com/fanfuhan/KerasMNISTExample" target="_blank" rel="noopener">github</a></p>
+
       
     </div>
     
@@ -507,8 +508,8 @@ Classified incorrectly count: 89
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/02/mnistLinearNN/" rel="prev" title="使用keras用线性神经网络训练MNIST数据集">
-                使用keras用线性神经网络训练MNIST数据集 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/02/mnistLinearNN/" rel="prev" title="使用keras用常规神经网络训练MNIST数据集">
+                使用keras用常规神经网络训练MNIST数据集 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -643,7 +644,7 @@ Classified incorrectly count: 89
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载mnist数据集"><span class="nav-number">1.</span> <span class="nav-text">加载mnist数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理：规范化"><span class="nav-number">2.</span> <span class="nav-text">数据处理：规范化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计训练数据中个标签数量"><span class="nav-number">3.</span> <span class="nav-text">统计训练数据中个标签数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对标签进行one-hot编码"><span class="nav-number">4.</span> <span class="nav-text">对标签进行one-hot编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Keras-sequential-model-定义MNIST-CNN网络"><span class="nav-number">5.</span> <span class="nav-text">使用Keras sequential model 定义MNIST CNN网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-MNIST-CNN-模型网络结构"><span class="nav-number">6.</span> <span class="nav-text">查看 MNIST CNN 模型网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译模型"><span class="nav-number">7.</span> <span class="nav-text">编译模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练模型，并将指标保存到history中"><span class="nav-number">8.</span> <span class="nav-text">训练模型，并将指标保存到history中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化指标"><span class="nav-number">9.</span> <span class="nav-text">可视化指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存模型"><span class="nav-number">10.</span> <span class="nav-text">保存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载模型"><span class="nav-number">11.</span> <span class="nav-text">加载模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计模型在测试集上的分类结果"><span class="nav-number">12.</span> <span class="nav-text">统计模型在测试集上的分类结果</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载mnist数据集"><span class="nav-number">1.</span> <span class="nav-text">加载mnist数据集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理：规范化"><span class="nav-number">2.</span> <span class="nav-text">数据处理：规范化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计训练数据中个标签数量"><span class="nav-number">3.</span> <span class="nav-text">统计训练数据中个标签数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对标签进行one-hot编码"><span class="nav-number">4.</span> <span class="nav-text">对标签进行one-hot编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Keras-sequential-model-定义MNIST-CNN网络"><span class="nav-number">5.</span> <span class="nav-text">使用Keras sequential model 定义MNIST CNN网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-MNIST-CNN-模型网络结构"><span class="nav-number">6.</span> <span class="nav-text">查看 MNIST CNN 模型网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译模型"><span class="nav-number">7.</span> <span class="nav-text">编译模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练模型，并将指标保存到history中"><span class="nav-number">8.</span> <span class="nav-text">训练模型，并将指标保存到history中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化指标"><span class="nav-number">9.</span> <span class="nav-text">可视化指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保存模型"><span class="nav-number">10.</span> <span class="nav-text">保存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载模型"><span class="nav-number">11.</span> <span class="nav-text">加载模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计模型在测试集上的分类结果"><span class="nav-number">12.</span> <span class="nav-text">统计模型在测试集上的分类结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码地址"><span class="nav-number">13.</span> <span class="nav-text">代码地址</span></a></li></ol></div>
             
 
           </div>
