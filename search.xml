@@ -21,18 +21,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[VS2017配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
-    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>opencv</tag>
-        <tag>VS2017</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[python安装opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
     <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
@@ -42,6 +30,18 @@
       <tags>
         <tag>python</tag>
         <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[VS2017配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
+    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+        <tag>VS2017</tag>
       </tags>
   </entry>
   <entry>
