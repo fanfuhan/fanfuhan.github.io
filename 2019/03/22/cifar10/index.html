@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="步骤 定义神经网络计算图     运行计算图    导包12345import tensorflow as tfimport osimport cifar10_inputimport numpy as npos.environ[&apos;TF_CPP_MIN_LOG_LEVEL&apos;] = &apos;2&apos; 设置算法超参数1234567891011learning_rate_init = 0.001l2loss_rat">
+<meta name="description" content="步骤 定义神经网络计算图     运行计算图    导包12345import tensorflow as tfimport osimport cifar10_input  # tensorflow/modle模块中自带案例，可以去github下载import numpy as npos.environ[&apos;TF_CPP_MIN_LOG_LEVEL&apos;] = &apos;2&apos; 设置算法超参数1234567891">
 <meta name="keywords" content="图像分类,tensorflow,cifar10">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用tensorflow对cifar10数据集进行图像分类">
 <meta property="og:url" content="http://yoursite.com/2019/03/22/cifar10/index.html">
 <meta property="og:site_name" content="范范">
-<meta property="og:description" content="步骤 定义神经网络计算图     运行计算图    导包12345import tensorflow as tfimport osimport cifar10_inputimport numpy as npos.environ[&apos;TF_CPP_MIN_LOG_LEVEL&apos;] = &apos;2&apos; 设置算法超参数1234567891011learning_rate_init = 0.001l2loss_rat">
+<meta property="og:description" content="步骤 定义神经网络计算图     运行计算图    导包12345import tensorflow as tfimport osimport cifar10_input  # tensorflow/modle模块中自带案例，可以去github下载import numpy as npos.environ[&apos;TF_CPP_MIN_LOG_LEVEL&apos;] = &apos;2&apos; 设置算法超参数1234567891">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007cc5tqgy1g1bemmje1hj31b10qekga.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007cc5tqgy1g1bemvkb9xj315y0cv1a4.jpg">
@@ -97,10 +97,10 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007cc5tqgy1g1bepa29mcj316i0m6mz1.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007cc5tqgy1g1bg28i7csj30c406da9z.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007cc5tqgy1g1bg2lj211j30cy08pglq.jpg">
-<meta property="og:updated_time" content="2019-03-24T03:53:50.034Z">
+<meta property="og:updated_time" content="2019-03-26T03:03:29.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用tensorflow对cifar10数据集进行图像分类">
-<meta name="twitter:description" content="步骤 定义神经网络计算图     运行计算图    导包12345import tensorflow as tfimport osimport cifar10_inputimport numpy as npos.environ[&apos;TF_CPP_MIN_LOG_LEVEL&apos;] = &apos;2&apos; 设置算法超参数1234567891011learning_rate_init = 0.001l2loss_rat">
+<meta name="twitter:description" content="步骤 定义神经网络计算图     运行计算图    导包12345import tensorflow as tfimport osimport cifar10_input  # tensorflow/modle模块中自带案例，可以去github下载import numpy as npos.environ[&apos;TF_CPP_MIN_LOG_LEVEL&apos;] = &apos;2&apos; 设置算法超参数1234567891">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007cc5tqgy1g1bemmje1hj31b10qekga.jpg">
 
 
@@ -405,7 +405,7 @@
 <p><img src="http://ww1.sinaimg.cn/large/007cc5tqgy1g1do1v3uwgj310g0inte5.jpg" alt=""></p>
 </li>
 </ul>
-<h3 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> cifar10_input</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">os.environ[<span class="string">'TF_CPP_MIN_LOG_LEVEL'</span>] = <span class="string">'2'</span></span><br></pre></td></tr></table></figure>
+<h3 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> cifar10_input  <span class="comment"># tensorflow/modle模块中自带案例，可以去github下载</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">os.environ[<span class="string">'TF_CPP_MIN_LOG_LEVEL'</span>] = <span class="string">'2'</span></span><br></pre></td></tr></table></figure>
 <h3 id="设置算法超参数"><a href="#设置算法超参数" class="headerlink" title="设置算法超参数"></a>设置算法超参数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">learning_rate_init = <span class="number">0.001</span></span><br><span class="line">l2loss_ratio = <span class="number">0.001</span></span><br><span class="line">keep_prob = <span class="number">0.7</span> <span class="comment">#dropout</span></span><br><span class="line">training_epochs = <span class="number">5</span></span><br><span class="line">batch_size = <span class="number">100</span></span><br><span class="line">display_step = <span class="number">100</span></span><br><span class="line">conv1_kernel_num = <span class="number">64</span></span><br><span class="line">conv2_kernel_num = <span class="number">64</span></span><br><span class="line">fc1_units_num = <span class="number">256</span></span><br><span class="line">fc2_units_num = <span class="number">128</span></span><br><span class="line">fc3_units_num = cifar10_input.NUM_CLASSES</span><br></pre></td></tr></table></figure>
 <h3 id="数据集中输入图像的参数"><a href="#数据集中输入图像的参数" class="headerlink" title="数据集中输入图像的参数"></a>数据集中输入图像的参数</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dataset_dir = <span class="string">'./cifar10_data/'</span></span><br><span class="line">image_size = cifar10_input.IMAGE_SIZE</span><br><span class="line">image_channel = <span class="number">3</span></span><br><span class="line">n_classes = cifar10_input.NUM_CLASSES</span><br><span class="line">num_examples_per_epoch_for_train = cifar10_input.NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN</span><br><span class="line">num_examples_per_epoch_for_eval = cifar10_input.NUM_EXAMPLES_PER_EPOCH_FOR_EVAL</span><br></pre></td></tr></table></figure>
 <h3 id="得到每一批次的训练数据"><a href="#得到每一批次的训练数据" class="headerlink" title="得到每一批次的训练数据"></a>得到每一批次的训练数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_distorted_train_batch</span><span class="params">(data_dir, batch_size)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data_dir:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">'please supply a data_dir'</span>)</span><br><span class="line">    data_dir = os.path.join(data_dir, <span class="string">'cifar-10-batches-bin'</span>)</span><br><span class="line">    images, labels = cifar10_input.distorted_inputs(data_dir=data_dir, batch_size=batch_size)</span><br><span class="line">    <span class="keyword">return</span> images, labels</span><br></pre></td></tr></table></figure>
@@ -564,7 +564,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -586,7 +586,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
