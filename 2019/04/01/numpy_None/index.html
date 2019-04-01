@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="范范">
 <meta property="og:description" content="numpy数组维度1import numpy as np 12arr_1 = np.array([1, 2, 3, 4])print(arr_1, &apos;\n&apos; , &apos;shape of arr_1:&apos;, arr_1.shape, &apos;， dimension of arr_1:&apos;,np.ndim(arr_1)) output: arr_1 = [1 2 3 4]  shape of arr_1: (4,)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-01T01:17:08.368Z">
+<meta property="og:updated_time" content="2019-04-01T02:23:32.955Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="numpy[..., None]的理解">
 <meta name="twitter:description" content="numpy数组维度1import numpy as np 12arr_1 = np.array([1, 2, 3, 4])print(arr_1, &apos;\n&apos; , &apos;shape of arr_1:&apos;, arr_1.shape, &apos;， dimension of arr_1:&apos;,np.ndim(arr_1)) output: arr_1 = [1 2 3 4]  shape of arr_1: (4,)">
@@ -416,7 +416,7 @@ shape of arr_3: (3, 2, 4) ， dimension of arr_3: 3
 <li><code>x[4,...,5,:]</code> == <code>x[4,:,:,5,:]</code></li>
 </ul>
 <h3 id="numpy数组切片中None的理解"><a href="#numpy数组切片中None的理解" class="headerlink" title="numpy数组切片中None的理解"></a>numpy数组切片中None的理解</h3><p>None 的作用就是在相应的位置上增加了一个维度，在这个维度上只有一个元素</p>
-<p>假设 x.shape = (a, b)，则</p>
+<p>假设 x.shape == (a, b)，则</p>
 <ul>
 <li><code>(a, b)</code> ==&gt; <code>[None, :, :]</code> ==&gt; <code>(1, a, b)</code></li>
 <li><code>(a, b)</code> ==&gt; <code>[:, None, :]</code> ==&gt; <code>(a, 1, b)</code></li>
