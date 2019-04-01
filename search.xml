@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[numpy[..., None]的理解]]></title>
+    <url>%2F2019%2F04%2F01%2Fnumpy_None%2F</url>
+    <content type="text"><![CDATA[numpy数组维度1import numpy as np 12arr_1 = np.array([1, 2, 3, 4])print(arr_1, '\n' , 'shape of arr_1:', arr_1.shape, '， dimension of arr_1:',np.ndim(arr_1)) output: arr_1 = [1 2 3 4] shape of arr_1: (4,) ， dimension of arr_1: 1 12arr_2 = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])print(arr_2, '\n' , 'shape of arr_2:', arr_2.shape, '， dimension of arr_2:',np.ndim(arr_2)) output: arr_2 = [[1 2 3 4] [5 6 7 8]] shape of arr_2: (2, 4) ， dimension of arr_2: 2 12arr_3 = np.array([[[1, 2, 3, 4], [5, 6, 7, 8]], [[1, 2, 3, 4], [5, 6, 7, 8]], [[1, 2, 3, 4], [5, 6, 7, 8]]])print(arr_3, '\n' , 'shape of arr_3:', arr_3.shape, '， dimension of arr_3:',np.ndim(arr_3)) output: arr_3 = [[[1 2 3 4] [5 6 7 8]] [[1 2 3 4] [5 6 7 8]] [[1 2 3 4] [5 6 7 8]]] shape of arr_3: (3, 2, 4) ， dimension of arr_3: 3 numpy数组切片中[…]的理解假设 x 是一个数组，np.ndim(x) == 5 x[1,2,...] == x[1,2,:,:,:] x[...,3] == x[:,:,:,:,3] x[4,...,5,:] == x[4,:,:,5,:] numpy数组切片中None的理解None 的作用就是在相应的位置上增加了一个维度，在这个维度上只有一个元素 假设 x.shape = (a, b)，则 (a, b) ==&gt; [None, :, :] ==&gt; (1, a, b) (a, b) ==&gt; [:, None, :] ==&gt; (a, 1, b) (a, b) ==&gt; [:, :, None] ==&gt; (a, b, 1) 123import numpy as nparr = np.array([[1,2,3],[4,5,6]])print(arr, '\n' , 'shape of arr:', arr.shape, '， dimension of arr:',np.ndim(arr)) output: arr = [[1 2 3] [4 5 6]] shape of arr: (2, 3) ， dimension of arr: 2 12None_1 = arr[None, :, :]print(None_1, '\n' , 'shape of None_1:', None_1.shape, '， dimension of None_1:',np.ndim(None_1)) output: None_1 = [[[1 2 3] [4 5 6]]] shape of None_1: (1, 2, 3) ， dimension of None_1: 3 12None_2 = arr[:, None, :]print(None_2, '\n' , 'shape of None_2:', None_2.shape, '， dimension of None_2:',np.ndim(None_2)) output: None_2 = [[[1 2 3]] [[4 5 6]]] shape of None_2: (2, 1, 3) ， dimension of None_2: 3 12None_3 = arr[:, :, None]print(None_3, '\n' , 'shape of None_3:', None_3.shape, '， dimension of None_3:',np.ndim(None_3)) output: None_3 = [[[1] [2] [3]] [[4] [5] [6]]] shape of None_3: (2, 3, 1) ， dimension of None_3: 3 numpy[…, None]的理解12None_3 = arr[..., None] # 等价于 None_3 = arr[:, :, None]print(None_3, '\n' , 'shape of None_3:', None_3.shape, '， dimension of None_3:',np.ndim(None_3)) output: None_3 = [[[1] [2] [3]] [[4] [5] [6]]] shape of None_3: (2, 3, 1) ， dimension of None_3: 3 12y = np.arange(12).reshape((2,2,3))print(y, '\n' , 'shape of y:', y.shape, '， dimension of y:',np.ndim(y)) output: y = [[[ 0 1 2] [ 3 4 5]] [[ 6 7 8] [ 9 10 11]]] shape of y: (2, 2, 3) ， dimension of y: 3 12y = y[..., None]print(y, '\n' , 'shape of y:', y.shape, '， dimension of y:',np.ndim(y)) output: y = [[[[ 0] [ 1] [ 2]] [[ 3] [ 4] [ 5]]] [[[ 6] [ 7] [ 8]] [[ 9] [10] [11]]]] shape of y: (2, 2, 3, 1) ， dimension of y: 4]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>Numpy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[opencv-016-图像ROI与ROI操作]]></title>
     <url>%2F2019%2F03%2F28%2Fopencv-016%2F</url>
     <content type="text"><![CDATA[知识点图像的ROI(region of interest)是指图像中感兴趣区域、在OpenCV中图像设置图像ROI区域，实现只对ROI区域操作。 矩形ROI区域提取 矩形ROI区域copy 不规则ROI区域 ROI区域mask生成 像素位 and操作 提取到ROI区域 加背景or操作 add 背景与ROI区域 代码（c++,python）1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * ROI及相关操作 */int main() &#123; Mat src = imread("../images/test.png"); imshow("input", src); int h = src.rows; int w = src.cols; // 获取ROI int cy = h / 2; int cx = w / 2; Rect rect(cx - 100, cy - 100, 200, 200); // 注意：roi 与 src指向同一块内存区域，改变roi,src也会改变 Mat roi = src(rect); imshow("roi", roi); // 人物背景图，换背景 // load image Mat image = imread("../images/boy.jpg"); imshow("input", image); // generate mask Mat hsv, mask, mask_not; cvtColor(image, hsv, COLOR_BGR2HSV); inRange(hsv, Scalar(35, 43, 46), Scalar(99, 255, 255), mask); imshow("mask", mask); // extract person Mat person; bitwise_not(mask, mask_not); imshow("mask_not", mask_not); bitwise_and(image, image, person, mask_not); imshow("person", person); // gengerate background Mat background = Mat::zeros(image.size(), image.type()); background.setTo(Scalar(255, 0 ,0)); imshow("background", background); // combine background + person Mat dst; bitwise_or(person, background, dst, mask); add(dst, person, dst); imshow("dst", dst); waitKey(0); return 0;&#125; 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849import cv2 as cvimport numpy as npsrc = cv.imread("D:/javaopencv/dahlia_4.jpg")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)h, w = src.shape[:2]# 获取ROIcy = h//2cx = w//2roi = src[cy-100:cy+100,cx-100:cx+100,:]cv.imshow("roi", roi)# copy ROIimage = np.copy(roi)# modify ROIroi[:, :, 0] = 0cv.imshow("result", src)# modify copy roiimage[:, :, 2] = 0cv.imshow("result", src)cv.imshow("copy roi", image)# example with ROI - generate masksrc2 = cv.imread("D:/javaopencv/tinygreen.png");cv.imshow("src2", src2)hsv = cv.cvtColor(src2, cv.COLOR_BGR2HSV)mask = cv.inRange(hsv, (35, 43, 46), (99, 255, 255))# extract person ROImask = cv.bitwise_not(mask)person = cv.bitwise_and(src2, src2, mask=mask);# generate backgroundresult = np.zeros(src2.shape, src2.dtype)result[:,:,0] = 255# combine background + personmask = cv.bitwise_not(mask)dst = cv.bitwise_or(person, result, mask=mask)dst = cv.add(dst, person)cv.imshow("dst", dst)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
@@ -225,14 +237,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[windows下Clion配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
-    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR "D:\\software\\opencv4\\MinGW64_build\\install")set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; "$&#123;CMAKE_SOURCE_DIR&#125;/cmake/")find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>
       <tags>
-        <tag>Clion</tag>
+        <tag>python</tag>
         <tag>opencv</tag>
       </tags>
   </entry>
@@ -249,14 +261,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+    <title><![CDATA[windows下Clion配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
+    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR "D:\\software\\opencv4\\MinGW64_build\\install")set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; "$&#123;CMAKE_SOURCE_DIR&#125;/cmake/")find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>
       <tags>
-        <tag>python</tag>
+        <tag>Clion</tag>
         <tag>opencv</tag>
       </tags>
   </entry>
