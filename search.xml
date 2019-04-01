@@ -13,6 +13,50 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[opencv-020-图像直方图反向投影]]></title>
+    <url>%2F2019%2F03%2F30%2Fopencv-020%2F</url>
+    <content type="text"><![CDATA[知识点文字解释图像直方图反向投影是通过构建指定模板图像的二维直方图空间与目标的二维直方图空间，进行直方图数据归一化之后， 进行比率操作，对所有得到非零数值，生成查找表对原图像进行像素映射之后，再进行图像模糊输出的结果。 直方图反向投影流程 计算直方图 计算比率R LUT查找表 卷积模糊 归一化输出 API 代码（c++,python）12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;void backProjection_demo(Mat &amp;mat, Mat &amp;model);/* * 图像直方图反向投影 */int main() &#123; Mat src = imread("../images/target.png"); Mat model = imread("../images/sample.png"); if (src.empty() || model.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; namedWindow("model", WINDOW_NORMAL); imshow("input", src); imshow("model", model); backProjection_demo(src, model); waitKey(0); return 0;&#125;void backProjection_demo(Mat &amp;image, Mat &amp;model) &#123; Mat image_hsv, model_hsv; cvtColor(image, image_hsv, COLOR_BGR2HSV); cvtColor(model, model_hsv, COLOR_BGR2HSV); // 定义直方图参数与属性 int h_bins = 32, s_bins = 32; int histSize[] = &#123;h_bins, s_bins&#125;; float h_ranges[] = &#123;0, 180&#125;, s_ranges[] = &#123;0, 256&#125;; const float* ranges[] = &#123;h_ranges, s_ranges&#125;; int channels[] = &#123;0, 1&#125;; Mat roiHist; calcHist(&amp;model_hsv, 1, channels, Mat(), roiHist, 2, histSize, ranges); normalize(roiHist, roiHist, 0, 255, NORM_MINMAX, -1, Mat()); MatND backproj; calcBackProject(&amp;image_hsv, 1, channels, roiHist, backproj, ranges); imshow("BackProj", backproj);&#125; 1234567891011121314151617181920212223242526272829303132333435363738import cv2 as cvimport numpy as npfrom matplotlib import pyplot as pltdef back_projection_demo(): sample = cv.imread("D:/javaopencv/sample.png") # hist2d_demo(sample) target = cv.imread("D:/javaopencv/target.png") # hist2d_demo(target) roi_hsv = cv.cvtColor(sample, cv.COLOR_BGR2HSV) target_hsv = cv.cvtColor(target, cv.COLOR_BGR2HSV) # show images cv.imshow("sample", sample) cv.imshow("target", target) roiHist = cv.calcHist([roi_hsv], [0, 1], None, [32, 32], [0, 180, 0, 256]) cv.normalize(roiHist, roiHist, 0, 255, cv.NORM_MINMAX) dst = cv.calcBackProject([target_hsv], [0, 1], roiHist, [0, 180, 0, 256], 1) cv.imshow("backProjectionDemo", dst)def hist2d_demo(image): hsv = cv.cvtColor(image, cv.COLOR_BGR2HSV) hist = cv.calcHist([hsv], [0, 1], None, [32, 32], [0, 180, 0, 256]) dst = cv.resize(hist, (400, 400)) cv.imshow("image", image) cv.imshow("hist", dst) plt.imshow(hist, interpolation='nearest') plt.title("2D Histogram") plt.show()back_projection_demo()cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>图像直方图反向投影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[opencv-019-图像直方图比较]]></title>
+    <url>%2F2019%2F03%2F30%2Fopencv-019%2F</url>
+    <content type="text"><![CDATA[知识点图像直方图比较，就是计算两幅图像的直方图数据，比较两组数据的相似性，从而得到两幅图像之间的相似程度，直方图比较在早期的CBIR(以图搜图)中是应用很常见的技术手段，通常会结合边缘处理、词袋等技术一起使用。APIcompareHist(hist1, hist2, method)常见比较方法有 相关性(常用) 卡方 交叉 巴氏(常用) 代码（c++,python）123456789101112131415161718192021222324252627282930313233343536373839404142434445#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 图像直方图比较 */int main() &#123; Mat src1 = imread("../images/left01.jpg"); Mat src2 = imread("../images/left13.jpg"); if (src1.empty() || src2.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow("input1", src1); imshow("input2", src2); // 一般在HSV色彩空间进行计算 Mat hsv1, hsv2; cvtColor(src1, hsv1, COLOR_BGR2HSV); cvtColor(src2, hsv2, COLOR_BGR2HSV); int h_bins = 60, s_bins = 64; int histSize[] = &#123;h_bins, s_bins&#125;; float h_ranges[] = &#123;0, 180&#125;; float s_ranges[] = &#123;0, 256&#125;; const float* ranges[] = &#123;h_ranges, s_ranges&#125;; int channels[] = &#123;0, 1&#125;; Mat hist1, hist2; calcHist(&amp;hsv1, 1, channels, Mat(), hist1, 2, histSize, ranges); calcHist(&amp;hsv2, 1, channels, Mat(), hist2, 2, histSize, ranges); normalize(hist1, hist1, 0, 1, NORM_MINMAX, -1, Mat()); normalize(hist2, hist2, 0, 1, NORM_MINMAX, -1, Mat()); // 比较 double src1_src2_1 = compareHist(hist1, hist2, HISTCMP_CORREL); double src1_src2_2 = compareHist(hist1, hist2, HISTCMP_BHATTACHARYYA); printf("HISTCMP_CORREL : %.2f\n", src1_src2_1); printf("HISTCMP_BHATTACHARYYA : %.2f\n", src1_src2_1); waitKey(0); return 0;&#125; 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748import cv2 as cvimport numpy as npsrc1 = cv.imread("D:/vcprojects/images/m1.png")src2 = cv.imread("D:/vcprojects/images/m2.png")src3 = cv.imread("D:/vcprojects/images/flower.png")src4 = cv.imread("D:/vcprojects/images/wm_test.png")cv.imshow("input1", src1)cv.imshow("input2", src2)cv.imshow("input3", src3)cv.imshow("input4", src4)hsv1 = cv.cvtColor(src1, cv.COLOR_BGR2HSV)hsv2 = cv.cvtColor(src2, cv.COLOR_BGR2HSV)hsv3 = cv.cvtColor(src3, cv.COLOR_BGR2HSV)hsv4 = cv.cvtColor(src4, cv.COLOR_BGR2HSV)hist1 = cv.calcHist([hsv1], [0, 1], None, [60, 64], [0, 180, 0, 256])hist2 = cv.calcHist([hsv2], [0, 1], None, [60, 64], [0, 180, 0, 256])hist3 = cv.calcHist([hsv3], [0, 1], None, [60, 64], [0, 180, 0, 256])hist4 = cv.calcHist([hsv4], [0, 1], None, [60, 64], [0, 180, 0, 256])cv.normalize(hist1, hist1, 0, 1.0, cv.NORM_MINMAX, dtype=np.float32)cv.normalize(hist2, hist2, 0, 1.0, cv.NORM_MINMAX)cv.normalize(hist3, hist3, 0, 1.0, cv.NORM_MINMAX)cv.normalize(hist4, hist4, 0, 1.0, cv.NORM_MINMAX)methods = [cv.HISTCMP_CORREL, cv.HISTCMP_CHISQR, cv.HISTCMP_INTERSECT, cv.HISTCMP_BHATTACHARYYA]str_method = ""for method in methods: src1_src2 = cv.compareHist(hist1, hist2, method) src3_src4 = cv.compareHist(hist3, hist4, method) if method == cv.HISTCMP_CORREL: str_method = "Correlation" if method == cv.HISTCMP_CHISQR: str_method = "Chi-square" if method == cv.HISTCMP_INTERSECT: str_method = "Intersection" if method == cv.HISTCMP_BHATTACHARYYA: str_method = "Bhattacharyya" print("%s src1_src2 = %.2f, src3_src4 = %.2f"%(str_method, src1_src2, src3_src4))cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>图像直方图比较</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[opencv-018-图像直方图均衡化]]></title>
+    <url>%2F2019%2F03%2F29%2Fopencv-018%2F</url>
+    <content type="text"><![CDATA[知识点图像直方图均衡化可以用于图像增强、对输入图像进行直方图均衡化处理，提升后续对象检测的准确率，在OpenCV人脸检测的代码演示中已经很常见。此外对医学影像图像与卫星遥感图像也经常通过直方图均衡化来提升图像质量。 API equalizeHist(src, dst) 代码（c++,python）123456789101112131415161718192021222324#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 图像直方图均衡化 */int main() &#123; Mat src = imread("../images/test.png"); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; Mat gray, dst; cvtColor(src, gray, COLOR_BGR2GRAY); equalizeHist(gray, dst); imshow("input", gray); imshow("eq", dst); waitKey(0); return 0;&#125; 123456789101112131415161718192021222324252627282930313233import cv2 as cvimport numpy as npfrom matplotlib import pyplot as pltdef custom_hist(gray): h, w = gray.shape hist = np.zeros([256], dtype=np.int32) for row in range(h): for col in range(w): pv = gray[row, col] hist[pv] += 1 y_pos = np.arange(0, 256, 1, dtype=np.int32) plt.bar(y_pos, hist, align='center', color='r', alpha=0.5) plt.xticks(y_pos, y_pos) plt.ylabel('Frequency') plt.title('Histogram') plt.show()src = cv.imread("../images/test.png")gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", gray)dst = cv.equalizeHist(gray)cv.imshow("eh", dst)custom_hist(gray)custom_hist(dst)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>图像直方图均衡化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[opencv-017-图像直方图]]></title>
+    <url>%2F2019%2F03%2F28%2Fopencv-017%2F</url>
+    <content type="text"><![CDATA[知识点图像直方图的解释图像直方图是图像像素值的统计学特征、计算代价较小，具有图像平移、旋转、缩放不变性等众多优点，广泛地应用于图像处理的各个领域，特别是灰度图像的阈值分割、基于颜色的图像检索以及图像分类、反向投影跟踪。常见的分为 灰度直方图 颜色直方图 Bins是指直方图的大小范围， 对于像素值取值在0～255之间的，最少有256个bin，此外还可以有16、32、48、128等，256除以bin的大小应该是整数倍。 OpenCV中相关APIcalcHist(&amp;bgr_plane[0], 1, 0, Mat(), b_hist, 1, bins, ranges);cv.calcHist([image], [i], None, [256], [0, 256]) 代码（c++,python）1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;#include &lt;vector&gt;using namespace std;using namespace cv;const int bins = 256;Mat src;const char *winTitle = "input image";void showHistogram();/* * 图像直方图 */int main() &#123; src = imread("../images/test.png"); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow(winTitle, src); showHistogram(); waitKey(0); return 0;&#125;void showHistogram() &#123; // 三通道分离 vector&lt;Mat&gt; bgr_plane; split(src, bgr_plane); // 定义参数变量 const int channels[1] = &#123;0&#125;; const int bins[1] = &#123;256&#125;; float hranges[2] = &#123;0, 255&#125;; const float *ranges[1] = &#123;hranges&#125;; Mat b_hist, g_hist, r_hist; // 计算三通道直方图 calcHist(&amp;bgr_plane[0], 1, 0, Mat(), b_hist, 1, bins, ranges); calcHist(&amp;bgr_plane[1], 1, 0, Mat(), g_hist, 1, bins, ranges); calcHist(&amp;bgr_plane[2], 1, 0, Mat(), r_hist, 1, bins, ranges); /* * 显示直方图 */ int hist_w = 512; int hist_h = 400; int bin_w = cvRound((double) hist_w / bins[0]); Mat histImage = Mat::zeros(hist_h, hist_w, CV_8UC3); // 归一化直方图数据 normalize(b_hist, b_hist, 0, histImage.rows, NORM_MINMAX, -1); normalize(g_hist, g_hist, 0, histImage.rows, NORM_MINMAX, -1); normalize(r_hist, r_hist, 0, histImage.rows, NORM_MINMAX, -1); // 绘制直方图曲线 for (int i = 1; i &lt; bins[0]; ++i) &#123; line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(b_hist.at&lt;float&gt;(i - 1))), Point(bin_w * (i), hist_h - cvRound(b_hist.at&lt;float&gt;(i))), Scalar(255, 0, 0), 2, 8, 0); line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(g_hist.at&lt;float&gt;(i - 1))), Point(bin_w * (i), hist_h - cvRound(g_hist.at&lt;float&gt;(i))), Scalar(0, 255, 0), 2, 8, 0); line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(r_hist.at&lt;float&gt;(i - 1))), Point(bin_w * (i), hist_h - cvRound(r_hist.at&lt;float&gt;(i))), Scalar(0, 0, 255), 2, 8, 0); &#125; imshow("Histogram", histImage);&#125; 123456789101112131415161718192021222324252627282930313233343536373839404142import cv2 as cvimport numpy as npfrom matplotlib import pyplot as pltdef custom_hist(gray): h, w = gray.shape hist = np.zeros([256], dtype=np.int32) for row in range(h): for col in range(w): pv = gray[row, col] hist[pv] += 1 y_pos = np.arange(0, 256, 1, dtype=np.int32) plt.bar(y_pos, hist, align='center', color='r', alpha=0.5) plt.xticks(y_pos, y_pos) plt.ylabel('Frequency') plt.title('Histogram') # plt.plot(hist, color='r') # plt.xlim([0, 256]) plt.show()def image_hist(image): cv.imshow("input", image) color = ('blue', 'green', 'red') for i, color in enumerate(color): hist = cv.calcHist([image], [i], None, [256], [0, 256]) plt.plot(hist, color=color) plt.xlim([0, 256]) plt.show()src = cv.imread("../images/test.png")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)cv.imshow("input", gray)#custom_hist(gray)image_hist(src)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>图像直方图</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[opencv-016-图像ROI与ROI操作]]></title>
     <url>%2F2019%2F03%2F28%2Fopencv-016%2F</url>
     <content type="text"><![CDATA[知识点图像的ROI(region of interest)是指图像中感兴趣区域、在OpenCV中图像设置图像ROI区域，实现只对ROI区域操作。 矩形ROI区域提取 矩形ROI区域copy 不规则ROI区域 ROI区域mask生成 像素位 and操作 提取到ROI区域 加背景or操作 add 背景与ROI区域 代码（c++,python）1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * ROI及相关操作 */int main() &#123; Mat src = imread("../images/test.png"); imshow("input", src); int h = src.rows; int w = src.cols; // 获取ROI int cy = h / 2; int cx = w / 2; Rect rect(cx - 100, cy - 100, 200, 200); // 注意：roi 与 src指向同一块内存区域，改变roi,src也会改变 Mat roi = src(rect); imshow("roi", roi); // 人物背景图，换背景 // load image Mat image = imread("../images/boy.jpg"); imshow("input", image); // generate mask Mat hsv, mask, mask_not; cvtColor(image, hsv, COLOR_BGR2HSV); inRange(hsv, Scalar(35, 43, 46), Scalar(99, 255, 255), mask); imshow("mask", mask); // extract person Mat person; bitwise_not(mask, mask_not); imshow("mask_not", mask_not); bitwise_and(image, image, person, mask_not); imshow("person", person); // gengerate background Mat background = Mat::zeros(image.size(), image.type()); background.setTo(Scalar(255, 0 ,0)); imshow("background", background); // combine background + person Mat dst; bitwise_or(person, background, dst, mask); add(dst, person, dst); imshow("dst", dst); waitKey(0); return 0;&#125; 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849import cv2 as cvimport numpy as npsrc = cv.imread("D:/javaopencv/dahlia_4.jpg")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)h, w = src.shape[:2]# 获取ROIcy = h//2cx = w//2roi = src[cy-100:cy+100,cx-100:cx+100,:]cv.imshow("roi", roi)# copy ROIimage = np.copy(roi)# modify ROIroi[:, :, 0] = 0cv.imshow("result", src)# modify copy roiimage[:, :, 2] = 0cv.imshow("result", src)cv.imshow("copy roi", image)# example with ROI - generate masksrc2 = cv.imread("D:/javaopencv/tinygreen.png");cv.imshow("src2", src2)hsv = cv.cvtColor(src2, cv.COLOR_BGR2HSV)mask = cv.inRange(hsv, (35, 43, 46), (99, 255, 255))# extract person ROImask = cv.bitwise_not(mask)person = cv.bitwise_and(src2, src2, mask=mask);# generate backgroundresult = np.zeros(src2.shape, src2.dtype)result[:,:,0] = 255# combine background + personmask = cv.bitwise_not(mask)dst = cv.bitwise_or(person, result, mask=mask)dst = cv.add(dst, person)cv.imshow("dst", dst)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
@@ -249,18 +293,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[VS2017配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
-    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>opencv</tag>
-        <tag>VS2017</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[windows下Clion配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
     <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR "D:\\software\\opencv4\\MinGW64_build\\install")set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; "$&#123;CMAKE_SOURCE_DIR&#125;/cmake/")find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
@@ -270,6 +302,18 @@
       <tags>
         <tag>Clion</tag>
         <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[VS2017配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
+    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+        <tag>VS2017</tag>
       </tags>
   </entry>
   <entry>
