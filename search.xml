@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[降噪自动编码器]]></title>
-    <url>%2F2019%2F04%2F03%2FDenoiseAutoEncoder%2F</url>
-    <content type="text"><![CDATA[知识点 参数初始化问题 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126import numpy as npimport sklearn.preprocessing as prepimport tensorflow as tffrom tensorflow.examples.tutorials.mnist import input_data# Xavier均匀初始化def xavier_init(fan_in, fan_out, constant = 1): low = -constant * np.sqrt(6.0 / (fan_in + fan_out)) high = constant * np.sqrt(6.0 / (fan_in + fan_out)) return tf.random_uniform((fan_in, fan_out), minval=low, maxval=high, dtype=tf.float32)# 加性高斯噪声的自动编码器class AdditiveGaussianNoiseAutoencoder(object): def __init__(self, n_input, n_hidden, transfer_function=tf.nn.softplus, optimizer=tf.train.AdamOptimizer(), scale=0.1): self.n_input = n_input self.n_hidden = n_hidden self.transfer = transfer_function self.training_scale = scale self.weights = dict() # 构建计算图 with tf.name_scope('raw_input'): self.x = tf.placeholder(tf.float32, [None, self.n_input]) with tf.name_scope('NoiseAdder'): self.scale = tf.placeholder(tf.float32) self.noise_x = self.x + self.scale * tf.random_normal((n_input,)) with tf.name_scope('encoder'): self.weights['w1'] = tf.Variable(xavier_init(self.n_input, self.n_hidden), name='weight1') self.weights['b1'] = tf.Variable(tf.zeros([self.n_hidden], dtype=tf.float32), name='bias1') self.hidden = self.transfer(tf.add(tf.matmul(self.noise_x, self.weights['w1']), self.weights['b1'])) with tf.name_scope('reconstruction'): self.weights['w2'] = tf.Variable(tf.zeros([self.n_hidden, self.n_input], dtype=tf.float32), name='weight2') self.weights['b2'] = tf.Variable(tf.zeros([self.n_input], dtype=tf.float32), name='bias2') self.reconstruction = tf.nn.xw_plus_b(self.hidden, self.weights['w2'], self.weights['b2']) # hidden * w2 + b2 with tf.name_scope('loss'): self.cost = 0.5 * tf.reduce_sum(tf.pow(tf.subtract(self.reconstruction, self.x), 2)) with tf.name_scope('train'): self.optimizer = optimizer.minimize(self.cost) init = tf.global_variables_initializer() self.sess = tf.Session() self.sess.run(init) print("begin to run session...") # 在一个批次上训练模型 def partial_fit(self, X): cost, opt = self.sess.run((self.cost, self.optimizer), feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) return cost # 在给定样本集合上计算损失（用于测试阶段） def calc_total_cost(self, X): return self.sess.run(self.cost, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 返回自编码器隐含层的输出结果，获得抽象后的高阶特征表示 def transform(self, X): return self.sess.run(self.hidden, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 将隐藏层的高阶特征作为输入，将其重建为原始输入数据 def generate(self, hidden = None): if hidden == None: hidden = np.random.normal(size=self.weights['b1']) return self.sess.run(self.reconstruction, feed_dict=&#123;self.hidden: hidden&#125;) # 整体运行一遍复原过程，包括提取高阶特征以及重建原始数据，输入原始数据，输出复原后的数据 def reconstruction(self, X): return self.sess.run(self.reconstruction, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 获取隐含层的权重 def getWeights(self): return self.sess.run(self.weights['w1']) # 获取隐含层的偏置 def getBiases(self): return self.sess.run(self.weights['b1'])AGN_AutoEncoder = AdditiveGaussianNoiseAutoencoder(n_input=784, n_hidden=200, optimizer=tf.train.AdamOptimizer(learning_rate=0.01), scale=0.01)print("把计算图写入事件文件，在TensorBoard里面查看")writer = tf.summary.FileWriter(logdir='logs', graph=AGN_AutoEncoder.sess.graph)writer.close()# 读取数据集mnist = input_data.read_data_sets('../mnist_data/', one_hot=True)# 使用sklearn.preprocessing 的数据标准化操作(0均值标准差为1) 预处理数据# 首先在训练集上估计均值与方差，然后将其作用到训练集和测试集def standard_scale(x_train, x_test): preprocesser = prep.StandardScaler().fit(x_train) x_train = preprocesser.transform(x_train) x_test = preprocesser.transform(x_test) return x_train, x_test# 获取随机block数据的函数：取一个从0到len(data) - batch_size的随机整数# 以这个随机整数为起始索引，抽出一个batch_size的批次样本def get_random_block_from_data(data, batch_size): start_index = np.random.randint(0, len(data) - batch_size) return data[start_index: start_index + batch_size]# 使用标准化操作变换数据集X_train, X_test = standard_scale(mnist.train.images, mnist.test.images)# 定义训练参数n_samples = int(mnist.train.num_examples)training_epochs = 20batch_size = 128display_step = 1 # 输出训练结果的间隔# 开始训练，每次epoch开始时将avg_cost设为0，计算总共需要的batch数量，# 这里使用的是有放回抽样，所以不能保证每个样本被抽到并参与训练for epoch in range(training_epochs): avg_cost = 0 total_batch = int(n_samples / batch_size) for i in range(total_batch): batch_xs = get_random_block_from_data(X_train, batch_size) cost = AGN_AutoEncoder.partial_fit(batch_xs) avg_cost += cost / batch_size avg_cost /= total_batch if epoch % display_step == 0: print("epoch : %03d, cost = %.3f" % (epoch + 1, avg_cost))# 计算测试集上的costprint("total cost :", str(AGN_AutoEncoder.calc_total_cost(X_test))) 计算图 代码地址github]]></content>
+    <title><![CDATA[贪吃蛇小项目(c++实现)]]></title>
+    <url>%2F2019%2F04%2F05%2Ftanchishe%2F</url>
+    <content type="text"><![CDATA[模块结构 墙模块 食物模块 蛇模块 主程序 代码墙模块(wall.h) 123456789101112131415161718192021#ifndef TANCHISHE_WALL_H#define TANCHISHE_WALL_H#include &lt;iostream&gt;using namespace std;class Wall&#123;public: enum &#123;ROW = 20, COL = 30&#125;; // 初始化墙壁 void initWall(); // 画出墙壁 void drawWall(); // 根据索引设置二维数据里的内容 void setWall(int x, int y, char c); // 根据索引获取当前位置的符号 char getWall(int x, int y);private: char gameArray[ROW][COL];&#125;;#endif //TANCHISHE_WALL_H 食物模块(food.h) 123456789101112131415161718#ifndef TANCHISHE_FOOD_H#define TANCHISHE_FOOD_H#include &lt;iostream&gt;#include "wall.h"using namespace std;class Food&#123;public: Food(Wall &amp;tempWall); // 设置食物 void setFood();private: int foodX; int foodY; Wall &amp;wall;&#125;;#endif //TANCHISHE_FOOD_H 蛇模块(snake.h) 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455#ifndef TANCHISHE_SNAKE_H#define TANCHISHE_SNAKE_H#include &lt;iostream&gt;#include "wall.h"#include "food.h"using namespace std;class Snake &#123;public: Snake(Wall &amp;tempWall, Food &amp;tempFood); enum &#123; UP = 'w', DOWN = 's', LEFT = 'a', RIGHT = 'd' &#125;; struct Point &#123; int x; int y; Point *next; &#125;; // 初始化 void initSnake(); // 销毁节点 void destroyPoint(); // 添加节点 void addPoint(int x, int y); // 删除节点 void delPoint(); // 移动蛇 bool move(char key); // 设定难度 // 获取刷屏时间 int getSleepTime(); // 获取蛇身段 int countList(); // 获取分数 int getScore();private: Point *pHead; Wall &amp;wall; Food &amp;food; bool isRool; // 判断循环表示&#125;;#endif //TANCHISHE_SNAKE_H 主程序(game.cpp) 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172#include &lt;iostream&gt;#include "wall.h"#include "snake.h"#include "food.h"#include &lt;ctime&gt;#include &lt;conio.h&gt;#include &lt;windows.h&gt;// 定位光标void gotoxy(HANDLE hOut1, int x, int y) &#123; COORD pos; pos.X = x; pos.Y = y; SetConsoleCursorPosition(hOut1, pos);&#125;HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE); // 定义显示器句柄变量int main() &#123; // 添加随机数种子 srand((unsigned int) time(NULL)); // 是否死亡的标识 bool isDead = false; // 上一次按键标识 bool preKey = true; Wall wall; wall.initWall(); wall.drawWall(); Food food(wall); food.setFood(); Snake snake(wall, food); snake.initSnake(); gotoxy(hOut, 0, Wall::ROW); cout &lt;&lt; "score：" &lt;&lt; snake.getScore() &lt;&lt; " points" &lt;&lt; endl; while (!isDead) &#123; // 接受用户输入 char key = _getch(); // 第一次按左键，不激活游戏 if (preKey &amp;&amp; key == snake.LEFT) &#123; continue; &#125; preKey = false; do &#123; if (key == snake.UP || key == snake.DOWN || key == snake.LEFT || key == snake.RIGHT) &#123; if (snake.move(key)) &#123; //system("cls"); //wall.drawWall(); gotoxy(hOut, 0, Wall::ROW); cout &lt;&lt; "score：" &lt;&lt; snake.getScore() &lt;&lt; " points" &lt;&lt; endl; Sleep(snake.getSleepTime()); &#125; else &#123; isDead = true; break; &#125; &#125; else &#123; cout &lt;&lt; "input error, please input again" &lt;&lt; endl; break; &#125; &#125; while (!_kbhit()); // 没有键盘输入的时候，返回0 &#125; system("pause"); return 0;&#125; 结果 代码地址github]]></content>
       <categories>
-        <category>ML/DL</category>
+        <category>c++</category>
       </categories>
       <tags>
-        <tag>降噪自动编码器</tag>
+        <tag>贪吃蛇</tag>
       </tags>
   </entry>
   <entry>
@@ -20,6 +20,17 @@
       </categories>
       <tags>
         <tag>自动编码器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[降噪自动编码器]]></title>
+    <url>%2F2019%2F04%2F03%2FDenoiseAutoEncoder%2F</url>
+    <content type="text"><![CDATA[知识点 参数初始化问题 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126import numpy as npimport sklearn.preprocessing as prepimport tensorflow as tffrom tensorflow.examples.tutorials.mnist import input_data# Xavier均匀初始化def xavier_init(fan_in, fan_out, constant = 1): low = -constant * np.sqrt(6.0 / (fan_in + fan_out)) high = constant * np.sqrt(6.0 / (fan_in + fan_out)) return tf.random_uniform((fan_in, fan_out), minval=low, maxval=high, dtype=tf.float32)# 加性高斯噪声的自动编码器class AdditiveGaussianNoiseAutoencoder(object): def __init__(self, n_input, n_hidden, transfer_function=tf.nn.softplus, optimizer=tf.train.AdamOptimizer(), scale=0.1): self.n_input = n_input self.n_hidden = n_hidden self.transfer = transfer_function self.training_scale = scale self.weights = dict() # 构建计算图 with tf.name_scope('raw_input'): self.x = tf.placeholder(tf.float32, [None, self.n_input]) with tf.name_scope('NoiseAdder'): self.scale = tf.placeholder(tf.float32) self.noise_x = self.x + self.scale * tf.random_normal((n_input,)) with tf.name_scope('encoder'): self.weights['w1'] = tf.Variable(xavier_init(self.n_input, self.n_hidden), name='weight1') self.weights['b1'] = tf.Variable(tf.zeros([self.n_hidden], dtype=tf.float32), name='bias1') self.hidden = self.transfer(tf.add(tf.matmul(self.noise_x, self.weights['w1']), self.weights['b1'])) with tf.name_scope('reconstruction'): self.weights['w2'] = tf.Variable(tf.zeros([self.n_hidden, self.n_input], dtype=tf.float32), name='weight2') self.weights['b2'] = tf.Variable(tf.zeros([self.n_input], dtype=tf.float32), name='bias2') self.reconstruction = tf.nn.xw_plus_b(self.hidden, self.weights['w2'], self.weights['b2']) # hidden * w2 + b2 with tf.name_scope('loss'): self.cost = 0.5 * tf.reduce_sum(tf.pow(tf.subtract(self.reconstruction, self.x), 2)) with tf.name_scope('train'): self.optimizer = optimizer.minimize(self.cost) init = tf.global_variables_initializer() self.sess = tf.Session() self.sess.run(init) print("begin to run session...") # 在一个批次上训练模型 def partial_fit(self, X): cost, opt = self.sess.run((self.cost, self.optimizer), feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) return cost # 在给定样本集合上计算损失（用于测试阶段） def calc_total_cost(self, X): return self.sess.run(self.cost, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 返回自编码器隐含层的输出结果，获得抽象后的高阶特征表示 def transform(self, X): return self.sess.run(self.hidden, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 将隐藏层的高阶特征作为输入，将其重建为原始输入数据 def generate(self, hidden = None): if hidden == None: hidden = np.random.normal(size=self.weights['b1']) return self.sess.run(self.reconstruction, feed_dict=&#123;self.hidden: hidden&#125;) # 整体运行一遍复原过程，包括提取高阶特征以及重建原始数据，输入原始数据，输出复原后的数据 def reconstruction(self, X): return self.sess.run(self.reconstruction, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 获取隐含层的权重 def getWeights(self): return self.sess.run(self.weights['w1']) # 获取隐含层的偏置 def getBiases(self): return self.sess.run(self.weights['b1'])AGN_AutoEncoder = AdditiveGaussianNoiseAutoencoder(n_input=784, n_hidden=200, optimizer=tf.train.AdamOptimizer(learning_rate=0.01), scale=0.01)print("把计算图写入事件文件，在TensorBoard里面查看")writer = tf.summary.FileWriter(logdir='logs', graph=AGN_AutoEncoder.sess.graph)writer.close()# 读取数据集mnist = input_data.read_data_sets('../mnist_data/', one_hot=True)# 使用sklearn.preprocessing 的数据标准化操作(0均值标准差为1) 预处理数据# 首先在训练集上估计均值与方差，然后将其作用到训练集和测试集def standard_scale(x_train, x_test): preprocesser = prep.StandardScaler().fit(x_train) x_train = preprocesser.transform(x_train) x_test = preprocesser.transform(x_test) return x_train, x_test# 获取随机block数据的函数：取一个从0到len(data) - batch_size的随机整数# 以这个随机整数为起始索引，抽出一个batch_size的批次样本def get_random_block_from_data(data, batch_size): start_index = np.random.randint(0, len(data) - batch_size) return data[start_index: start_index + batch_size]# 使用标准化操作变换数据集X_train, X_test = standard_scale(mnist.train.images, mnist.test.images)# 定义训练参数n_samples = int(mnist.train.num_examples)training_epochs = 20batch_size = 128display_step = 1 # 输出训练结果的间隔# 开始训练，每次epoch开始时将avg_cost设为0，计算总共需要的batch数量，# 这里使用的是有放回抽样，所以不能保证每个样本被抽到并参与训练for epoch in range(training_epochs): avg_cost = 0 total_batch = int(n_samples / batch_size) for i in range(total_batch): batch_xs = get_random_block_from_data(X_train, batch_size) cost = AGN_AutoEncoder.partial_fit(batch_xs) avg_cost += cost / batch_size avg_cost /= total_batch if epoch % display_step == 0: print("epoch : %03d, cost = %.3f" % (epoch + 1, avg_cost))# 计算测试集上的costprint("total cost :", str(AGN_AutoEncoder.calc_total_cost(X_test))) 计算图 代码地址github]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>降噪自动编码器</tag>
       </tags>
   </entry>
   <entry>
@@ -303,18 +314,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[windows下Clion配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
-    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR "D:\\software\\opencv4\\MinGW64_build\\install")set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; "$&#123;CMAKE_SOURCE_DIR&#125;/cmake/")find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>Clion</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -324,6 +323,18 @@
       <tags>
         <tag>opencv</tag>
         <tag>VS2017</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[windows下Clion配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
+    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR "D:\\software\\opencv4\\MinGW64_build\\install")set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; "$&#123;CMAKE_SOURCE_DIR&#125;/cmake/")find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>Clion</tag>
+        <tag>opencv</tag>
       </tags>
   </entry>
   <entry>
@@ -386,17 +397,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下关于screen命令的使用]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
-    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux下screen的使用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
     <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
@@ -405,6 +405,17 @@
       </categories>
       <tags>
         <tag>查看linux进程并杀死</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下关于screen命令的使用]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
+    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux下screen的使用</tag>
       </tags>
   </entry>
   <entry>
