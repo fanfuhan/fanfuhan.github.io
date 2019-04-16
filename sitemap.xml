@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/04/16/keras_multiple_input_output/</loc>
+    
+    <lastmod>2019-04-16T02:03:17.051Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/04/16/keras_inception/</loc>
+    
+    <lastmod>2019-04-16T01:59:49.137Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/04/14/opencv-046/</loc>
     
     <lastmod>2019-04-15T01:31:57.861Z</lastmod>
