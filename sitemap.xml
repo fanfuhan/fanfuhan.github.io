@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/04/15/opencv-050/</loc>
+    
+    <lastmod>2019-04-16T09:13:56.394Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/04/15/opencv-049/</loc>
+    
+    <lastmod>2019-04-16T08:55:32.911Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/04/15/opencv-048/</loc>
+    
+    <lastmod>2019-04-16T03:56:51.143Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/04/16/keras_multiple_input_output/</loc>
     
-    <lastmod>2019-04-16T02:03:17.051Z</lastmod>
+    <lastmod>2019-04-16T03:22:40.614Z</lastmod>
     
   </url>
   
@@ -12,6 +33,13 @@
     <loc>https://fanfuhan.github.io/2019/04/16/keras_inception/</loc>
     
     <lastmod>2019-04-16T01:59:49.137Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/04/15/opencv-047/</loc>
+    
+    <lastmod>2019-04-16T00:54:53.564Z</lastmod>
     
   </url>
   
