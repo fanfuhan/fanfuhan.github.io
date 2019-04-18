@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2019/04/18/terminal_run_python/</loc>
+    <lastmod>2019-04-18</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/04/18/pyenv/</loc>
+    <lastmod>2019-04-18</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/04/03/AutoEncoder/</loc>
+    <lastmod>2019-04-18</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/04/03/DenoiseAutoEncoder/</loc>
+    <lastmod>2019-04-18</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/04/18/tensorflow_image_process/</loc>
+    <lastmod>2019-04-18</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/04/17/opencv-056/</loc>
     <lastmod>2019-04-18</lastmod>
   </url>  <url>
@@ -111,12 +126,6 @@
   </url>  <url>
     <loc>https://fanfuhan.github.io/2019/04/05/tanchishe/</loc>
     <lastmod>2019-04-05</lastmod>
-  </url>  <url>
-    <loc>https://fanfuhan.github.io/2019/04/03/AutoEncoder/</loc>
-    <lastmod>2019-04-03</lastmod>
-  </url>  <url>
-    <loc>https://fanfuhan.github.io/2019/04/03/DenoiseAutoEncoder/</loc>
-    <lastmod>2019-04-03</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2019/04/03/opencv-024/</loc>
     <lastmod>2019-04-03</lastmod>

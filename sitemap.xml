@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/04/18/terminal_run_python/</loc>
+    
+    <lastmod>2019-04-18T13:14:29.835Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/04/18/pyenv/</loc>
+    
+    <lastmod>2019-04-18T12:52:58.222Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/04/03/AutoEncoder/</loc>
+    
+    <lastmod>2019-04-18T12:48:13.736Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/04/03/DenoiseAutoEncoder/</loc>
+    
+    <lastmod>2019-04-18T12:47:29.716Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/04/18/tensorflow_image_process/</loc>
+    
+    <lastmod>2019-04-18T12:46:56.307Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/04/17/opencv-056/</loc>
     
     <lastmod>2019-04-18T08:31:29.146Z</lastmod>
@@ -257,20 +292,6 @@
     <loc>https://fanfuhan.github.io/2019/04/05/tanchishe/</loc>
     
     <lastmod>2019-04-05T14:17:30.718Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fanfuhan.github.io/2019/04/03/AutoEncoder/</loc>
-    
-    <lastmod>2019-04-03T13:49:36.747Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fanfuhan.github.io/2019/04/03/DenoiseAutoEncoder/</loc>
-    
-    <lastmod>2019-04-03T13:45:54.661Z</lastmod>
     
   </url>
   

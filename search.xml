@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[命令行运行python模块提示找不到包]]></title>
+    <url>%2F2019%2F04%2F18%2Fterminal_run_python%2F</url>
+    <content type="text"><![CDATA[原因分析 如上图，当在命令行中执行以下命令时： 1python cls_train.py 会提示找不到datasets模块，原因是在命令行运行python文件，系统只会在当前文件夹runs/下寻找，不会到上一级目录查找，在pycharm等IDE中会自动在整个项目中查找，所以命令行运行python文件会提示找不到包。 解决方法在cls_train.py文件中，添加以下代码，将项目根目录加入搜索路径即可，一定要写在导入其他模块之前 12import syssys.path.append('/.../ISIC2018-master/') 见下图： 现在再运行python cls_train.py就没问题了。]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>命令行运行python程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[利用 pyenv 对python进行多版本管理]]></title>
+    <url>%2F2019%2F04%2F18%2Fpyenv%2F</url>
+    <content type="text"><![CDATA[阅读链接 pyenv 让 python 版本完美切换]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>pyenv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Tensorflow图像处理的完整样例]]></title>
+    <url>%2F2019%2F04%2F18%2Ftensorflow_image_process%2F</url>
+    <content type="text"><![CDATA[代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465import matplotlib.pyplot as pltimport numpy as npimport tensorflow as tf# 给定一张图像，随机调整图像的色彩。因为调整亮度、对比度、饱和度和色相的顺序会影# 响最后得到的结果，所以可以定义多种不同的顺序。具体使用哪一种顺序可以在训练数据# 预处理时随机选择一种。这样可以进一步降低无关因素对模型的影响。def distort_color(image, color_ordering=0): if color_ordering == 0: image = tf.image.random_brightness(image, max_delta=32.0 / 255.0) image = tf.image.random_saturation(image, lower=0.5, upper=1.5) image = tf.image.random_hue(image, max_delta=0.2) image = tf.image.random_contrast(image, lower=0.5, upper=1.5) elif color_ordering == 1: image = tf.image.random_saturation(image, lower=0.5, upper=1.5) image = tf.image.random_brightness(image, max_delta=32.0 / 255.0) image = tf.image.random_contrast(image, lower=0.5, upper=1.5) image = tf.image.random_hue(image, max_delta=0.2) elif color_ordering == 2: pass return tf.clip_by_value(image, 0.0, 1.0)# 给定一张解码后的图像、目标图像的尺寸以及图像上的标注框，此函数可以对给出的图像进行预# 处理。这个函数的输入图像是图像识别问题中原始的训练图像，而输出则是神经网络模型的输入# 层。注意这里只处理模型的训练数据，对于预测的数据，一般不需要使用随机变换的步骤。def preprocess_for_train(image, height, width, bbox): # 如果没有提供标注框，则认为整个图像就是需要关注的部分 if bbox is None: bbox = tf.constant([0.0, 0.0, 1.0, 1.0], dtype=tf.float32, shape=[1, 1, 4]) # 转换图像张量的类型 if image.dtype != tf.float32: image = tf.image.convert_image_dtype(image, dtype=tf.float32) # 随机截取图像，减小需要关注的物体大小对图像识别算法的影响 bbox_begin, bbox_size, _ = tf.image.sample_distorted_bounding_box(tf.shape(image), bounding_boxes=bbox) distorted_image = tf.slice(image, bbox_begin, bbox_size) # 将随机截取的图像调整为神经网络输入层的大小，大小调整的算法是随机选择的 distorted_image = tf.image.resize_images(distorted_image, [height, width], method=np.random.randint(4)) # 随机左右翻转图像 distorted_image = tf.image.random_flip_left_right(distorted_image) # 使用一种随机的顺序调整图像色彩 distorted_image = distort_color(distorted_image, np.random.randint(2)) return distorted_imageimage_raw_data = tf.gfile.FastGFile("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\lena.jpg", "rb").read()with tf.Session() as sess: img_data = tf.image.decode_jpeg(image_raw_data) boxes = tf.constant([[[0.05, 0.05, 0.9, 0.7], [0.35, 0.47, 0.5, 0.56]]]) # 运行六次获得6种不同的图像，并展示 plt.figure() for i in range(6): result = preprocess_for_train(img_data, 299, 299, boxes) plt.subplot(2, 3, i + 1) plt.imshow(result.eval()) plt.show() 结果 延申阅读具体图像增强操作]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>tensorflow</tag>
+        <tag>tensorflow图像处理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[linux下python创建虚拟环境]]></title>
     <url>%2F2019%2F04%2F17%2Flinux_python_env%2F</url>
     <content type="text"><![CDATA[安装 virtualenv1pip install virtualenv 创建工作目录12mkdir myprojectcd myproject 创建一个独立的python运行环境，命名为 venc123# --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境# 若要继承已有的环境包，不加此参数virtualenv --no-site-packages venv --python=python2.7 进入创建的环境1source venv/bin/activate 自动生成和安装 requirements.txt 依赖12345# 生成requirements.txt文件pip freeze &gt; requirements.txt# 安装requirements.txt依赖pip install -r requirements.txt 退出虚拟环境1deactivate 删除虚拟环境1rm -r venv]]></content>
@@ -414,17 +450,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[降噪自动编码器]]></title>
-    <url>%2F2019%2F04%2F03%2FDenoiseAutoEncoder%2F</url>
-    <content type="text"><![CDATA[知识点 参数初始化问题 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126import numpy as npimport sklearn.preprocessing as prepimport tensorflow as tffrom tensorflow.examples.tutorials.mnist import input_data# Xavier均匀初始化def xavier_init(fan_in, fan_out, constant = 1): low = -constant * np.sqrt(6.0 / (fan_in + fan_out)) high = constant * np.sqrt(6.0 / (fan_in + fan_out)) return tf.random_uniform((fan_in, fan_out), minval=low, maxval=high, dtype=tf.float32)# 加性高斯噪声的自动编码器class AdditiveGaussianNoiseAutoencoder(object): def __init__(self, n_input, n_hidden, transfer_function=tf.nn.softplus, optimizer=tf.train.AdamOptimizer(), scale=0.1): self.n_input = n_input self.n_hidden = n_hidden self.transfer = transfer_function self.training_scale = scale self.weights = dict() # 构建计算图 with tf.name_scope('raw_input'): self.x = tf.placeholder(tf.float32, [None, self.n_input]) with tf.name_scope('NoiseAdder'): self.scale = tf.placeholder(tf.float32) self.noise_x = self.x + self.scale * tf.random_normal((n_input,)) with tf.name_scope('encoder'): self.weights['w1'] = tf.Variable(xavier_init(self.n_input, self.n_hidden), name='weight1') self.weights['b1'] = tf.Variable(tf.zeros([self.n_hidden], dtype=tf.float32), name='bias1') self.hidden = self.transfer(tf.add(tf.matmul(self.noise_x, self.weights['w1']), self.weights['b1'])) with tf.name_scope('reconstruction'): self.weights['w2'] = tf.Variable(tf.zeros([self.n_hidden, self.n_input], dtype=tf.float32), name='weight2') self.weights['b2'] = tf.Variable(tf.zeros([self.n_input], dtype=tf.float32), name='bias2') self.reconstruction = tf.nn.xw_plus_b(self.hidden, self.weights['w2'], self.weights['b2']) # hidden * w2 + b2 with tf.name_scope('loss'): self.cost = 0.5 * tf.reduce_sum(tf.pow(tf.subtract(self.reconstruction, self.x), 2)) with tf.name_scope('train'): self.optimizer = optimizer.minimize(self.cost) init = tf.global_variables_initializer() self.sess = tf.Session() self.sess.run(init) print("begin to run session...") # 在一个批次上训练模型 def partial_fit(self, X): cost, opt = self.sess.run((self.cost, self.optimizer), feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) return cost # 在给定样本集合上计算损失（用于测试阶段） def calc_total_cost(self, X): return self.sess.run(self.cost, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 返回自编码器隐含层的输出结果，获得抽象后的高阶特征表示 def transform(self, X): return self.sess.run(self.hidden, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 将隐藏层的高阶特征作为输入，将其重建为原始输入数据 def generate(self, hidden = None): if hidden == None: hidden = np.random.normal(size=self.weights['b1']) return self.sess.run(self.reconstruction, feed_dict=&#123;self.hidden: hidden&#125;) # 整体运行一遍复原过程，包括提取高阶特征以及重建原始数据，输入原始数据，输出复原后的数据 def reconstruction(self, X): return self.sess.run(self.reconstruction, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 获取隐含层的权重 def getWeights(self): return self.sess.run(self.weights['w1']) # 获取隐含层的偏置 def getBiases(self): return self.sess.run(self.weights['b1'])AGN_AutoEncoder = AdditiveGaussianNoiseAutoencoder(n_input=784, n_hidden=200, optimizer=tf.train.AdamOptimizer(learning_rate=0.01), scale=0.01)print("把计算图写入事件文件，在TensorBoard里面查看")writer = tf.summary.FileWriter(logdir='logs', graph=AGN_AutoEncoder.sess.graph)writer.close()# 读取数据集mnist = input_data.read_data_sets('../mnist_data/', one_hot=True)# 使用sklearn.preprocessing 的数据标准化操作(0均值标准差为1) 预处理数据# 首先在训练集上估计均值与方差，然后将其作用到训练集和测试集def standard_scale(x_train, x_test): preprocesser = prep.StandardScaler().fit(x_train) x_train = preprocesser.transform(x_train) x_test = preprocesser.transform(x_test) return x_train, x_test# 获取随机block数据的函数：取一个从0到len(data) - batch_size的随机整数# 以这个随机整数为起始索引，抽出一个batch_size的批次样本def get_random_block_from_data(data, batch_size): start_index = np.random.randint(0, len(data) - batch_size) return data[start_index: start_index + batch_size]# 使用标准化操作变换数据集X_train, X_test = standard_scale(mnist.train.images, mnist.test.images)# 定义训练参数n_samples = int(mnist.train.num_examples)training_epochs = 20batch_size = 128display_step = 1 # 输出训练结果的间隔# 开始训练，每次epoch开始时将avg_cost设为0，计算总共需要的batch数量，# 这里使用的是有放回抽样，所以不能保证每个样本被抽到并参与训练for epoch in range(training_epochs): avg_cost = 0 total_batch = int(n_samples / batch_size) for i in range(total_batch): batch_xs = get_random_block_from_data(X_train, batch_size) cost = AGN_AutoEncoder.partial_fit(batch_xs) avg_cost += cost / batch_size avg_cost /= total_batch if epoch % display_step == 0: print("epoch : %03d, cost = %.3f" % (epoch + 1, avg_cost))# 计算测试集上的costprint("total cost :", str(AGN_AutoEncoder.calc_total_cost(X_test))) 计算图 代码地址github]]></content>
-      <categories>
-        <category>ML/DL</category>
-      </categories>
-      <tags>
-        <tag>降噪自动编码器</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[自动编码器(含两个隐藏层)]]></title>
     <url>%2F2019%2F04%2F03%2FAutoEncoder%2F</url>
     <content type="text"><![CDATA[知识点 自动编码器分类 降噪自动编码器代码 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143import matplotlib.pyplot as pltimport numpy as npimport tensorflow as tffrom tensorflow.examples.tutorials.mnist import input_data# 控制训练过程的参数learning_rate = 0.01training_epochs = 20batch_size = 256display_step = 5examples_to_show = 10# w网络模型参数n_input_units = 784 # 输入神经元数量 MNIST data input (img shape : 28*28)n_hidden1_units = 256 # 编码起第一隐藏层神经元数量（让编码器和解码器都有同样规模的隐藏层n_hidden2_units = 128 # 编码起第二隐藏层神经元数量（让编码器和解码器都有同样规模的隐藏层n_output_units = n_input_units # 解码器输出层神经元数量必须等于输入数据的units数量# 对一个张量进行全面汇总(均值，标准差，最大最小值，直方图)def varible_summaries(var): with tf.name_scope('summaries'): mean = tf.reduce_mean(var) stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean))) tf.summary.scalar('mean', mean) tf.summary.scalar('stddev', stddev) tf.summary.scalar('max', tf.reduce_max(var)) tf.summary.scalar('min', tf.reduce_min(var)) tf.summary.histogram('histogram', var)# 根据输入输出节点数量返回权重def WeightsVarible(n_in, n_out, name_str='weights'): return tf.Variable(tf.random_normal([n_in, n_out]), dtype=tf.float32, name=name_str)# 根据输出节点数量返回偏置def BiasesVarible(n_out, name_str='biases'): return tf.Variable(tf.random_normal([n_out]), dtype=tf.float32, name=name_str)# 构建编码器def Encoder(x_origin, activate_func=tf.nn.sigmoid): # 编码器第一隐藏层 with tf.name_scope('Layer1'): weights = WeightsVarible(n_input_units, n_hidden1_units) biases = BiasesVarible(n_hidden1_units) x_code1 = activate_func(tf.nn.xw_plus_b(x_origin, weights, biases)) varible_summaries(weights) # 编码器第二隐藏层 with tf.name_scope('Layer2'): weights = WeightsVarible(n_hidden1_units, n_hidden2_units) biases = BiasesVarible(n_hidden2_units) x_code = activate_func(tf.nn.xw_plus_b(x_code1, weights, biases)) varible_summaries(weights) return x_code# 构建解吗器def Decoder(x_code, activate_func=tf.nn.sigmoid): # 解码器第一隐藏层 with tf.name_scope('Layer'): weights = WeightsVarible(n_hidden2_units, n_hidden1_units) biases = BiasesVarible(n_hidden1_units) x_decode1 = activate_func(tf.nn.xw_plus_b(x_code, weights, biases)) varible_summaries(weights) # 解码器第二隐藏层 with tf.name_scope('Layer'): weights = WeightsVarible(n_hidden1_units, n_output_units) biases = BiasesVarible(n_output_units) x_decode = activate_func(tf.nn.xw_plus_b(x_decode1, weights, biases)) varible_summaries(weights) return x_decode# 调用上面写的函数构造计算图with tf.Graph().as_default(): # 计算图输入 with tf.name_scope('X_origin'): X_origin = tf.placeholder(tf.float32, [None, n_input_units]) # 构建编码器 with tf.name_scope('Encoder'): X_code = Encoder(X_origin) # 构建解吗器 with tf.name_scope('Decoder'): X_decode = Decoder(X_code) # 定义损失节点 with tf.name_scope('Loss'): Loss = tf.reduce_mean(tf.pow(X_origin - X_decode, 2)) # 定义优化器 with tf.name_scope('Train'): Optimizer = tf.train.RMSPropOptimizer(learning_rate) Train = Optimizer.minimize(Loss) # 为计算图添加损失节点的标量汇总(scalar summary) with tf.name_scope('LossSummary'): tf.summary.scalar('loss', Loss) tf.summary.scalar('learning_rate', learning_rate) # 为计算图添加图像汇总 with tf.name_scope('ImageSummary'): image_origin = tf.reshape(X_origin, [-1, 28, 28, 1]) image_reconstructed = tf.reshape(X_decode, [-1, 28, 28, 1]) tf.summary.image('image_origin', image_origin, 10) tf.summary.image('image_reconstructed', image_reconstructed, 10) # 聚合所有汇总节点 merged_summary = tf.summary.merge_all() init = tf.global_variables_initializer() print("把计算图写入事件文件，在TensorBoard里面查看") writer = tf.summary.FileWriter(logdir='logs', graph=tf.get_default_graph()) writer.flush() # 读取数据集 mnist = input_data.read_data_sets('mnist_data/', one_hot=True) with tf.Session() as sess: sess.run(init) total_batch = int(mnist.train.num_examples / batch_size) for epoch in range(training_epochs): for i in range(total_batch): batch_xs, batch_ys = mnist.train.next_batch(batch_size) _, loss = sess.run([Train, Loss], feed_dict=&#123;X_origin: batch_xs&#125;) if epoch % display_step == 0: print("epoch : %03d, loss = %.3f" % (epoch + 1, loss)) # 运行汇总节点，更新事件文件 summary_str = sess.run(merged_summary, feed_dict=&#123;X_origin: batch_xs&#125;) writer.add_summary(summary_str, epoch) writer.flush() writer.close() print("训练完毕！") # 把训练好的编码器-解码器模型用在测试集上，输出重建后的样本数据 reconstructions = sess.run(X_decode, feed_dict=&#123;X_origin: mnist.test.images[:examples_to_show]&#125;) # 比较原始图像与重建后的图像 f, a = plt.subplots(2, 10, figsize=(10, 2)) for i in range(examples_to_show): a[0][i].imshow(np.reshape(mnist.test.images[i], (28, 28))) a[1][i].imshow(np.reshape(reconstructions[i], (28, 28))) f.show() plt.draw() 结果计算图 测试结果 代码地址github]]></content>
@@ -432,7 +457,20 @@
         <category>ML/DL</category>
       </categories>
       <tags>
+        <tag>tensorflow</tag>
         <tag>自动编码器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[降噪自动编码器]]></title>
+    <url>%2F2019%2F04%2F03%2FDenoiseAutoEncoder%2F</url>
+    <content type="text"><![CDATA[知识点 参数初始化问题 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126import numpy as npimport sklearn.preprocessing as prepimport tensorflow as tffrom tensorflow.examples.tutorials.mnist import input_data# Xavier均匀初始化def xavier_init(fan_in, fan_out, constant = 1): low = -constant * np.sqrt(6.0 / (fan_in + fan_out)) high = constant * np.sqrt(6.0 / (fan_in + fan_out)) return tf.random_uniform((fan_in, fan_out), minval=low, maxval=high, dtype=tf.float32)# 加性高斯噪声的自动编码器class AdditiveGaussianNoiseAutoencoder(object): def __init__(self, n_input, n_hidden, transfer_function=tf.nn.softplus, optimizer=tf.train.AdamOptimizer(), scale=0.1): self.n_input = n_input self.n_hidden = n_hidden self.transfer = transfer_function self.training_scale = scale self.weights = dict() # 构建计算图 with tf.name_scope('raw_input'): self.x = tf.placeholder(tf.float32, [None, self.n_input]) with tf.name_scope('NoiseAdder'): self.scale = tf.placeholder(tf.float32) self.noise_x = self.x + self.scale * tf.random_normal((n_input,)) with tf.name_scope('encoder'): self.weights['w1'] = tf.Variable(xavier_init(self.n_input, self.n_hidden), name='weight1') self.weights['b1'] = tf.Variable(tf.zeros([self.n_hidden], dtype=tf.float32), name='bias1') self.hidden = self.transfer(tf.add(tf.matmul(self.noise_x, self.weights['w1']), self.weights['b1'])) with tf.name_scope('reconstruction'): self.weights['w2'] = tf.Variable(tf.zeros([self.n_hidden, self.n_input], dtype=tf.float32), name='weight2') self.weights['b2'] = tf.Variable(tf.zeros([self.n_input], dtype=tf.float32), name='bias2') self.reconstruction = tf.nn.xw_plus_b(self.hidden, self.weights['w2'], self.weights['b2']) # hidden * w2 + b2 with tf.name_scope('loss'): self.cost = 0.5 * tf.reduce_sum(tf.pow(tf.subtract(self.reconstruction, self.x), 2)) with tf.name_scope('train'): self.optimizer = optimizer.minimize(self.cost) init = tf.global_variables_initializer() self.sess = tf.Session() self.sess.run(init) print("begin to run session...") # 在一个批次上训练模型 def partial_fit(self, X): cost, opt = self.sess.run((self.cost, self.optimizer), feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) return cost # 在给定样本集合上计算损失（用于测试阶段） def calc_total_cost(self, X): return self.sess.run(self.cost, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 返回自编码器隐含层的输出结果，获得抽象后的高阶特征表示 def transform(self, X): return self.sess.run(self.hidden, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 将隐藏层的高阶特征作为输入，将其重建为原始输入数据 def generate(self, hidden = None): if hidden == None: hidden = np.random.normal(size=self.weights['b1']) return self.sess.run(self.reconstruction, feed_dict=&#123;self.hidden: hidden&#125;) # 整体运行一遍复原过程，包括提取高阶特征以及重建原始数据，输入原始数据，输出复原后的数据 def reconstruction(self, X): return self.sess.run(self.reconstruction, feed_dict=&#123;self.x: X, self.scale: self.training_scale&#125;) # 获取隐含层的权重 def getWeights(self): return self.sess.run(self.weights['w1']) # 获取隐含层的偏置 def getBiases(self): return self.sess.run(self.weights['b1'])AGN_AutoEncoder = AdditiveGaussianNoiseAutoencoder(n_input=784, n_hidden=200, optimizer=tf.train.AdamOptimizer(learning_rate=0.01), scale=0.01)print("把计算图写入事件文件，在TensorBoard里面查看")writer = tf.summary.FileWriter(logdir='logs', graph=AGN_AutoEncoder.sess.graph)writer.close()# 读取数据集mnist = input_data.read_data_sets('../mnist_data/', one_hot=True)# 使用sklearn.preprocessing 的数据标准化操作(0均值标准差为1) 预处理数据# 首先在训练集上估计均值与方差，然后将其作用到训练集和测试集def standard_scale(x_train, x_test): preprocesser = prep.StandardScaler().fit(x_train) x_train = preprocesser.transform(x_train) x_test = preprocesser.transform(x_test) return x_train, x_test# 获取随机block数据的函数：取一个从0到len(data) - batch_size的随机整数# 以这个随机整数为起始索引，抽出一个batch_size的批次样本def get_random_block_from_data(data, batch_size): start_index = np.random.randint(0, len(data) - batch_size) return data[start_index: start_index + batch_size]# 使用标准化操作变换数据集X_train, X_test = standard_scale(mnist.train.images, mnist.test.images)# 定义训练参数n_samples = int(mnist.train.num_examples)training_epochs = 20batch_size = 128display_step = 1 # 输出训练结果的间隔# 开始训练，每次epoch开始时将avg_cost设为0，计算总共需要的batch数量，# 这里使用的是有放回抽样，所以不能保证每个样本被抽到并参与训练for epoch in range(training_epochs): avg_cost = 0 total_batch = int(n_samples / batch_size) for i in range(total_batch): batch_xs = get_random_block_from_data(X_train, batch_size) cost = AGN_AutoEncoder.partial_fit(batch_xs) avg_cost += cost / batch_size avg_cost /= total_batch if epoch % display_step == 0: print("epoch : %03d, cost = %.3f" % (epoch + 1, avg_cost))# 计算测试集上的costprint("total cost :", str(AGN_AutoEncoder.calc_total_cost(X_test))) 计算图 代码地址github]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>tensorflow</tag>
+        <tag>降噪自动编码器</tag>
       </tags>
   </entry>
   <entry>
@@ -843,17 +881,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
-    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>查看linux进程并杀死</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下关于screen命令的使用]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
     <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
@@ -862,6 +889,17 @@
       </categories>
       <tags>
         <tag>linux下screen的使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
+    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>查看linux进程并杀死</tag>
       </tags>
   </entry>
   <entry>
