@@ -80,19 +80,19 @@
 
 
 
-<meta name="description" content="安装 virtualenv1pip install virtualenv 创建工作目录12mkdir myprojectcd myproject 创建一个独立的python运行环境，命名为 venc123# --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境# 若要继承已有的环境包，不加此参数virtualenv --no-site-packages">
+<meta name="description" content="安装 virtualenv1pip install virtualenv 创建工作目录12mkdir myprojectcd myproject 创建一个独立的python运行环境，命名为 venc1234# --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境# 若要继承已有的环境包，不加此参数# --python=python2.7  此处的pyth">
 <meta name="keywords" content="python,linux,virtualenv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux下python创建虚拟环境">
 <meta property="og:url" content="https://fanfuhan.github.io/2019/04/17/linux_python_env/index.html">
 <meta property="og:site_name" content="范范">
-<meta property="og:description" content="安装 virtualenv1pip install virtualenv 创建工作目录12mkdir myprojectcd myproject 创建一个独立的python运行环境，命名为 venc123# --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境# 若要继承已有的环境包，不加此参数virtualenv --no-site-packages">
+<meta property="og:description" content="安装 virtualenv1pip install virtualenv 创建工作目录12mkdir myprojectcd myproject 创建一个独立的python运行环境，命名为 venc1234# --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境# 若要继承已有的环境包，不加此参数# --python=python2.7  此处的pyth">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/e52819eagy1g25mt4r3z7j20kg06vt8u.jpg">
-<meta property="og:updated_time" content="2019-04-17T06:57:27.288Z">
+<meta property="og:updated_time" content="2019-04-18T13:26:15.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下python创建虚拟环境">
-<meta name="twitter:description" content="安装 virtualenv1pip install virtualenv 创建工作目录12mkdir myprojectcd myproject 创建一个独立的python运行环境，命名为 venc123# --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境# 若要继承已有的环境包，不加此参数virtualenv --no-site-packages">
+<meta name="twitter:description" content="安装 virtualenv1pip install virtualenv 创建工作目录12mkdir myprojectcd myproject 创建一个独立的python运行环境，命名为 venc1234# --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境# 若要继承已有的环境包，不加此参数# --python=python2.7  此处的pyth">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/e52819eagy1g25mt4r3z7j20kg06vt8u.jpg">
 
 
@@ -390,7 +390,7 @@
       
         <h3 id="安装-virtualenv"><a href="#安装-virtualenv" class="headerlink" title="安装 virtualenv"></a>安装 <code>virtualenv</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
 <h3 id="创建工作目录"><a href="#创建工作目录" class="headerlink" title="创建工作目录"></a>创建工作目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir myproject</span><br><span class="line">cd myproject</span><br></pre></td></tr></table></figure>
-<h3 id="创建一个独立的python运行环境，命名为-venc"><a href="#创建一个独立的python运行环境，命名为-venc" class="headerlink" title="创建一个独立的python运行环境，命名为 venc"></a>创建一个独立的python运行环境，命名为 <code>venc</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境</span><br><span class="line"><span class="meta">#</span> 若要继承已有的环境包，不加此参数</span><br><span class="line">virtualenv --no-site-packages venv --python=python2.7</span><br></pre></td></tr></table></figure>
+<h3 id="创建一个独立的python运行环境，命名为-venc"><a href="#创建一个独立的python运行环境，命名为-venc" class="headerlink" title="创建一个独立的python运行环境，命名为 venc"></a>创建一个独立的python运行环境，命名为 <code>venc</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境</span><br><span class="line"><span class="meta">#</span> 若要继承已有的环境包，不加此参数</span><br><span class="line"><span class="meta">#</span> --python=python2.7  此处的python版本必须是系统中已经存在的python版本</span><br><span class="line">virtualenv --no-site-packages venv --python=python2.7</span><br></pre></td></tr></table></figure>
 <h3 id="进入创建的环境"><a href="#进入创建的环境" class="headerlink" title="进入创建的环境"></a>进入创建的环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source venv/bin/activate</span><br></pre></td></tr></table></figure>
 <p><img src="http://ww1.sinaimg.cn/large/e52819eagy1g25mt4r3z7j20kg06vt8u.jpg" alt=""></p>
 <h3 id="自动生成和安装-requirements-txt-依赖"><a href="#自动生成和安装-requirements-txt-依赖" class="headerlink" title="自动生成和安装 requirements.txt 依赖"></a>自动生成和安装 <code>requirements.txt</code> 依赖</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 生成<span class="selector-tag">requirements</span><span class="selector-class">.txt</span>文件</span><br><span class="line"><span class="selector-tag">pip</span> <span class="selector-tag">freeze</span> &gt; <span class="selector-tag">requirements</span><span class="selector-class">.txt</span></span><br><span class="line"></span><br><span class="line"># 安装<span class="selector-tag">requirements</span><span class="selector-class">.txt</span>依赖</span><br><span class="line"><span class="selector-tag">pip</span> <span class="selector-tag">install</span> <span class="selector-tag">-r</span> <span class="selector-tag">requirements</span><span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
@@ -439,8 +439,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/18/tensorflow_image_process/" rel="prev" title="Tensorflow图像处理的完整样例">
-                Tensorflow图像处理的完整样例 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/18/opencv-057/" rel="prev" title="opencv-057-二值图像分析(点多边形测试)">
+                opencv-057-二值图像分析(点多边形测试) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -520,7 +520,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">90</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -542,7 +542,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">97</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

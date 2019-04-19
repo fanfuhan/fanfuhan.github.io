@@ -37,9 +37,53 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[opencv-058-二值图像分析(寻找最大内接圆)]]></title>
+    <url>%2F2019%2F04%2F18%2Fopencv-058%2F</url>
+    <content type="text"><![CDATA[知识点对于轮廓来说，有时候我们会需要选择最大内接圆，OpenCV中没有现成的API可以使用，但是我们可以通过点多边形测试巧妙的获取轮廓最大内接圆的半径，从点多边形测试的返回结果我们知道，它返回的是像素距离，而且是当前点距离轮廓最近的距离，当这个点在轮廓内部，其返回的距离是最大值的时候，其实这个距离就是轮廓的最大内接圆的半径，这样我们就巧妙的获得了圆心的位置与半径，然后绘制。 代码（c++,python）12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 二值图像分析(寻找最大内接圆) */int main() &#123; const int r = 100; Mat src = Mat::zeros(Size(4 * r, 4 * r), CV_8U); vector&lt;Point2f&gt; vert(6); vert[0] = Point(3 * r / 2, static_cast&lt;int&gt;(1.34 * r)); vert[1] = Point(1 * r, 2 * r); vert[2] = Point(3 * r / 2, static_cast&lt;int&gt;(2.866 * r)); vert[3] = Point(5 * r / 2, static_cast&lt;int&gt;(2.866 * r)); vert[4] = Point(3 * r, 2 * r); vert[5] = Point(5 * r / 2, static_cast&lt;int&gt;(1.34 * r)); for (int i = 0; i &lt; 6; ++i) &#123; line(src, vert[i], vert[(i + 1) % 6], Scalar(255), 3); &#125; imshow("input", src); // 点多边形测试 vector&lt;vector&lt;Point&gt; &gt; contours; findContours(src, contours, RETR_TREE, CHAIN_APPROX_SIMPLE); Mat raw_dist(src.size(), CV_32F); for (int i = 0; i &lt; src.rows; ++i) &#123; for (int j = 0; j &lt; src.cols; ++j) &#123; raw_dist.at&lt;float&gt;(i, j) = (float) pointPolygonTest(contours[0], Point2f((float) j, (float) i), true); &#125; &#125; // 获取最大内接圆半径 double minval, maxval; Point maxDistPt;// save circle center minMaxLoc(raw_dist, &amp;minval, &amp;maxval, NULL, &amp;maxDistPt); minval = abs(minval); maxval = abs(maxval); Mat drawing = Mat::zeros(src.size(), CV_8UC3); for (int i = 0; i &lt; src.rows; ++i) &#123; for (int j = 0; j &lt; src.cols; ++j) &#123; if (raw_dist.at&lt;float&gt;(i, j) &lt; 0) &#123; drawing.at&lt;Vec3b&gt;(i, j)[0] = (uchar) (255 - abs(raw_dist.at&lt;float&gt;(i, j)) * 255 / minval); &#125; else if (raw_dist.at&lt;float&gt;(i, j) &gt; 0) &#123; drawing.at&lt;Vec3b&gt;(i, j)[2] = (uchar) (255 - raw_dist.at&lt;float&gt;(i, j) * 255 / maxval); &#125; else &#123; drawing.at&lt;Vec3b&gt;(i, j)[0] = 255; drawing.at&lt;Vec3b&gt;(i, j)[1] = 255; drawing.at&lt;Vec3b&gt;(i, j)[2] = 255; &#125; &#125; &#125; // 绘制内接圆 circle(drawing, maxDistPt, (int)maxval, Scalar(255,255,255)); imshow("distance_inscribed_circle", drawing); waitKey(0); return 0;&#125; 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152from __future__ import print_functionfrom __future__ import divisionimport cv2 as cvimport numpy as np# Create an imager = 100src = np.zeros((4*r, 4*r), dtype=np.uint8)# Create a sequence of points to make a contourvert = [None]*6vert[0] = (3*r//2, int(1.34*r))vert[1] = (1*r, 2*r)vert[2] = (3*r//2, int(2.866*r))vert[3] = (5*r//2, int(2.866*r))vert[4] = (3*r, 2*r)vert[5] = (5*r//2, int(1.34*r))# Draw it in srcfor i in range(6): cv.line(src, vert[i], vert[(i+1)%6], ( 255 ), 3)# Get the contours_, contours, _ = cv.findContours(src, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)# Calculate the distances to the contourraw_dist = np.empty(src.shape, dtype=np.float32)for i in range(src.shape[0]): for j in range(src.shape[1]): raw_dist[i,j] = cv.pointPolygonTest(contours[0], (j,i), True)# 获取最大值即内接圆半径，中心点坐标minVal, maxVal, _, maxDistPt = cv.minMaxLoc(raw_dist)minVal = abs(minVal)maxVal = abs(maxVal)# Depicting the distances graphicallydrawing = np.zeros((src.shape[0], src.shape[1], 3), dtype=np.uint8)for i in range(src.shape[0]): for j in range(src.shape[1]): if raw_dist[i,j] &lt; 0: drawing[i,j,0] = 255 - abs(raw_dist[i,j]) * 255 / minVal elif raw_dist[i,j] &gt; 0: drawing[i,j,2] = 255 - raw_dist[i,j] * 255 / maxVal else: drawing[i,j,0] = 255 drawing[i,j,1] = 255 drawing[i,j,2] = 255# max inner circlecv.circle(drawing,maxDistPt, np.int(maxVal),(255,255,255), 1, cv.LINE_8, 0)cv.imshow('Source', src)cv.imshow('Distance and inscribed circle', drawing)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>二值图像分析(寻找最大内接圆)</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[opencv-059-二值图像分析(霍夫直线检测)]]></title>
+    <url>%2F2019%2F04%2F18%2Fopencv-059%2F</url>
+    <content type="text"><![CDATA[知识点图像霍夫变换是一种特别有用的图像变换，通过把图像的坐标从2D平面坐标系变换到极坐标空间，可以发现原来在平面坐标难以提取的几何特征信息（如：直线、圆等），图像的直线与圆检测就是典型的利用霍夫空间特性实现二值图像几何分析的例子。假设有如下的直线参数方程：r = xcos(theta) + y sin(theta)其中角度theta指r与X轴之间的夹角，r为到直线几何垂直距离。 OpenCV关于霍夫直线检测有两个API，我们首先分享第一个函数，它是提取到直线在霍夫空间得几何特征，然后输出直线得两个极坐标参数。根据这两个参数我们可以组合得到空间坐标直线。该API如下： 12345678910111213141516171819void cv::HoughLines( InputArray image, OutputArray lines, double rho, double theta, int threshold, double srn = 0, double stn = 0, double min_theta = 0, double max_theta = CV_PI)Image 输入图像Lines 输出直线Rho 极坐标r得步长Theta角度步长Threshold累加器阈值Srn、stn多尺度霍夫变换时候需要得参数，经典霍夫变换不需要min_theta 最小角度max_theta最大角度 代码（c++,python）12345678910111213141516171819202122232425262728293031323334353637383940414243#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 二值图像分析(霍夫直线检测) */int main() &#123; Mat src = imread("../images/sudoku.png"); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow("input", src); // 去噪声与二值化 Mat binary; Canny(src, binary, 80, 160); // 标准霍夫直线检测 vector&lt;Vec2f&gt; lines; HoughLines(binary, lines, 1, CV_PI / 180, 150); // 绘制直线 Point pt1, pt2; for (size_t i = 0; i &lt; lines.size(); ++i) &#123; float rho = lines[i][0]; float theta = lines[i][1]; double a = cos(theta), b = sin(theta); double x0 = a * rho, y0 = b * rho; pt1.x = cvRound(x0 + 1000 * (-b)); pt1.y = cvRound(y0 + 1000 * (a)); pt2.x = cvRound(x0 - 1000 * (-b)); pt2.y = cvRound(y0 - 1000 * (a)); line(src, pt1, pt2, Scalar(0, 0, 255), 2, LINE_AA); &#125; imshow("contours", src); waitKey(0); return 0;&#125; 123456789101112131415161718192021222324252627282930313233import cv2 as cvimport numpy as npdef canny_demo(image): t = 80 canny_output = cv.Canny(image, t, t * 2) return canny_outputsrc = cv.imread("D:\code-workspace\Clion-workspace\learnOpencv\images\sudoku.png")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)binary = canny_demo(src)cv.imshow("binary", binary)lines = cv.HoughLines(binary, 1, np.pi / 180, 150, None, 0, 0)if lines is not None: for i in range(0, len(lines)): rho = lines[i][0][0] theta = lines[i][0][1] a = np.cos(theta) b = np.sin(theta) x0 = a * rho y0 = b * rho pt1 = (int(x0 + 1000 * (-b)), int(y0 + 1000 * (a))) pt2 = (int(x0 - 1000 * (-b)), int(y0 - 1000 * (a))) cv.line(src, pt1, pt2, (0, 0, 255), 3, cv.LINE_AA)cv.imshow("hough line demo", src)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>二值图像分析(霍夫直线检测)</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[opencv-060-二值图像分析(霍夫直线检测二)]]></title>
+    <url>%2F2019%2F04%2F18%2Fopencv-060%2F</url>
+    <content type="text"><![CDATA[知识点OpenCV中还有另外一个霍夫直线检测的API，该API更为常用，它会直接返回直线的空间坐标点，比返回霍夫空间参数更加的直观，容易理解，而且还可以声明线段长度、间隔等参数，非常有用。 API 12345678910111213141516void cv::HoughLinesP( InputArray image, OutputArray lines, double rho, double theta, int threshold, double minLineLength = 0, double maxLineGap = 0 )Image输入二值图像Lines 返回的直线两个点Rho 极坐标r得步长Theta角度步长Threshold累加器阈值minLineLength最小线段长度maxLineGap线段间隔 代码（c++,python）123456789101112131415161718192021222324252627282930313233343536#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 二值图像分析(霍夫直线检测二) */int main() &#123; Mat src = imread("../images/line.png"); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow("input", src); // 去噪声与二值化 Mat binary; Canny(src, binary, 80, 160); // 霍夫直线检测 vector&lt;Vec4i&gt; lines; HoughLinesP(binary, lines, 1, CV_PI / 180, 80, 30, 10); // 绘制直线 Mat result = Mat::zeros(src.size(), src.type()); for (size_t i = 0; i &lt; lines.size(); ++i) &#123; line(result, Point(lines[i][0], lines[i][1]), Point(lines[i][2], lines[i][3]), Scalar(0, 0, 255)); &#125; imshow("contours", result); waitKey(0); return 0;&#125; 1234567891011121314151617181920212223242526import cv2 as cvimport numpy as npdef canny_demo(image): t = 80 canny_output = cv.Canny(image, t, t * 2) cv.imwrite("D:/canny_output.png", canny_output) return canny_outputsrc = cv.imread("D:/images/morph01.png")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)binary = canny_demo(src)cv.imshow("binary", binary)linesP = cv.HoughLinesP(binary, 1, np.pi / 180, 50, None, 50, 10)if linesP is not None: for i in range(0, len(linesP)): l = linesP[i][0] cv.line(src, (l[0], l[1]), (l[2], l[3]), (255, 0, 0), 1, cv.LINE_AA)cv.imshow("hough line demo", src)cv.imwrite("D:/contours_analysis.png", src)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>二值图像分析(霍夫直线检测二)</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[opencv-057-二值图像分析(点多边形测试)]]></title>
+    <url>%2F2019%2F04%2F18%2Fopencv-057%2F</url>
+    <content type="text"><![CDATA[知识点对于轮廓图像，有时候还需要判断一个点是在轮廓内部还是外部，OpenCV中实现这个功能的API叫做点多边形测试，它可以准确的得到一个点距离多边形的距离，如果点是轮廓点或者属于轮廓多边形上的点，距离是零，如果是多边形内部的点是是正数，如果是负数返回表示点是外部。 API 12345678double cv::pointPolygonTest( InputArray contour, Point2f pt, bool measureDist )Contour轮廓所有点的集合Pt 图像中的任意一点MeasureDist如果是True，则返回每个点到轮廓的距离，如果是False则返回+1，0，-1三个值，其中+1表示点在轮廓内部，0表示点在轮廓上，-1表示点在轮廓外 代码（c++,python）12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 二值图像分析(点多边形测试) */int main() &#123; Mat src = imread("../images/my_mask.png"); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow("input", src); // 二值化 Mat dst, gray, binary; cvtColor(src, gray, COLOR_BGR2GRAY); threshold(gray, binary, 0, 255, THRESH_BINARY | THRESH_OTSU); // 轮廓发现与绘制 vector&lt;vector&lt;Point&gt;&gt; contours; vector&lt;Vec4i&gt; hierarchy; findContours(binary, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, Point()); Mat image = Mat::zeros(src.size(), CV_32FC3); // 对轮廓内外的点进行分类 for (int row = 0; row &lt; src.rows; ++row) &#123; for (int col = 0; col &lt; src.cols; ++col) &#123; double dist = pointPolygonTest(contours[0], Point(col, row), true); if (dist == 0) &#123; image.at&lt;Vec3f&gt;(row, col) = Vec3f(255, 255, 255); &#125; else if (dist &gt; 0) &#123; image.at&lt;Vec3f&gt;(row, col) = Vec3f(255 - dist, 0, 0); &#125; else &#123; image.at&lt;Vec3f&gt;(row, col) = Vec3f(0, 0, 255 + dist); &#125; &#125; &#125; convertScaleAbs(image, image); imshow("points", image); waitKey(0); return 0;&#125; 1234567891011121314151617181920212223242526272829303132import cv2 as cvimport numpy as npsrc = cv.imread("D:/images/my_mask.png")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)ret, binary = cv.threshold(gray, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)cv.imshow("binary", binary)# 轮廓发现image = np.zeros(src.shape, dtype=np.float32)out, contours, hierarchy = cv.findContours(binary, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)h, w = src.shape[:2]for row in range(h): for col in range(w): dist = cv.pointPolygonTest(contours[0], (col, row), True) if dist == 0: image[row, col] = (255, 255, 255) if dist &gt; 0: image[row, col] = (255-dist, 0, 0) if dist &lt; 0: image[row, col] = (0, 0, 255+dist)dst = cv.convertScaleAbs(image)dst = np.uint8(dst)# 显示cv.imshow("contours_analysis", dst)cv.imwrite("D:/contours_analysis.png", dst)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>二值图像分析(点多边形测试)</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[linux下python创建虚拟环境]]></title>
     <url>%2F2019%2F04%2F17%2Flinux_python_env%2F</url>
-    <content type="text"><![CDATA[安装 virtualenv1pip install virtualenv 创建工作目录12mkdir myprojectcd myproject 创建一个独立的python运行环境，命名为 venc123# --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境# 若要继承已有的环境包，不加此参数virtualenv --no-site-packages venv --python=python2.7 进入创建的环境1source venv/bin/activate 自动生成和安装 requirements.txt 依赖12345# 生成requirements.txt文件pip freeze &gt; requirements.txt# 安装requirements.txt依赖pip install -r requirements.txt 退出虚拟环境1deactivate 删除虚拟环境1rm -r venv]]></content>
+    <content type="text"><![CDATA[安装 virtualenv1pip install virtualenv 创建工作目录12mkdir myprojectcd myproject 创建一个独立的python运行环境，命名为 venc1234# --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境# 若要继承已有的环境包，不加此参数# --python=python2.7 此处的python版本必须是系统中已经存在的python版本virtualenv --no-site-packages venv --python=python2.7 进入创建的环境1source venv/bin/activate 自动生成和安装 requirements.txt 依赖12345# 生成requirements.txt文件pip freeze &gt; requirements.txt# 安装requirements.txt依赖pip install -r requirements.txt 退出虚拟环境1deactivate 删除虚拟环境1rm -r venv]]></content>
       <categories>
         <category>python</category>
       </categories>
@@ -881,17 +925,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下关于screen命令的使用]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
-    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux下screen的使用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
     <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
@@ -900,6 +933,17 @@
       </categories>
       <tags>
         <tag>查看linux进程并杀死</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下关于screen命令的使用]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
+    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux下screen的使用</tag>
       </tags>
   </entry>
   <entry>
