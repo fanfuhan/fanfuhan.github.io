@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[opencv-068-图像形态学(黑帽操作)]]></title>
+    <url>%2F2019%2F04%2F21%2Fopencv-068%2F</url>
+    <content type="text"><![CDATA[知识点形态学的黑帽操作是闭操作与输入图像之间的差异，黑帽操作可以表示如下：黑帽操作 = 闭操作 – 输入图像 API 1234567891011121314151617void cv::morphologyEx( InputArray src, OutputArray dst, int op, InputArray kernel, Point anchor = Point(-1,-1), int iterations = 1, int borderType = BORDER_CONSTANT,)src 输入图像dst 输出图像op 形态学操作kernel 结构元素anchor 中心位置锚定iterations 循环次数borderType 边缘填充类型其中op指定为MORPH_BLACKHAT即表示使用顶帽操作 代码（c++,python）12345678910111213141516171819202122232425262728293031#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 图像形态学(黑帽操作) */int main() &#123; Mat src = imread("../images/morph.png"); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow("input", src); // 二值图像 Mat gray, binary, result; cvtColor(src, gray, COLOR_BGR2GRAY); threshold(gray, binary, 0, 255, THRESH_BINARY | THRESH_OTSU); // 黑帽操作 Mat se = getStructuringElement(MORPH_RECT, Size(15, 15), Point(-1, -1)); morphologyEx(binary, result, MORPH_CLOSE, se); imshow("close_op", result); morphologyEx(binary, result, MORPH_BLACKHAT, se); imshow("blackhat_op", result); waitKey(0); return 0;&#125; 123456789101112131415161718192021import cv2 as cvimport numpy as npsrc = cv.imread("D:/images/morph.png")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)# 图像二值化gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)ret, binary = cv.threshold(gray, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)# 黑帽操作se = cv.getStructuringElement(cv.MORPH_RECT, (9, 9), (-1, -1))binary = cv.morphologyEx(binary, cv.MORPH_BLACKHAT, se)cv.imshow("black hat", binary)cv.imwrite("D:/binary2.png", binary)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>图像形态学(黑帽操作)</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[opencv-069-图像形态学(图像梯度)]]></title>
+    <url>%2F2019%2F04%2F21%2Fopencv-069%2F</url>
+    <content type="text"><![CDATA[知识点图像形态学的梯度跟我们前面介绍的图像卷积计算出来的梯度有本质不同，形态学梯度可以帮助我们获得连通组件的边缘与轮廓，实现图像轮廓或者边缘提取。根据使用的形态学操作不同，形态学梯度又分为 基本梯度：图像膨胀与腐蚀操作之间的差值 内梯度：输入图像与腐蚀之间的差值 外梯度：膨胀与输入图像之间的差值 API 1234567891011121314151617void cv::morphologyEx( InputArray src, OutputArray dst, int op, InputArray kernel, Point anchor = Point(-1,-1), int iterations = 1, int borderType = BORDER_CONSTANT,)src 输入图像dst 输出图像op 形态学操作kernel 结构元素anchor 中心位置锚定iterations 循环次数borderType 边缘填充类型其中op指定为MORPH_GRADIEN即表示使用基本梯度操作 代码（c++,python）12345678910111213141516171819202122232425262728293031323334353637#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 图像形态学(图像梯度) */int main() &#123; Mat src = imread("../images/master.jpg", IMREAD_GRAYSCALE); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow("input", src); //定义结构元素 Mat se = getStructuringElement(MORPH_RECT, Size(3, 3)); Mat basic, exter, inter; // 基本梯度 morphologyEx(src, basic, MORPH_GRADIENT, se); imshow("basic_gradient", basic); // 外梯度 morphologyEx(src, exter, MORPH_DILATE, se); subtract(exter, src, exter); imshow("exter_gradient", exter); // 内梯度 morphologyEx(src, inter, MORPH_ERODE, se); subtract(src, inter, inter); imshow("inter_gradient", inter); waitKey(0); return 0;&#125; 1234567891011121314151617181920212223242526import cv2 as cvsrc = cv.imread("D:/images/dannis2.jpg")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)# 形态学梯度 - 基本梯度se = cv.getStructuringElement(cv.MORPH_RECT, (3, 3), (-1, -1))basic = cv.morphologyEx(src, cv.MORPH_GRADIENT, se)cv.imshow("basic gradient", basic)# 外梯度dilate = cv.morphologyEx(src, cv.MORPH_DILATE, se)exteral = cv.subtract(dilate, src)cv.imshow("external gradient", exteral)# 内梯度erode = cv.morphologyEx(src, cv.MORPH_ERODE, se)interal = cv.subtract(src, erode)cv.imshow("interal gradient", interal)cv.imwrite("D:/gradient.png", basic)cv.imwrite("D:/external.png", exteral)cv.imwrite("D:/interal.png", interal)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>图像形态学(图像梯度)</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[opencv-70-形态学应用(使用基本梯度实现轮廓分析)]]></title>
+    <url>%2F2019%2F04%2F21%2Fopencv-070%2F</url>
+    <content type="text"><![CDATA[知识点基于形态学梯度实现图像二值化，进行文本结构分析是OCR识别中常用的处理手段之一，这种好处比简单的二值化对图像有更好的分割效果，主要步骤如下： 图像形态学梯度 灰度 全局阈值二值化 轮廓分析 代码（c++,python）123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 形态学应用(使用基本梯度实现轮廓分析) */int main() &#123; Mat src = imread("../images/address.jpg"); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow("input", src); Mat basic, gray, binary; // 基本梯度 Mat se = getStructuringElement(MORPH_RECT, Size(3, 3)); morphologyEx(src, basic, MORPH_GRADIENT, se); // 二值化 cvtColor(basic, gray, COLOR_BGR2GRAY); threshold(gray, binary, 0, 255, THRESH_BINARY | THRESH_OTSU); // 膨胀 se = getStructuringElement(MORPH_RECT, Size(1, 5)); morphologyEx(binary, binary, MORPH_DILATE, se); // 轮廓绘制 vector&lt;vector&lt;Point&gt;&gt; contours; vector&lt;Vec4i&gt; hierarchy; findContours(binary, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE); for (size_t c = 0; c &lt; contours.size(); c++) &#123; Rect rect = boundingRect(contours[c]); double area = contourArea(contours[c]); if (area &lt; 200) &#123; continue; &#125; int h = rect.height; int w = rect.width; if (h &gt; (3 * w) || h &lt; 20) &#123; continue; &#125; rectangle(src, rect, Scalar(0, 0, 255)); &#125; imshow("result", src); waitKey(0); return 0;&#125; 123456789101112131415161718192021222324252627282930import cv2 as cvsrc = cv.imread("D:/images/kd02.jpg")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)# 形态学梯度 - 基本梯度se = cv.getStructuringElement(cv.MORPH_RECT, (3, 3), (-1, -1))basic = cv.morphologyEx(src, cv.MORPH_GRADIENT, se)cv.imshow("basic gradient", basic)gray = cv.cvtColor(basic, cv.COLOR_BGR2GRAY)ret, binary = cv.threshold(gray, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)cv.imshow("binary", binary)se = cv.getStructuringElement(cv.MORPH_RECT, (1, 5), (-1, -1))binary = cv.morphologyEx(binary, cv.MORPH_DILATE, se)out, contours, hierarchy = cv.findContours(binary, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)for c in range(len(contours)): x, y, w, h = cv.boundingRect(contours[c]) area = cv.contourArea(contours[c]) if area &lt; 200: continue if h &gt; (3*w) or h &lt; 20: continue cv.rectangle(src, (x, y), (x+w, y+h), (0, 0, 255), 1, 8, 0)cv.imshow("result", src)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>形态学应用(使用基本梯度实现轮廓分析)</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[opencv-067-图像形态学(顶帽操作)]]></title>
+    <url>%2F2019%2F04%2F21%2Fopencv-067%2F</url>
+    <content type="text"><![CDATA[知识点形态学的顶帽操作是图像输入与开操作之间的差异，顶帽操作有时候对于我们提取图像中微小部分特别有用。 顶帽操作：顶帽 = 原图 – 开操作 API 1234567891011121314151617void cv::morphologyEx( InputArray src, OutputArray dst, int op, InputArray kernel, Point anchor = Point(-1,-1), int iterations = 1, int borderType = BORDER_CONSTANT,)src 输入图像dst 输出图像op 形态学操作kernel 结构元素anchor 中心位置锚定iterations 循环次数borderType 边缘填充类型其中op指定为MORPH_TOPHAT 即表示使用顶帽操作 代码（c++,python）123456789101112131415161718192021222324252627282930313233#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 图像形态学(顶帽操作) */int main() &#123; Mat src = imread("../images/cells.png"); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow("input", src); // 二值化 Mat gray, binary, result; cvtColor(src, gray, COLOR_BGR2GRAY); threshold(gray, binary, 0, 255, THRESH_BINARY | THRESH_OTSU); // 开操作 Mat se = getStructuringElement(MORPH_RECT, Size(3, 3)); morphologyEx(binary, result, MORPH_OPEN, se); imshow("open_demo", result); // 顶帽操作 morphologyEx(binary, result, MORPH_TOPHAT, se); imshow("tophat_demo", result); waitKey(0); return 0;&#125; 123456789101112131415161718192021import cv2 as cvimport numpy as npsrc = cv.imread("D:/images/cells.png")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)# 二值化gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)ret, binary = cv.threshold(gray, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)# 顶帽操作se = cv.getStructuringElement(cv.MORPH_RECT, (3, 3), (-1, -1))binary = cv.morphologyEx(binary, cv.MORPH_TOPHAT, se)cv.imshow("binary", binary)cv.imwrite("D:/binary2.png", binary)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
+      <categories>
+        <category>opencv</category>
+      </categories>
+      <tags>
+        <tag>图像形态学(顶帽操作)</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[opencv-065-图像形态学(闭操作)]]></title>
     <url>%2F2019%2F04%2F20%2Fopencv-065%2F</url>
     <content type="text"><![CDATA[知识点形态学的闭操作跟开操作一样也是基于腐蚀与膨胀两个操作的组合实现的闭操作 = 膨胀 + 腐蚀闭操作的作用：闭操作可以填充二值图像中孔洞区域，形成完整的闭合区域连通组件 123456789101112131415161718void cv::morphologyEx( InputArray src, OutputArray dst, int op, InputArray kernel, Point anchor = Point(-1,-1), int iterations = 1, int borderType = BORDER_CONSTANT,)src 输入图像dst 输出图像op 形态学操作kernel 结构元素anchor 中心位置锚定iterations 循环次数borderType 边缘填充类型其中op指定为MORPH_CLOSE 即表示使用闭操作 代码（c++,python）12345678910111213141516171819202122232425262728293031323334353637383940#include &lt;iostream&gt;#include &lt;opencv2/opencv.hpp&gt;using namespace std;using namespace cv;/* * 图像形态学(闭操作) */int main() &#123; Mat src = imread("../images/cells.png"); if (src.empty()) &#123; cout &lt;&lt; "could not load image.." &lt;&lt; endl; &#125; imshow("input", src); // 二值图像 Mat gray, binary, result; cvtColor(src, gray, COLOR_BGR2GRAY); threshold(gray, binary, 0, 255, THRESH_BINARY | THRESH_OTSU); imshow("binary", binary); // 闭操作 Mat se1 = getStructuringElement(MORPH_RECT, Size(25, 5), Point(-1, -1)); Mat se2 = getStructuringElement(MORPH_RECT, Size(5, 25), Point(-1, -1)); morphologyEx(binary, result, MORPH_CLOSE, se1); morphologyEx(result, result, MORPH_CLOSE, se2); imshow("close_demo 25*5 5*25", result); // 去除中间小方黑块 Mat se3 = getStructuringElement(MORPH_CROSS, Size(31, 21)); morphologyEx(result, result, MORPH_CLOSE, se3); // imshow("cross", result); morphologyEx(result, result, MORPH_CLOSE, se1); morphologyEx(result, result, MORPH_CLOSE, se2); imshow("final", result); waitKey(0); return 0;&#125; 123456789101112131415161718192021222324import cv2 as cvimport numpy as npsrc = cv.imread("D:/images/cells.png")cv.namedWindow("input", cv.WINDOW_AUTOSIZE)cv.imshow("input", src)# 高斯模糊去噪声gray = cv.cvtColor(src, cv.COLOR_BGR2GRAY)ret, binary = cv.threshold(gray, 0, 255, cv.THRESH_BINARY | cv.THRESH_OTSU)cv.imwrite("D:/binary1.png", binary)cv.imshow("binary1", binary)# 开操作se1 = cv.getStructuringElement(cv.MORPH_RECT, (25, 5), (-1, -1))se2 = cv.getStructuringElement(cv.MORPH_RECT, (5, 25), (-1, -1))binary = cv.morphologyEx(binary, cv.MORPH_CLOSE, se1)binary = cv.morphologyEx(binary, cv.MORPH_CLOSE, se2)cv.imshow("binary", binary)cv.imwrite("D:/binary2.png", binary)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
@@ -920,18 +964,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -941,6 +973,18 @@
       <tags>
         <tag>opencv</tag>
         <tag>VS2017</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>opencv</tag>
       </tags>
   </entry>
   <entry>
@@ -991,17 +1035,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下关于screen命令的使用]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
-    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux下screen的使用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
     <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
@@ -1010,6 +1043,17 @@
       </categories>
       <tags>
         <tag>查看linux进程并杀死</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下关于screen命令的使用]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
+    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux下screen的使用</tag>
       </tags>
   </entry>
   <entry>
