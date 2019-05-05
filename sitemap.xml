@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/05/05/linux_monitor_gpu/</loc>
+    
+    <lastmod>2019-05-05T09:11:44.302Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/05/05/pycharm_remote_configure/</loc>
+    
+    <lastmod>2019-05-05T09:07:17.166Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2018/11/29/remoteJupyter/</loc>
+    
+    <lastmod>2019-04-27T12:50:48.822Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/04/24/opencv-080/</loc>
     
     <lastmod>2019-04-26T07:22:49.286Z</lastmod>
@@ -747,13 +768,6 @@
     <loc>https://fanfuhan.github.io/2018/11/29/installAnaconda/</loc>
     
     <lastmod>2018-11-29T14:52:17.890Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fanfuhan.github.io/2018/11/29/remoteJupyter/</loc>
-    
-    <lastmod>2018-11-29T14:41:53.024Z</lastmod>
     
   </url>
   

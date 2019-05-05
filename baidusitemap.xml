@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2019/05/05/linux_monitor_gpu/</loc>
+    <lastmod>2019-05-05</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/05/05/pycharm_remote_configure/</loc>
+    <lastmod>2019-05-05</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2018/11/29/remoteJupyter/</loc>
+    <lastmod>2019-04-27</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/04/24/opencv-080/</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
@@ -320,9 +329,6 @@
     <lastmod>2018-11-29</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2018/11/29/installAnaconda/</loc>
-    <lastmod>2018-11-29</lastmod>
-  </url>  <url>
-    <loc>https://fanfuhan.github.io/2018/11/29/remoteJupyter/</loc>
     <lastmod>2018-11-29</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2018/11/29/beautifyBash/</loc>
