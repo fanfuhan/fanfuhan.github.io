@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2019/05/16/opencv-099/</loc>
+    <lastmod>2019-05-21</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/05/17/opencv-101/</loc>
+    <lastmod>2019-05-21</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/05/16/opencv-100/</loc>
+    <lastmod>2019-05-17</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/05/16/opencv-098/</loc>
+    <lastmod>2019-05-16</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/03/20/opencv-001/</loc>
+    <lastmod>2019-05-15</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/05/10/opencv-097/</loc>
     <lastmod>2019-05-11</lastmod>
   </url>  <url>
@@ -338,9 +353,6 @@
     <lastmod>2019-03-21</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2019/03/20/opencv-002/</loc>
-    <lastmod>2019-03-21</lastmod>
-  </url>  <url>
-    <loc>https://fanfuhan.github.io/2019/03/20/opencv-001/</loc>
     <lastmod>2019-03-21</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2019/03/20/Clion_path_problem/</loc>
