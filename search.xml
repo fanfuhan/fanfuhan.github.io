@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[python 列表生成器简单案例]]></title>
+    <url>%2F2019%2F05%2F24%2Fpython_list_generation%2F</url>
+    <content type="text"><![CDATA[场景一将文件中逐行读取的一个完整语句，按逗号分割单词，去掉首位的空字符，并过滤掉长度小于 3 的单词，最后返回由单词组成的列表。 123text = " today, is , sunday"text_list = [s.strip() for s in text.split(',') if len(s.strip()) &gt; 3]print(text_list) # out:['today', 'sunday'] 场景二给定下面两个列表 attributes 和 values，要求针对 values 中每一组子列表 value，输出其和 attributes 中的键对应后的字典，最后返回字典组成的列表。分别用一行代码和多行代码来写。 123456789attributes = ['name', 'dob', 'gender']values = [['jason', '2000-01-01', 'male'], ['mike', '1999-01-01', 'male'], ['nancy', '2001-02-01', 'female']]# expected outout:[&#123;'name': 'jason', 'dob': '2000-01-01', 'gender': 'male'&#125;, &#123;'name': 'mike', 'dob': '1999-01-01', 'gender': 'male'&#125;, &#123;'name': 'nancy', 'dob': '2001-02-01', 'gender': 'female'&#125;] 1234567891011121314151617181920# 多行代码l1 = []for value in values: dict1 = &#123;&#125; for i, attr in enumerate(attributes): dict1[attr] = value[i] l1.append(dict1)l2 = []for value in values: dict1 = dict(zip(attributes, value)) l2.append(dict1)# 一行代码l3 = [&#123;attr: value[i] for i, attr in enumerate(attributes)&#125; for value in values ]l4 = [dict(zip(attributes, value)) for value in values]print(l1 == l2 == l3 == l4)# out: True]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>列表生成器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[opencv-106-AKAZE特征与描述子]]></title>
     <url>%2F2019%2F05%2F21%2Fopencv-106%2F</url>
     <content type="text"><![CDATA[知识点AKAZE特征提取算法是局部特征描述子算法，可以看成是SIFT算法的改进、采用非线性扩散滤波迭代来提取与构建尺度空间、采用与SIFT类似的方法寻找特征点、在描述子生成阶段采用ORB类似的方法生成描述子，但是描述子比ORB多了旋转不变性特征。ORB采用LDB方法，AKAZE采用 M-LDB。 代码（c++,python）12345678910111213141516171819202122232425262728293031#include &lt;opencv2/opencv.hpp&gt;#include &lt;iostream&gt;using namespace cv;using namespace std;int main(int argc, char** argv) &#123; Mat box = imread("D:/images/box.png"); Mat box_in_sence = imread("D:/images/box_in_scene.png"); // 创建AKAZE auto akaze_detector = AKAZE::create(); vector&lt;KeyPoint&gt; kpts_01, kpts_02; Mat descriptors1, descriptors2; akaze_detector-&gt;detectAndCompute(box, Mat(), kpts_01, descriptors1); akaze_detector-&gt;detectAndCompute(box_in_sence, Mat(), kpts_02, descriptors2); // 定义描述子匹配 - 暴力匹配 Ptr&lt;DescriptorMatcher&gt; matcher = DescriptorMatcher::create(DescriptorMatcher::BRUTEFORCE); std::vector&lt; DMatch &gt; matches; matcher-&gt;match(descriptors1, descriptors2, matches); // 绘制匹配 Mat img_matches; drawMatches(box, kpts_01, box_in_sence, kpts_02, matches, img_matches); imshow("AKAZE-Matches", img_matches); imwrite("D:/result.png", img_matches); waitKey(0); return 0;&#125; 1234567891011121314151617181920212223242526"""AKAZE特征与描述子"""import cv2 as cvbox = cv.imread("images/box.png")box_in_scene = cv.imread("images/box_in_scene.png")# 创建AKAZE特征检测器akaze = cv.AKAZE_create()# 得到特征关键点和描述子kp1, des1 = akaze.detectAndCompute(box, None)kp2, des2 = akaze.detectAndCompute(box_in_scene, None)# 暴力匹配bf = cv.BFMatcher(cv.NORM_HAMMING, crossCheck=True)matchers = bf.match(des1, des2)# 绘制匹配result = cv.drawMatches(box, kp1, box_in_scene, kp2, matchers, None)cv.imshow("orb-match", result)cv.waitKey(0)cv.destroyAllWindows() 结果 代码地址github]]></content>
