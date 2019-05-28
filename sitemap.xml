@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/05/07/keras_binary_classification/</loc>
+    
+    <lastmod>2019-05-28T13:18:46.199Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/05/26/opencv-125/</loc>
     
     <lastmod>2019-05-26T08:32:33.272Z</lastmod>
@@ -306,13 +313,6 @@
     <loc>https://fanfuhan.github.io/2019/04/26/opencv-084/</loc>
     
     <lastmod>2019-05-07T13:42:08.531Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fanfuhan.github.io/2019/05/07/keras_binary_classification/</loc>
-    
-    <lastmod>2019-05-07T10:09:03.406Z</lastmod>
     
   </url>
   
