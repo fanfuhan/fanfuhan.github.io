@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[使用tensorflow利用KNN算法对mnist数据集进行分类]]></title>
+    <url>%2F2019%2F06%2F02%2Fknn-mnist%2F</url>
+    <content type="text"><![CDATA[KNN算法思想总结在训练集中数据和标签已知的情况下，输入测试数据，将测试数据的特征与训练集中对应的特征进行相互比较，找到训练集中与之最为相似的前K个数据，则该测试数据对应的类别就是K个数据中出现次数最多的那个分类，其算法的描述为： 计算测试数据与各个训练数据之间的距离； 按照距离的递增关系进行排序； 选取距离最小的K个点； 确定前K个点所在类别的出现频率； 返回前K个点中出现频率最高的类别作为测试数据的预测分类。 加载mnist数据123456import tensorflow as tfimport numpy as npimport randomfrom tensorflow.examples.tutorials.mnist import input_datamnist = input_data.read_data_sets('data/', one_hot=True) Extracting data/train-images-idx3-ubyte.gz Extracting data/train-labels-idx1-ubyte.gz Extracting data/t10k-images-idx3-ubyte.gz Extracting data/t10k-labels-idx1-ubyte.gz 12print(mnist.train.images.shape)print(mnist.test.images.shape) (55000, 784) (10000, 784) 设置属性12345trainNum = 55000 # 训练图片总数testNum = 10000 # 测试图片总数trainSize = 5000 # 训练的时候使用的图片数量testSize = 5 # 测试的时候使用的图片数量k = 4 # 距离最小的K个图片 数据分解1234567891011121314151617# 生成不重复的随机数 trainIndex = np.random.choice(trainNum,trainSize,replace=False)testIndex = np.random.choice(testNum,testSize,replace=False)# 生成训练数据trainData = mnist.train.images[trainIndex]trainLabel = mnist.train.labels[trainIndex]# 生成测试数据testData = mnist.test.images[testIndex]testLabel = mnist.test.labels[testIndex]print('trainData.shape=', trainData.shape)print('trainLabel.shape=', trainLabel.shape)print('testData.shape=', testData.shape)print('testLabel.shape=', testLabel.shape)print('testLabel=', testLabel) trainData.shape= (5000, 784) trainLabel.shape= (5000, 10) testData.shape= (5, 784) testLabel.shape= (5, 10) testLabel= [[0. 0. 0. 0. 1. 0. 0. 0. 0. 0.] [0. 0. 1. 0. 0. 0. 0. 0. 0. 0.] [0. 1. 0. 0. 0. 0. 0. 0. 0. 0.] [0. 0. 0. 0. 0. 0. 1. 0. 0. 0.] [0. 1. 0. 0. 0. 0. 0. 0. 0. 0.]] 数据训练1 设置变量1234trainDataInput = tf.placeholder(shape=[None,784],dtype=tf.float32)trainLabelInput = tf.placeholder(shape=[None,10],dtype=tf.float32)testDataInput = tf.placeholder(shape=[None,784],dtype=tf.float32)testLabelInput = tf.placeholder(shape=[None,10],dtype=tf.float32) 2 计算KNN距离，使用曼哈顿距离123456789101112131415161718192021# expand_dim()来增加维度f1 = tf.expand_dims(testDataInput,1) # subtract()相减，得到一个三维数据f2 = tf.subtract(trainDataInput,f1)# tf.abs()求数据绝对值# tf.reduce_sum()完成数据累加，把数据放到f3中# f3 保存的是每张测试图片到所有训练的距离f3 = tf.reduce_sum(tf.abs(f2),reduction_indices=2)with tf.Session() as sess: p1 = sess.run(f1,feed_dict=&#123;testDataInput:testData[0:5]&#125;) print('p1=',p1.shape) p2 = sess.run(f2,feed_dict=&#123;trainDataInput:trainData,testDataInput:testData[0:5]&#125;) print('p2=',p2.shape) p3 = sess.run(f3,feed_dict=&#123;trainDataInput:trainData,testDataInput:testData[0:5]&#125;) print('p3=',p3.shape) print('p3[0,0]=',p3[0,0]) p1= (5, 1, 784) p2= (5, 5000, 784) p3= (5, 5000) p3[0,0]= 107.035324 3 选取距离最小的K个图片12345678910111213141516171819# tf.negative(x,name=None)，取负运算（f4 ＝－f3）f4 = tf.negative(f3)# f5，选取f4最大的四个值，即f3最小的四个值# f6，这四个值对应的索引f5,f6 = tf.nn.top_k(f4,k=4) with tf.Session() as sess: p4 = sess.run(f4,feed_dict=&#123;trainDataInput:trainData,testDataInput:testData[0:5]&#125;) print('p4=',p4.shape) print('p4[0,0]=',p4[0,0]) # p5= (5, 4)，每一张测试图片（共5张），分别对应4张最近训练图片，共20张 p5,p6 = sess.run((f5,f6),feed_dict=&#123;trainDataInput:trainData,testDataInput:testData[0:5]&#125;) print('p5=',p5.shape) print('p6=',p6.shape) print('p5',p5) print('p6',p6) p4= (5, 5000) p4[0,0]= -107.035324 p5= (5, 4) p6= (5, 4) p5 [[-58.270588 -63.31764 -66.56078 -66.59606 ] [-50.70195 -59.564705 -60.10588 -60.713737 ] [-10.211766 -13.3529415 -13.843139 -14.133332 ] [-24.886272 -35.011753 -36.38429 -36.733334 ] [ -8.498037 -9.266665 -11.807843 -12.474509 ]] p6 [[3015 3148 3455 3798] [4024 937 4708 4898] [2627 4520 4514 3382] [1312 4535 1769 3221] [2512 4388 2169 2942]] 4 确定K个图片在类型出现的概率123456789101112131415161718192021# 根据索引找到对应的标签值f7 = tf.gather(trainLabelInput,f6)# 累加维度1的数值f8 = tf.reduce_sum(f7,reduction_indices=1)# 返回的是f8中的最大值的索引号f9 = tf.argmax(f8,dimension=1)with tf.Session() as sess: p7 = sess.run(f7,feed_dict=&#123;trainDataInput:trainData,testDataInput:testData[0:5],trainLabelInput:trainLabel&#125;) print('p7=',p7.shape) print('p7[]',p7) p8 = sess.run(f8,feed_dict=&#123;trainDataInput:trainData,testDataInput:testData[0:5],trainLabelInput:trainLabel&#125;) print('p8=',p8.shape) print('p8[]=',p8) p9 = sess.run(f9,feed_dict=&#123;trainDataInput:trainData,testDataInput:testData[0:5],trainLabelInput:trainLabel&#125;) print('p9=',p9.shape) print('p9[]=',p9) p7= (5, 4, 10) p7[] [[[0. 0. 0. 0. 1. 0. 0. 0. 0. 0.] [0. 0. 0. 0. 1. 0. 0. 0. 0. 0.] [0. 0. 0. 0. 1. 0. 0. 0. 0. 0.] [0. 0. 0. 0. 1. 0. 0. 0. 0. 0.]] [[0. 0. 1. 0. 0. 0. 0. 0. 0. 0.] [0. 0. 1. 0. 0. 0. 0. 0. 0. 0.] [0. 0. 1. 0. 0. 0. 0. 0. 0. 0.] [0. 0. 1. 0. 0. 0. 0. 0. 0. 0.]] [[0. 1. 0. 0. 0. 0. 0. 0. 0. 0.] [0. 1. 0. 0. 0. 0. 0. 0. 0. 0.] [0. 1. 0. 0. 0. 0. 0. 0. 0. 0.] [0. 1. 0. 0. 0. 0. 0. 0. 0. 0.]] [[0. 0. 0. 0. 0. 0. 1. 0. 0. 0.] [0. 0. 0. 0. 0. 0. 1. 0. 0. 0.] [0. 0. 0. 0. 0. 0. 1. 0. 0. 0.] [0. 0. 0. 0. 0. 0. 1. 0. 0. 0.]] [[0. 1. 0. 0. 0. 0. 0. 0. 0. 0.] [0. 1. 0. 0. 0. 0. 0. 0. 0. 0.] [0. 1. 0. 0. 0. 0. 0. 0. 0. 0.] [0. 1. 0. 0. 0. 0. 0. 0. 0. 0.]]] p8= (5, 10) p8[]= [[0. 0. 0. 0. 4. 0. 0. 0. 0. 0.] [0. 0. 4. 0. 0. 0. 0. 0. 0. 0.] [0. 4. 0. 0. 0. 0. 0. 0. 0. 0.] [0. 0. 0. 0. 0. 0. 4. 0. 0. 0.] [0. 4. 0. 0. 0. 0. 0. 0. 0. 0.]] p9= (5,) p9[]= [4 2 1 6 1] 5 检验结果123456789101112with tf.Session() as sess: # p9=p10，代表正确 p10 = np.argmax(testLabel[0:5], axis=1) print('p10[]=', p10)count = 0for i in range(0, 5): if p10[i] == p9[i]: count = count+1# 正确率print('ac=', j*100/5) p10[]= [4 2 1 6 1] ac= 100.0]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>tensorflow_knn_mnist</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[训练神经网络的一些注意事项（一）]]></title>
     <url>%2F2019%2F06%2F02%2Fnet_train_attention%2F</url>
     <content type="text"><![CDATA[硬搬网络的问题经典卷积网络的输入一般都是224*224，我们在使用迁移学习的时候，要考虑自己的图片大小，如果我们的图片太小，不能硬搬网络，需要自己利用经典的结构设计适合自己的网络。 总之要遵循这样一个原则： 最后一层特征图的大小一般是7*7左右，最大不会超过9*9，最小不能小于3*3。对于一个网络，最后一个卷积层的输出大小是最重要的。 为什么要进行归一化 特别需要注意的是： 在对图片数据归一化时，直接除以255.0就可以，在对其他数据归一化时，要先对训练集进行归一化，记录下平均值标准差等，然后利用训练集的这些特征对验证集与测试集归一化，切不可对训练集、验证集、测试集分别单独进行归一化，也不可以对所有数据归一化后再划分训练集和验证集，要先划分，再归一化。 sklearn中有相关API，如下： 123456from sklearn.preprocessing import MinMaxScalerscalar = MinMaxScaler()X_train = scalar.fit_transform(X_train)X_valid = scalar.transform(X_valid)X_test = scalar.transform(X_test) 样本不均衡问题如果原始数据各类别样本不均衡，解决方法一般有两个： 使用数据增强，是各类别样本均衡 设置损失权重，让网络更多的关注样本少的类 关于设置损失权重，如果使用keras框架，代码如下： 123456# 利用sklearn计算权重from sklearn.utils import class_weightclass_weight = class_weight.compute_class_weight( "balanced", np.unique(y_train), y_train)model.fit(X, y_train, batch_size, epochs, class_weight=class_weight)]]></content>
@@ -1817,17 +1828,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
-    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>查看linux进程并杀死</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下关于screen命令的使用]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
     <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
@@ -1836,6 +1836,17 @@
       </categories>
       <tags>
         <tag>linux下screen的使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
+    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>查看linux进程并杀死</tag>
       </tags>
   </entry>
   <entry>
