@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/06/09/pytorch_mnist_fc/</loc>
+    
+    <lastmod>2019-06-09T11:14:26.249Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/06/09/pytorch_resnet_cifar10/</loc>
+    
+    <lastmod>2019-06-09T11:13:07.613Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/06/09/pytorch_mnist_cnn/</loc>
+    
+    <lastmod>2019-06-09T11:11:56.710Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/06/03/python-oo/</loc>
     
-    <lastmod>2019-06-05T14:37:41.912Z</lastmod>
+    <lastmod>2019-06-06T08:49:15.317Z</lastmod>
     
   </url>
   
