@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2019/06/11/matplotlib-dynamic_update/</loc>
+    <lastmod>2019-06-11</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/11/matplotlib-animation/</loc>
+    <lastmod>2019-06-11</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/11/matplotlib-secondary_axis/</loc>
+    <lastmod>2019-06-11</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/11/matplotlib-plot_in_plot/</loc>
+    <lastmod>2019-06-11</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/11/matplotlib-grid_subplot/</loc>
+    <lastmod>2019-06-11</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/11/matplotlib-subplot/</loc>
+    <lastmod>2019-06-11</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/11/matplotlib-3d/</loc>
+    <lastmod>2019-06-11</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/10/matplotlib-image/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/10/matplotlib-bar/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/10/matplotlib-scatter/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/10/matplotlib-tick_visibility/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/10/matplotlib-annotation/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/10/matplotlib-legend/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/10/matplotlib-figure/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/10/matplotlib-ax_setting_2/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/10/matplotlib-ax_setting_1/</loc>
+    <lastmod>2019-06-10</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/06/09/pytorch_mnist_fc/</loc>
     <lastmod>2019-06-09</lastmod>
   </url>  <url>

@@ -1,6 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[matplotlib-动态更新显示内容]]></title>
+    <url>%2F2019%2F06%2F11%2Fmatplotlib-dynamic_update%2F</url>
+    <content type="text"><![CDATA[知识点在matplotlib中画图有两种显示模式： （1）阻塞模式，即必须利用plt.show()显示图片，且图片关闭之前代码将阻塞在该行。 （2）交互模式，即plt.plot()后立马显示图片，且不阻塞代码的继续运行。 Matplotlib中默认是使用阻塞模式。用到的matplotlib中的几个函数： 12345plt.ion()：打开交互模式plt.ioff()：关闭交互模式plt.clf()：清除当前的Figure对象plt.cla()：清除当前的Axes对象plt.pause()：暂停功能 代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364import numpy as npimport matplotlibimport matplotlib.pyplot as pltimport matplotlib.font_manager as fmfrom mpl_toolkits.mplot3d import Axes3D# 解决中文乱码问题myfont = fm.FontProperties(fname="simsun.ttc", size=14)matplotlib.rcParams["axes.unicode_minus"] = Falsedef simple_plot(): """ simple plot """ # 生成画布 plt.figure(figsize=(8, 6), dpi=80) # 打开交互模式 plt.ion() # 循环 for index in range(10): # 清除原有图像 plt.cla() # 设定标题等 plt.title("动态曲线图", fontproperties=myfont) # 网格线 plt.grid(True) # 生成测试数据 x = np.linspace(-np.pi + 0.1*index, np.pi+0.1*index, 256, endpoint=True) y_cos, y_sin = np.cos(x), np.sin(x) # 设置X轴 plt.xlabel("X轴", fontproperties=myfont) plt.xlim(-4 + 0.1*index, 4 + 0.1*index) plt.xticks(np.linspace(-4 + 0.1*index, 4+0.1*index, 9, endpoint=True)) # 设置Y轴 plt.ylabel("Y轴", fontproperties=myfont) plt.ylim(-1.0, 1.0) plt.yticks(np.linspace(-1, 1, 9, endpoint=True)) # 画两条曲线 plt.plot(x, y_cos, "b--", linewidth=2.0, label="cos示例") plt.plot(x, y_sin, "g-", linewidth=2.0, label="sin示例") # 设置图例位置,loc可以为[upper, lower, left, right, center] plt.legend(loc="upper left", prop=myfont, shadow=True) # 暂停 plt.pause(0.1) # 关闭交互模式 plt.ioff() # 图形显示 plt.show() returnsimple_plot()]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-animation画动态图]]></title>
+    <url>%2F2019%2F06%2F11%2Fmatplotlib-animation%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码12345678910111213141516171819202122232425262728293031323334import numpy as npfrom matplotlib import pyplot as pltfrom matplotlib import animationfig, ax = plt.subplots()x = np.arange(0, 2*np.pi, 0.01)line, = ax.plot(x, np.sin(x))def animate(i): line.set_ydata(np.sin(x + i / 10.0)) # update the data return line,# Init only required for blitting to give a clean slate.def init(): line.set_ydata(np.sin(x)) return line,# call the animator. blit=True means only re-draw the parts that have changed.# blit=True dose not work on Mac, set blit=False# interval= update frequencyani = animation.FuncAnimation(fig=fig, func=animate, frames=100, init_func=init, interval=20, blit=True)# save the animation as an mp4. This requires ffmpeg or mencoder to be# installed. The extra_args ensure that the x264 codec is used, so that# the video can be embedded in html5. You may need to adjust this for# your system: for more information, see# http://matplotlib.sourceforge.net/api/animation_api.html# anim.save('basic_animation.mp4', fps=30, extra_args=['-vcodec', 'libx264'])plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-次坐标轴]]></title>
+    <url>%2F2019%2F06%2F11%2Fmatplotlib-secondary_axis%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码123456789101112131415161718import matplotlib.pyplot as pltimport numpy as npx = np.arange(0, 10, 0.1)y1 = 0.05 * x**2y2 = -2 *y1fig, ax1 = plt.subplots()ax2 = ax1.twinx() # mirror the ax1ax1.plot(x, y1, 'g-')ax2.plot(x, y2, 'b-')ax1.set_xlabel('X data')ax1.set_ylabel('Y1 data', color='g')ax2.set_ylabel('Y2 data', color='b')plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-图中图]]></title>
+    <url>%2F2019%2F06%2F11%2Fmatplotlib-plot_in_plot%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码123456789101112131415161718192021222324252627282930import matplotlib.pyplot as pltfig = plt.figure()x = [1, 2, 3, 4, 5, 6, 7]y = [1, 3, 4, 2, 5, 8, 6]# below are all percentageleft, bottom, width, height = 0.1, 0.1, 0.8, 0.8ax1 = fig.add_axes([left, bottom, width, height]) # main axesax1.plot(x, y, 'r')ax1.set_xlabel('x')ax1.set_ylabel('y')ax1.set_title('title')ax2 = fig.add_axes([0.2, 0.6, 0.25, 0.25]) # inside axesax2.plot(y, x, 'b')ax2.set_xlabel('x')ax2.set_ylabel('y')ax2.set_title('title inside 1')# different method to add axes####################################plt.axes([0.6, 0.2, 0.25, 0.25])plt.plot(y[::-1], x, 'g')plt.xlabel('x')plt.ylabel('y')plt.title('title inside 2')plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-subplot分格显示]]></title>
+    <url>%2F2019%2F06%2F11%2Fmatplotlib-grid_subplot%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码1234567891011121314151617181920212223242526272829303132333435363738import matplotlib.pyplot as pltimport matplotlib.gridspec as gridspec# method 1: subplot2grid##########################plt.figure()plt.subplots_adjust(wspace = 0.4, hspace = 0.4) #调整子图间距ax1 = plt.subplot2grid((3, 3), (0, 0), colspan=3) # stands for axesax1.plot([1, 2], [1, 2])ax1.set_title('ax1_title')ax2 = plt.subplot2grid((3, 3), (1, 0), colspan=2)ax3 = plt.subplot2grid((3, 3), (1, 2), rowspan=2)ax4 = plt.subplot2grid((3, 3), (2, 0))ax4.scatter([1, 2], [2, 2])ax4.set_xlabel('ax4_x')ax4.set_ylabel('ax4_y')ax5 = plt.subplot2grid((3, 3), (2, 1))# method 2: gridspec#########################plt.figure()plt.subplots_adjust(wspace = 0.4, hspace = 0.4) #调整子图间距gs = gridspec.GridSpec(3, 3)# use index from 0ax6 = plt.subplot(gs[0, :])ax7 = plt.subplot(gs[1, :2])ax8 = plt.subplot(gs[1:, 2])ax9 = plt.subplot(gs[-1, 0])ax10 = plt.subplot(gs[-1, -2])# method 3: easy to define structure####################################f, ((ax11, ax12), (ax13, ax14)) = plt.subplots(2, 2, sharex=True, sharey=True)ax11.scatter([1,2], [1,2])plt.subplots_adjust(wspace = 1, hspace = 0.4) #调整子图间距plt.tight_layout()plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-subplot多合一显示]]></title>
+    <url>%2F2019%2F06%2F11%2Fmatplotlib-subplot%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码12345678910111213141516171819202122232425262728293031323334353637383940414243import matplotlib.pyplot as plt# example 1:###############################plt.figure(figsize=(6, 4))# plt.subplot(n_rows, n_cols, plot_num)plt.subplot(2, 2, 1)plt.plot([0, 1], [0, 1])plt.subplot(222)plt.plot([0, 1], [0, 2])plt.subplot(223)plt.plot([0, 1], [0, 3])plt.subplot(224)plt.plot([0, 1], [0, 4])plt.tight_layout()# example 2:###############################plt.figure(figsize=(6, 4))# plt.subplot(n_rows, n_cols, plot_num)plt.subplot(2, 1, 1)# figure splits into 2 rows, 1 col, plot to the 1st sub-figplt.plot([0, 1], [0, 1])plt.subplot(234)# figure splits into 2 rows, 3 col, plot to the 4th sub-figplt.plot([0, 1], [0, 2])plt.subplot(235)# figure splits into 2 rows, 3 col, plot to the 5th sub-figplt.plot([0, 1], [0, 3])plt.subplot(236)# figure splits into 2 rows, 3 col, plot to the 6th sub-figplt.plot([0, 1], [0, 4])plt.tight_layout()plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-3D显示]]></title>
+    <url>%2F2019%2F06%2F11%2Fmatplotlib-3d%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849import numpy as npimport matplotlib.pyplot as pltfrom mpl_toolkits.mplot3d import Axes3Dfig = plt.figure()ax = Axes3D(fig)# X, Y valueX = np.arange(-4, 4, 0.25)Y = np.arange(-4, 4, 0.25)X, Y = np.meshgrid(X, Y)R = np.sqrt(X ** 2 + Y ** 2)# height valueZ = np.sin(R)ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=plt.get_cmap('rainbow'))"""============= ================================================ Argument Description ============= ================================================ *X*, *Y*, *Z* Data values as 2D arrays *rstride* Array row stride (step size), defaults to 10 *cstride* Array column stride (step size), defaults to 10 *color* Color of the surface patches *cmap* A colormap for the surface patches. *facecolors* Face colors for the individual patches *norm* An instance of Normalize to map values to colors *vmin* Minimum value to map *vmax* Maximum value to map *shade* Whether to shade the facecolors ============= ================================================"""# I think this is different from plt12_contoursax.contourf(X, Y, Z, zdir='z', offset=-2, cmap=plt.get_cmap('rainbow'))"""========== ================================================ Argument Description ========== ================================================ *X*, *Y*, Data values as numpy.arrays *Z* *zdir* The direction to use: x, y or z (default) *offset* If specified plot a projection of the filled contour on this position in plane normal to zdir ========== ================================================"""ax.set_zlim(-2, 2)plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-图像]]></title>
+    <url>%2F2019%2F06%2F10%2Fmatplotlib-image%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码1234567891011121314151617181920import matplotlib.pyplot as pltimport numpy as np# image dataa = np.array([0.313660827978, 0.365348418405, 0.423733120134, 0.365348418405, 0.439599930621, 0.525083754405, 0.423733120134, 0.525083754405, 0.651536351379]).reshape(3,3)"""for the value of "interpolation", check this:http://matplotlib.org/examples/images_contours_and_fields/interpolation_methods.htmlfor the value of "origin"= ['upper', 'lower'], check this:http://matplotlib.org/examples/pylab_examples/image_origin.html"""plt.imshow(a, interpolation='nearest', cmap='bone', origin='upper')plt.colorbar(shrink=.9)plt.xticks(())plt.yticks(())plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-柱状图]]></title>
+    <url>%2F2019%2F06%2F10%2Fmatplotlib-bar%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码123456789101112131415161718192021222324252627import matplotlib.pyplot as pltimport numpy as npn = 12X = np.arange(n)Y1 = (1 - X / float(n)) * np.random.uniform(0.5, 1.0, n)Y2 = (1 - X / float(n)) * np.random.uniform(0.5, 1.0, n)plt.bar(X, +Y1, facecolor='#9999ff', edgecolor='white')plt.bar(X, -Y2, facecolor='#ff9999', edgecolor='white')for x, y in zip(X, Y1): # ha: horizontal alignment # va: vertical alignment plt.text(x, y + 0.05, '%.2f' % y, ha='center', va='bottom')for x, y in zip(X, Y2): # ha: horizontal alignment # va: vertical alignment plt.text(x, -y - 0.05, '-%.2f' % y, ha='center', va='top')plt.xlim(-.5, n)plt.xticks(())plt.ylim(-1.25, 1.25)plt.yticks(())plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-散点图]]></title>
+    <url>%2F2019%2F06%2F10%2Fmatplotlib-scatter%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码12345678910111213141516import matplotlib.pyplot as pltimport numpy as npn = 1024 # data sizeX = np.random.normal(0, 1, n)Y = np.random.normal(0, 1, n)T = np.arctan2(Y, X) # for color later onplt.scatter(X, Y, s=75, c=T, alpha=.5)plt.xlim(-1.5, 1.5)plt.xticks(()) # ignore xticksplt.ylim(-1.5, 1.5)plt.yticks(()) # ignore yticksplt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-tick能见度]]></title>
+    <url>%2F2019%2F06%2F10%2Fmatplotlib-tick_visibility%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码123456789101112131415161718192021222324import matplotlib.pyplot as pltimport numpy as npx = np.linspace(-3, 3, 50)y = 0.1*xplt.figure()plt.plot(x, y, linewidth=10, zorder=1) # set zorder for ordering the plot in plt 2.0.2 or higherplt.ylim(-2, 2)ax = plt.gca()ax.spines['right'].set_color('none')ax.spines['top'].set_color('none')ax.spines['top'].set_color('none')ax.xaxis.set_ticks_position('bottom')ax.spines['bottom'].set_position(('data', 0))ax.yaxis.set_ticks_position('left')ax.spines['left'].set_position(('data', 0))for label in ax.get_xticklabels() + ax.get_yticklabels(): label.set_fontsize(12) # set zorder for ordering the plot in plt 2.0.2 or higher label.set_bbox(dict(facecolor='white', edgecolor='none', alpha=0.8, zorder=2))plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-对图像进行标注]]></title>
+    <url>%2F2019%2F06%2F10%2Fmatplotlib-annotation%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码1234567891011121314151617181920212223242526272829303132333435import matplotlib.pyplot as pltimport numpy as npx = np.linspace(-3, 3, 50)y = 2*x + 1plt.figure(num=1, figsize=(8, 5),)plt.plot(x, y,)ax = plt.gca()ax.spines['right'].set_color('none')ax.spines['top'].set_color('none')ax.spines['top'].set_color('none')ax.xaxis.set_ticks_position('bottom')ax.spines['bottom'].set_position(('data', 0))ax.yaxis.set_ticks_position('left')ax.spines['left'].set_position(('data', 0))x0 = 1y0 = 2*x0 + 1plt.plot([x0, x0,], [0, y0,], 'k--', linewidth=2.5)plt.scatter([x0, ], [y0, ], s=50, color='b')# method 1:#####################plt.annotate(r'$2x+1=%s$' % y0, xy=(x0, y0), xycoords='data', xytext=(+30, -30), textcoords='offset points', fontsize=16, arrowprops=dict(arrowstyle='-&gt;', connectionstyle="arc3,rad=.2"))# method 2:########################plt.text(-3.7, 3, r'$This\ is\ the\ some\ text. \mu\ \sigma_i\ \alpha_t$', fontdict=&#123;'size': 16, 'color': 'r'&#125;)plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-图例]]></title>
+    <url>%2F2019%2F06%2F10%2Fmatplotlib-legend%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码12345678910111213141516171819202122232425262728293031323334import matplotlib.pyplot as pltimport numpy as npx = np.linspace(-3, 3, 50)y1 = 2*x + 1y2 = x**2plt.figure()l1, = plt.plot(x, y1, label='linear line')l2, = plt.plot(x, y2, color='red', linewidth=1.0, linestyle='--', label='square line')plt.legend(loc='best')# plt.legend(handles=[l1, l2], labels=['up', 'down'], loc='best')# the "," is very important in here l1, = plt... and l2, = plt... for this step"""legend( handles=(line1, line2, line3), labels=('label1', 'label2', 'label3'), 'upper right') The *loc* location codes are:: 'best' : 0, (currently not supported for figure legends) 'upper right' : 1, 'upper left' : 2, 'lower left' : 3, 'lower right' : 4, 'right' : 5, 'center left' : 6, 'center right' : 7, 'lower center' : 8, 'upper center' : 9, 'center' : 10,"""plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-设置坐标轴2]]></title>
+    <url>%2F2019%2F06%2F10%2Fmatplotlib-ax_setting_2%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码12345678910111213141516171819202122232425262728import matplotlib.pyplot as pltimport numpy as npx = np.linspace(-3, 3, 50)y1 = 2*x + 1y2 = x**2plt.figure()plt.plot(x, y2)# plot the second curve in this figure with certain parametersplt.plot(x, y1, color='red', linewidth=1.0, linestyle='--')# set x limitsplt.xlim((-1, 2))plt.ylim((-2, 3))# gca = 'get current axis'ax = plt.gca()# 取消右边框和上边框ax.spines['right'].set_color('none')ax.spines['top'].set_color('none')# 设置x,y轴ax.xaxis.set_ticks_position('bottom')ax.yaxis.set_ticks_position('left')# 移动x,y轴ax.spines['bottom'].set_position(('data', 0))ax.spines['left'].set_position(('data',0))plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-设置坐标轴1]]></title>
+    <url>%2F2019%2F06%2F10%2Fmatplotlib-ax_setting_1%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码12345678910111213141516171819202122232425262728import matplotlib.pyplot as pltimport numpy as npx = np.linspace(-3, 3, 50)y1 = 2*x + 1y2 = x**2plt.figure()plt.plot(x, y2)# plot the second curve in this figure with certain parametersplt.plot(x, y1, color='red', linewidth=1.0, linestyle='--')# 设置坐标轴范围plt.xlim((-1, 2))plt.ylim((-2, 3))# 设置坐标轴名称plt.xlabel('I am x')plt.ylabel('I am y')# 设置坐标轴间隔new_ticks = np.linspace(-1, 2, 5)plt.xticks(new_ticks)# use '$ $' for math text and nice looking, e.g. '$\pi$'plt.yticks([-2, -1.8, -1, 1.22, 3], [r'$really\ bad$', r'$bad$', r'$normal$', r'$good$', r'$really\ good$'])plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[matplotlib-figure的使用]]></title>
+    <url>%2F2019%2F06%2F10%2Fmatplotlib-figure%2F</url>
+    <content type="text"><![CDATA[详情请看莫烦老师教程莫烦python 代码12345678910111213141516import matplotlib.pyplot as pltimport numpy as npx = np.linspace(-3, 3, 50)y1 = 2 * x + 1y2 = x ** 2plt.figure()plt.plot(x, y1)plt.figure(num=3, figsize=(8, 5))plt.plot(x, y2)# plot the second curve in this figure with certain parametersplt.plot(x, y1, color='red', linewidth=1.0, linestyle='--')plt.show() 结果]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[pytorch搭建ResNet识别CIFAR10数据集]]></title>
     <url>%2F2019%2F06%2F09%2Fpytorch_resnet_cifar10%2F</url>
     <content type="text"><![CDATA[导包123456789import osimport torch import torchvisionimport torch.nn as nnimport numpy as npimport torchvision.transforms as transformsimport matplotlib.pyplot as pltfrom tensorboardX import SummaryWriterfrom torchviz import make_dot 定义参数123456789# Device configurationos.environ["CUDA_VISIBLE_DEVICES"] = "9"device = torch.device('cuda:9' if torch.cuda.is_available() else 'cpu')# Hyper parametersnum_epochs = 80num_classes = 10batch_size = 100learning_rate = 0.001 图片预处理12345transform = transforms.Compose([ transforms.Pad(4), transforms.RandomHorizontalFlip(), transforms.RandomCrop(32), transforms.ToTensor()]) 导入CIFAR10数据集，定义数据加载器123456789101112131415161718# CIFAR-10 datasettrain_dataset = torchvision.datasets.CIFAR10(root='data/cifar10/', train=True, transform=transform, download=False)test_dataset = torchvision.datasets.CIFAR10(root='data/cifar10/', train=False, transform=transforms.ToTensor())# Data loadertrain_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False) 定义网络12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879# 3x3 convolutiondef conv3x3(in_channels, out_channels, stride=1): return nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=stride, padding=1, bias=False)# Residual blockclass ResidualBlock(nn.Module): def __init__(self, in_channels, out_channels, stride=1, downsample=None): super(ResidualBlock, self).__init__() self.conv1 = conv3x3(in_channels, out_channels, stride) self.bn1 = nn.BatchNorm2d(out_channels) self.relu = nn.ReLU(inplace=True) self.conv2 = conv3x3(out_channels, out_channels) self.bn2 = nn.BatchNorm2d(out_channels) self.downsample = downsample def forward(self, x): residual = x out = self.conv1(x) out = self.bn1(out) out = self.relu(out) out = self.conv2(out) out = self.bn2(out) if self.downsample: residual = self.downsample(x) out += residual out = self.relu(out) return out# ResNetclass ResNet(nn.Module): def __init__(self, block, layers, num_classes=10): super(ResNet, self).__init__() self.in_channels = 16 self.conv = conv3x3(3, 16) self.bn = nn.BatchNorm2d(16) self.relu = nn.ReLU(inplace=True) self.layer1 = self.make_layer(block, 16, layers[0]) self.layer2 = self.make_layer(block, 32, layers[1], 2) self.layer3 = self.make_layer(block, 64, layers[2], 2) self.avg_pool = nn.AvgPool2d(8) self.fc = nn.Linear(64, num_classes) def make_layer(self, block, out_channels, blocks, stride=1): downsample = None if (stride != 1) or (self.in_channels != out_channels): downsample = nn.Sequential( conv3x3(self.in_channels, out_channels, stride=stride), nn.BatchNorm2d(out_channels)) layers = [] layers.append(block(self.in_channels, out_channels, stride, downsample)) self.in_channels = out_channels for i in range(1, blocks): layers.append(block(out_channels, out_channels)) return nn.Sequential(*layers) def forward(self, x): out = self.conv(x) out = self.bn(out) out = self.relu(out) out = self.layer1(out) out = self.layer2(out) out = self.layer3(out) out = self.avg_pool(out) out = out.view(out.size(0), -1) out = self.fc(out) return out model = ResNet(ResidualBlock, [2, 2, 2]).to(device)# 使用tensorboard可视化网络# writer = SummaryWriter(logdir="logs/",comment="myresnet")# with writer:# writer.add_graph(model,input_to_model=torch.rand(20,3,32,32))# 使用pytorchviz可视化网络# x = torch.rand(20,3,32,32)# y = model(x)# make_dot(y,params=dict(model.named_parameters())) 定义损失函数和优化器12criterion = nn.CrossEntropyLoss()optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate) 更新学习率123def update_lr(optimizer, lr): for param_group in optimizer.param_groups: param_group['lr'] = lr 训练模型123456789101112131415161718192021222324total_step = len(train_loader)curr_lr = learning_ratefor epoch in range(num_epochs): for i, (images, labels) in enumerate(train_loader): images = images.to(device) labels = labels.to(device) # Forward pass outputs = model(images) loss = criterion(outputs, labels) # Backward and optimize optimizer.zero_grad() loss.backward() optimizer.step() if (i+1) % 100 == 0: print ("Epoch [&#123;&#125;/&#123;&#125;], Step [&#123;&#125;/&#123;&#125;] Loss: &#123;:.4f&#125;" .format(epoch+1, num_epochs, i+1, total_step, loss.item())) # Decay learning rate if (epoch+1) % 20 == 0: curr_lr /= 3 update_lr(optimizer, curr_lr) 测试模型1234567891011121314151617model.eval()with torch.no_grad(): correct = 0 total = 0 for images, labels in test_loader: images = images.to(device) labels = labels.to(device) outputs = model(images) _, predicted = torch.max(outputs.data, 1) total += labels.size(0) correct += (predicted == labels).sum().item() print('Accuracy of the model on the test images: &#123;&#125; %'. format(100 * correct / total))# Save the model checkpoint# torch.save(model.state_dict(), 'resnet.ckpt')]]></content>
@@ -1827,18 +2003,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -1848,6 +2012,18 @@
       <tags>
         <tag>opencv</tag>
         <tag>VS2017</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>opencv</tag>
       </tags>
   </entry>
   <entry>
@@ -1898,17 +2074,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下关于screen命令的使用]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
-    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux下screen的使用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
     <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
@@ -1917,6 +2082,17 @@
       </categories>
       <tags>
         <tag>查看linux进程并杀死</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下关于screen命令的使用]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
+    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux下screen的使用</tag>
       </tags>
   </entry>
   <entry>

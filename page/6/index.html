@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/10/opencv-095/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/23/opencv-111/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/10/opencv-095/" itemprop="url">opencv-095-ORB之BRIEF特征描述子匹配</a></h1>
+                <a class="post-title-link" href="/2019/05/23/opencv-111/" itemprop="url">opencv-111-KMeans图像分割</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T10:24:18+08:00">
-                2019-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-23T15:27:47+08:00">
+                2019-05-23
               </time>
             
 
@@ -386,11 +386,11 @@
       
         
           
-          知识点得到特征点数据之后，根据BRIEF算法就可以建立描述子。选择候选特征点周围SxS大小的像素块、随机选择n对像素点。其中P(x)是图像模糊处理之后的像素值，原因在于高斯模糊可以抑制噪声影响、提供特征点稳定性，在实际代码实现中通常用均值滤波替代高斯滤波以便利用积分图方式加速计算获得更好的性能表现。
+          知识点KMean不光可以对数据进行分类，还可以实现对图像分割，什么图像分割，简单的说就要图像的各种像素值，分割为几个指定类别颜色值，这种分割有两个应用，一个可以实现图像主色彩的简单提取，另外针对特定的应用场景可以实现证件照片的背景替换效果，这个方面早期最好的例子就是证件之星上面的背景替换。当然要想实
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/10/opencv-095/#more" rel="contents">
+            <a class="btn" href="/2019/05/23/opencv-111/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -441,7 +441,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/09/opencv-093/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/22/opencv-109/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -460,7 +460,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/09/opencv-093/" itemprop="url">opencv-093-对象检测(LBP特征介绍)</a></h1>
+                <a class="post-title-link" href="/2019/05/22/opencv-109/" itemprop="url">opencv-109-BLOB特征分析(simpleblobdetector使用)</a></h1>
         
 
         <div class="post-meta">
@@ -472,8 +472,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T10:55:21+08:00">
-                2019-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T21:23:39+08:00">
+                2019-05-22
               </time>
             
 
@@ -534,11 +534,11 @@
       
         
           
-          知识点局部二值模式(Local Binary Pattern)主要用来实现2D图像纹理分析。其基本思想是用每个像素跟它周围的像素相比较得到局部图像结构，假设中心像素值大于相邻像素值则则相邻像素点赋值为1，否则赋值为0，最终对每个像素点都会得到一个二进制八位的表示，比如11100111。假设3x3的窗
+          知识点BLOB是图像中灰度块的一种专业称呼，更加变通一点的可以说它跟我们前面二值图像分析的联通组件类似，通过特征提取中的SimpleBlobDetector可以实现常见的各种灰度BLOB对象组件检测与分离。使用该检测器的时候，可以根据需要输入不同参数，得到的结果跟输入的参数息息相关。常见的BLOB分
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/09/opencv-093/#more" rel="contents">
+            <a class="btn" href="/2019/05/22/opencv-109/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -589,7 +589,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/09/opencv-092/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/22/opencv-108/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -608,7 +608,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/09/opencv-092/" itemprop="url">opencv-092-对象检测(HAAR特征介绍)</a></h1>
+                <a class="post-title-link" href="/2019/05/22/opencv-108/" itemprop="url">opencv-108-特征提取之关键点检测(GFTTDetector)</a></h1>
         
 
         <div class="post-meta">
@@ -620,8 +620,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T10:55:21+08:00">
-                2019-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T21:23:39+08:00">
+                2019-05-22
               </time>
             
 
@@ -682,20 +682,12 @@
       
         
           
-          知识点HAAR小波基函数，因为其满足对称性，对人脸这种生物对称性良好的对象特别适合用来做检测器，常见的Haar特征分为三类：
-
-边缘特征
-
-线性特征
-
-中心特征和对角线特征
-
-
-不同特征可以进行多种组合，生成更加复杂的级联特征，特征模板内有白色和黑色两种矩形，并定义该模板的特征值为白色矩形像素和减去
+          知识点该方法是基于shi-tomas角点检测变化而来的一种特征提取方法，OpenCV创建该检测器的API与goodfeaturetotrack的API参数极其类似：
+1234567891011Ptr&lt;GFTTDetector&gt; cv::GFTTDetector::create(int m
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/09/opencv-092/#more" rel="contents">
+            <a class="btn" href="/2019/05/22/opencv-108/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -746,7 +738,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/09/opencv-091/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/22/opencv-110/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -765,7 +757,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/09/opencv-091/" itemprop="url">opencv-091-对象检测(HAAR级联检测器使用)</a></h1>
+                <a class="post-title-link" href="/2019/05/22/opencv-110/" itemprop="url">opencv-110-KMeans进行数据分类</a></h1>
         
 
         <div class="post-meta">
@@ -777,8 +769,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T10:55:21+08:00">
-                2019-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T21:23:39+08:00">
+                2019-05-22
               </time>
             
 
@@ -839,13 +831,11 @@
       
         
           
-          知识点HAAR级联检测器，OpenCV中的HAAR级联检测器支持人脸检测、微笑、眼睛与嘴巴检测等，通过加载这些预先训练的HAAR模型数据可以实现相关的对象检测。
-API
-1234567891011121314151617void cv::CascadeClassifier::detectMultiS
+          知识点K-Means算法的作者是MacQueen， K-Means的算法是对数据进行分类的算法，采用的硬分类方式，是属于非监督学习的算法，预先要求知道分为几个类别，然后每个类别有一个中心点，根据距离度量来决定每个数据点属于哪个类别标签，一次循环实现对所有数据点分类之后，会根据标签重新计算各个类型的中
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/09/opencv-091/#more" rel="contents">
+            <a class="btn" href="/2019/05/22/opencv-110/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -896,7 +886,7 @@ API
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/09/opencv-094/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/21/opencv-106/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -915,7 +905,7 @@ API
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/09/opencv-094/" itemprop="url">opencv-094-ORB之FAST特征关键点检测</a></h1>
+                <a class="post-title-link" href="/2019/05/21/opencv-106/" itemprop="url">opencv-106-AKAZE特征与描述子</a></h1>
         
 
         <div class="post-meta">
@@ -927,8 +917,8 @@ API
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T10:55:21+08:00">
-                2019-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T22:54:32+08:00">
+                2019-05-21
               </time>
             
 
@@ -989,11 +979,12 @@ API
       
         
           
-          知识点ORB - (Oriented Fast and Rotated BRIEF)算法是基于FAST特征检测与BRIEF特征描述子匹配实现，相比BRIEF算法中依靠随机方式获取而值点对，ORB通过FAST方法，FAST方式寻找候选特征点方式是假设灰度图像像素点A周围的像素存在连续大于或者小于A的灰
+          知识点AKAZE特征提取算法是局部特征描述子算法，可以看成是SIFT算法的改进、采用非线性扩散滤波迭代来提取与构建尺度空间、采用与SIFT类似的方法寻找特征点、在描述子生成阶段采用ORB类似的方法生成描述子，但是描述子比ORB多了旋转不变性特征。ORB采用LDB方法，AKAZE采用 M-LDB。
+代
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/09/opencv-094/#more" rel="contents">
+            <a class="btn" href="/2019/05/21/opencv-106/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1044,7 +1035,7 @@ API
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/08/opencv-089/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/21/opencv-107/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1063,7 +1054,7 @@ API
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/08/opencv-089/" itemprop="url">opencv-089-视频分析(基于连续自适应均值迁移（CAM）的对象移动分析)</a></h1>
+                <a class="post-title-link" href="/2019/05/21/opencv-107/" itemprop="url">opencv-107-Brisk特征提取与描述子匹配</a></h1>
         
 
         <div class="post-meta">
@@ -1075,8 +1066,8 @@ API
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T13:48:26+08:00">
-                2019-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T22:54:31+08:00">
+                2019-05-21
               </time>
             
 
@@ -1137,17 +1128,16 @@ API
       
         
           
-          知识点CAM是连续自适应的均值迁移跟踪算法，它跟均值迁移相比较有两个改进
+          知识点BRISK(Binary robust invariant scalable keypoints)是一种基于尺度空间不变性类似ORB特征描述子的特征提取算法。BRISK主要步骤可以分为如下两步：
 
-会根据跟踪对象大小变化自动调整搜索窗口大小
-返回位置信息更加完整，包含了位置与角度信息
+构建尺度空间金字塔实现关键点定位
+根据关键点生成描述子
 
-API
-12345678RotatedRect cv::CamShift(	InputArray probImage,	Rect &a
+代码（c++,python）12345
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/08/opencv-089/#more" rel="contents">
+            <a class="btn" href="/2019/05/21/opencv-107/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1198,7 +1188,7 @@ API
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/08/opencv-088/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/21/opencv-105/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1217,7 +1207,7 @@ API
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/08/opencv-088/" itemprop="url">opencv-088-视频分析(基于均值迁移的对象移动分析)</a></h1>
+                <a class="post-title-link" href="/2019/05/21/opencv-105/" itemprop="url">opencv-105-使用HOG进行对象检测</a></h1>
         
 
         <div class="post-meta">
@@ -1229,8 +1219,8 @@ API
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T13:48:26+08:00">
-                2019-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T22:54:31+08:00">
+                2019-05-21
               </time>
             
 
@@ -1291,16 +1281,11 @@ API
       
         
           
-          知识点均值迁移移动对象分析，主要是基于直方图分布与反向投影实现移动对象的轨迹跟踪，其核心的思想是对反向投影之后的图像做均值迁移（meanshift）从而发现密度最高的区域，也是对象分布最大的域。完整的算法流程如下：
-
-读取图像一帧
-HSV直方图
-反向投影该帧
-使用means shift寻找最大分布密
+          知识点对于已经训练好的HOG+SVM的模型，我们可以通过开窗实现对象检测，从而完成自定义对象检测。以电表检测为例，这样我们就实现HOG+SVM对象检测全流程。OpenCV中实现对每个窗口像素块预测，需要首先加载SVM模型文件，然后使用predict方法实现预测。这种方法的缺点就是开窗检测是从左到右、
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/08/opencv-088/#more" rel="contents">
+            <a class="btn" href="/2019/05/21/opencv-105/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1351,7 +1336,7 @@ HSV直方图
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/08/opencv-087/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/21/opencv-103/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1370,7 +1355,7 @@ HSV直方图
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/08/opencv-087/" itemprop="url">opencv-087-视频分析(基于帧差法实现移动对象分析)</a></h1>
+                <a class="post-title-link" href="/2019/05/21/opencv-103/" itemprop="url">opencv-103-HOG特征描述子之使用描述子特征生成样本数据</a></h1>
         
 
         <div class="post-meta">
@@ -1382,8 +1367,8 @@ HSV直方图
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T13:48:26+08:00">
-                2019-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T15:17:36+08:00">
+                2019-05-21
               </time>
             
 
@@ -1444,16 +1429,11 @@ HSV直方图
       
         
           
-          知识点光流跟踪与背景消除都是基于建模方式的视频分析方法，其实这类方法最原始的一个例子就是对视频移动对象的帧差法跟踪，这个在视频分析与处理中也是一种很常见的手段，有时候会取得意想不到的好效果，帧差法进一步划分有可以分为：
-
-两帧差
-三帧差
-
-假设有当前帧frame， 前一帧prev1，更前一帧prev
+          知识点对于HOG特征，我们可以通过预先训练的特征数据，进行多尺度的对象检测，OpenCV中基于HOG的行人检测是一个典型案例，同时我们还可以实现自定义对象的检测，这种自定义对象检测，可以分为两个部分，第一部分：通过提取样本的HOG描述子，生成样本的特征数据，第二部分通过SVM进行分类学习与训练，保存
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/08/opencv-087/#more" rel="contents">
+            <a class="btn" href="/2019/05/21/opencv-103/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1504,7 +1484,7 @@ HSV直方图
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/08/opencv-090/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/21/opencv-104/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1523,7 +1503,7 @@ HSV直方图
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/08/opencv-090/" itemprop="url">opencv-090-视频分析(对象移动轨迹绘制)</a></h1>
+                <a class="post-title-link" href="/2019/05/21/opencv-104/" itemprop="url">opencv-104-HOG-SVM分类训练</a></h1>
         
 
         <div class="post-meta">
@@ -1535,8 +1515,8 @@ HSV直方图
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T13:48:26+08:00">
-                2019-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T15:17:36+08:00">
+                2019-05-21
               </time>
             
 
@@ -1597,17 +1577,11 @@ HSV直方图
       
         
           
-          知识点移动对象分析，我们可以绘制对象运行轨迹曲线，这个主要是根据移动对象窗口轮廓，获取中心位置，然后使用中心位置进行绘制即可得到。大致的程序步骤如下：
-
-初始化路径点数组
-对每帧的预测轮廓提取中心位置添加到路径数组
-绘制路径曲线
-
-代码（c++,python）12345678910111213141
+          知识点对于得到的结构化HOG特征数据，我们就可以通过初始化SVM进行回归分类训练，这里采用的训练器是SVM线性分类器，SVM还有另外一个分类器就是对于线性不可分数据的径向分类器。OpenCV中使用径向分类器SVM有时候会训练很长时间，而且结果很糟糕，甚至会报一些莫名其妙的错误，感觉不是特别好。所以推
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/08/opencv-090/#more" rel="contents">
+            <a class="btn" href="/2019/05/21/opencv-104/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1658,7 +1632,7 @@ HSV直方图
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/07/keras_binary_classification/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/21/opencv-102/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1677,7 +1651,7 @@ HSV直方图
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/07/keras_binary_classification/" itemprop="url">keras使用迁移学习实现二分类问题</a></h1>
+                <a class="post-title-link" href="/2019/05/21/opencv-102/" itemprop="url">opencv-102-HOG特征描述子之提取描述子</a></h1>
         
 
         <div class="post-meta">
@@ -1689,8 +1663,8 @@ HSV直方图
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-07T16:32:08+08:00">
-                2019-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T15:17:35+08:00">
+                2019-05-21
               </time>
             
 
@@ -1712,8 +1686,8 @@ HSV直方图
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML-DL/" itemprop="url" rel="index">
-                    <span itemprop="name">ML/DL</span>
+                  <a href="/categories/opencv/" itemprop="url" rel="index">
+                    <span itemprop="name">opencv</span>
                   </a>
                 </span>
 
@@ -1751,18 +1725,11 @@ HSV直方图
       
         
           
-          问题描述要解决的是一个医学图像的二分类问题，有AK和SK两种病症，根据一定量数据，进行训练，对图像进行预测。
-给定图片数据的格式：
-
-解决思路整体上采用迁移学习来训练神经网络，使用InceptionV3结构，框架采用keras.
-具体思路：
-
-读取图片数据，保存成.npy格式，方便后续加载
-标签采用
+          知识点对于HOG特征，我们可以通过预先训练的特征数据，进行多尺度的对象检测，OpenCV中基于HOG的行人检测是一个典型案例，同时我们还可以实现自定义对象的检测，这种自定义对象检测，可以分为两个部分，第一部分：通过提取样本的HOG描述子，生成样本的特征数据，第二部分通过SVM进行分类学习与训练，保存
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/07/keras_binary_classification/#more" rel="contents">
+            <a class="btn" href="/2019/05/21/opencv-102/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1804,7 +1771,7 @@ HSV直方图
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1852,7 +1819,7 @@ HSV直方图
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">178</span>
+                  <span class="site-state-item-count">194</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1874,7 +1841,7 @@ HSV直方图
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-count">189</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

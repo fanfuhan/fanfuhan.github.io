@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/30/opencv-019/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/09/opencv-030/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/30/opencv-019/" itemprop="url">opencv-019-图像直方图比较</a></h1>
+                <a class="post-title-link" href="/2019/04/09/opencv-030/" itemprop="url">opencv-030-自定义滤波器</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T09:55:06+08:00">
-                2019-03-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T12:50:37+08:00">
+                2019-04-09
               </time>
             
 
@@ -386,13 +386,12 @@
       
         
           
-          知识点图像直方图比较，就是计算两幅图像的直方图数据，比较两组数据的相似性，从而得到两幅图像之间的相似程度，直方图比较在早期的CBIR(以图搜图)中是应用很常见的技术手段，通常会结合边缘处理、词袋等技术一起使用。APIcompareHist(hist1, hist2, method)常见比较方法有
-
-
+          知识点图像卷积最主要功能有图像模糊、锐化、梯度边缘等，前面已经分享图像卷积模糊的相关知识点，OpenCV除了支持上述的卷积模糊（均值与边缘保留）还支持自定义卷积核，实现自定义的滤波操作。自定义卷积核常见的主要是均值、锐化、梯度等算子。
+下面的三个自定义卷积核分别可以实现卷积的均值模糊、锐化、梯度功能
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/30/opencv-019/#more" rel="contents">
+            <a class="btn" href="/2019/04/09/opencv-030/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -443,7 +442,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/29/opencv-018/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/09/Clion_opencv_undefined_reference_to/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -462,7 +461,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/29/opencv-018/" itemprop="url">opencv-018-图像直方图均衡化</a></h1>
+                <a class="post-title-link" href="/2019/04/09/Clion_opencv_undefined_reference_to/" itemprop="url">解决 Clion-opencv-undefined reference to "XXX" 问题</a></h1>
         
 
         <div class="post-meta">
@@ -474,8 +473,163 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-29T15:37:43+08:00">
-                2019-03-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T11:33:58+08:00">
+                2019-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/环境配置与安装/" itemprop="url" rel="index">
+                    <span itemprop="name">环境配置与安装</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          问题描述在CLion使用opencv4 的一些函数时，出现 “ undefined reference to “ 的问题，如下图：
+
+
+原因查看CMakeLists.txt
+
+opencv官网查看edgePreservingFilter函数
+
+edgePreservingFilter函数需要导入ph
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/09/Clion_opencv_undefined_reference_to/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/08/opencv-029/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fanfan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范范">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/08/opencv-029/" itemprop="url">opencv-029-快速的图像边缘滤波算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-08T22:49:38+08:00">
+                2019-04-08
               </time>
             
 
@@ -536,17 +690,11 @@
       
         
           
-          知识点图像直方图均衡化可以用于图像增强、对输入图像进行直方图均衡化处理，提升后续对象检测的准确率，在OpenCV人脸检测的代码演示中已经很常见。此外对医学影像图像与卫星遥感图像也经常通过直方图均衡化来提升图像质量。
-
-
-
-API
-equalizeHist(src, dst)
-代码（c++,pytho
+          知识点高斯双边模糊与mean shift均值模糊两种边缘保留滤波算法，都因为计算量比较大，无法实时实现图像边缘保留滤波，限制了它们的使用场景，OpenCV中还实现了一种快速的边缘保留滤波算法。高斯双边与mean shift均值在计算时候使用五维向量是其计算量大速度慢的根本原因，该算法通过等价变换到低
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/29/opencv-018/#more" rel="contents">
+            <a class="btn" href="/2019/04/08/opencv-029/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -597,7 +745,7 @@ equalizeHist(src, dst)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/28/opencv-017/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/07/opencv-028/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -616,7 +764,7 @@ equalizeHist(src, dst)
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/28/opencv-017/" itemprop="url">opencv-017-图像直方图</a></h1>
+                <a class="post-title-link" href="/2019/04/07/opencv-028/" itemprop="url">opencv-028-图像积分图算法</a></h1>
         
 
         <div class="post-meta">
@@ -628,8 +776,8 @@ equalizeHist(src, dst)
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T21:54:49+08:00">
-                2019-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T22:38:56+08:00">
+                2019-04-07
               </time>
             
 
@@ -690,16 +838,11 @@ equalizeHist(src, dst)
       
         
           
-          知识点图像直方图的解释图像直方图是图像像素值的统计学特征、计算代价较小，具有图像平移、旋转、缩放不变性等众多优点，广泛地应用于图像处理的各个领域，特别是灰度图像的阈值分割、基于颜色的图像检索以及图像分类、反向投影跟踪。常见的分为
-
-灰度直方图
-颜色直方图
-
-Bins是指直方图的大小范围， 对于像素值
+          知识点积分图像是Crow在1984年首次提出，是为了在多尺度透视投影中提高渲染速度，是一种快速计算图像区域和与平方和的算法。其核心思想是对每个图像建立自己的积分图查找表，在图像积分处理计算阶段根据预先建立的积分图查找表，直接查找从而实现对均值卷积线性时间计算，做到了卷积执行的时间与半径窗口大小的无关
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/28/opencv-017/#more" rel="contents">
+            <a class="btn" href="/2019/04/07/opencv-028/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -750,7 +893,7 @@ Bins是指直方图的大小范围， 对于像素值
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/28/opencv-016/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/07/opencv-027/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -769,7 +912,7 @@ Bins是指直方图的大小范围， 对于像素值
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/28/opencv-016/" itemprop="url">opencv-016-图像ROI与ROI操作</a></h1>
+                <a class="post-title-link" href="/2019/04/07/opencv-027/" itemprop="url">opencv-027-边缘保留滤波算法 – 均值迁移模糊(mean-shift blur)</a></h1>
         
 
         <div class="post-meta">
@@ -781,8 +924,8 @@ Bins是指直方图的大小范围， 对于像素值
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T21:03:07+08:00">
-                2019-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-07T22:08:20+08:00">
+                2019-04-07
               </time>
             
 
@@ -843,20 +986,12 @@ Bins是指直方图的大小范围， 对于像素值
       
         
           
-          知识点图像的ROI(region of interest)是指图像中感兴趣区域、在OpenCV中图像设置图像ROI区域，实现只对ROI区域操作。
-
-矩形ROI区域提取
-矩形ROI区域copy
-不规则ROI区域
-ROI区域mask生成
-像素位 and操作
-提取到ROI区域
-加背景or操作
-add 背景
+          知识点均值迁移模糊是图像边缘保留滤波算法中一种，经常用来在对图像进行分水岭分割之前去噪声，可以大幅度提升分水岭分割的效果。
+均值迁移模糊的主要思想如下：就是在图像进行开窗的时候，同时考虑像素值空间范围分布，只有符合分布的像素点才参与计算，计算得到像素均值与空间位置均值，使用新的均值位置作为窗口中心位
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/28/opencv-016/#more" rel="contents">
+            <a class="btn" href="/2019/04/07/opencv-027/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -907,7 +1042,7 @@ add 背景
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/28/opencv-015/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/06/opencv-026/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -926,7 +1061,7 @@ add 背景
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/28/opencv-015/" itemprop="url">opencv-015-绘制几何形状及随机数的生成</a></h1>
+                <a class="post-title-link" href="/2019/04/06/opencv-026/" itemprop="url">opencv-026-边缘保留滤波算法(EPF)–高斯双边模糊</a></h1>
         
 
         <div class="post-meta">
@@ -938,8 +1073,8 @@ add 背景
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T20:00:24+08:00">
-                2019-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-06T14:21:22+08:00">
+                2019-04-06
               </time>
             
 
@@ -1000,20 +1135,11 @@ add 背景
       
         
           
-          知识点绘制几何形状
-
-绘制直线
-绘制圆
-绘制矩形
-绘制椭圆
-填充几何形状
-
-OpenCV没有专门的填充方法，只是把绘制几何形状时候的线宽thickness参数值设置为负数即表示填充该几何形状或者使用参数CV_FILLED
-随机数方法：RNG 表示OpenCV C++版本中的随机数对象，rng.uni
+          知识点前面我们介绍的图像卷积处理无论是均值还是高斯都是属于模糊卷积，它们都有一个共同的特点就是模糊之后图像的边缘信息不复存在，受到了破坏。我们今天介绍的滤波方法有能力通过卷积处理实现图像模糊的同时对图像边缘不会造成破坏，滤波之后的输出完整的保存了图像整体边缘（轮廓）信息，我们称这类滤波算法为边缘保留
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/28/opencv-015/#more" rel="contents">
+            <a class="btn" href="/2019/04/06/opencv-026/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1064,7 +1190,7 @@ OpenCV没有专门的填充方法，只是把绘制几何形状时候的线宽th
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/27/opencv-014/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/05/tanchishe/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1083,7 +1209,7 @@ OpenCV没有专门的填充方法，只是把绘制几何形状时候的线宽th
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/27/opencv-014/" itemprop="url">opencv-014-使用resize进行图像插值(Image Interpolation)</a></h1>
+                <a class="post-title-link" href="/2019/04/05/tanchishe/" itemprop="url">贪吃蛇小项目(c++实现)</a></h1>
         
 
         <div class="post-meta">
@@ -1095,8 +1221,163 @@ OpenCV没有专门的填充方法，只是把绘制几何形状时候的线宽th
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T20:40:32+08:00">
-                2019-03-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-05T22:06:51+08:00">
+                2019-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          模块结构
+墙模块
+食物模块
+蛇模块
+主程序
+
+代码墙模块(wall.h)
+123456789101112131415161718192021#ifndef TANCHISHE_WALL_H#define TANCHISHE_WALL_H#include &lt;iostream&gt;using n
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/05/tanchishe/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/04/opencv-025/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fanfan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范范">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/opencv-025/" itemprop="url">opencv-025-图像去噪声</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-04T21:33:54+08:00">
+                2019-04-04
               </time>
             
 
@@ -1157,19 +1438,20 @@ OpenCV没有专门的填充方法，只是把绘制几何形状时候的线宽th
       
         
           
-          知识点最常见四种插值算法
+          知识点图像去噪声在OCR、机器人视觉与机器视觉领域应用开发中是重要的图像预处理手段之一，对图像二值化与二值分析很有帮助，OpenCV中常见的图像去噪声的方法有
 
-INTER_NEAREST = 0    #最近邻插值，速度快，没考虑周围像素影响
+均值去噪声
+高斯模糊去噪声
+非局部均值去噪声
+双边滤波去噪声
+形态学去噪声
 
-INTER_LINEAR = 1       #双线性插值
 
-INTER_CUBIC = 2         #双立方插值，高质量
-
-INTER_LANCZOS4 = 4    #高质量
+代码（c++,python）123456789101112
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/27/opencv-014/#more" rel="contents">
+            <a class="btn" href="/2019/04/04/opencv-025/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1220,7 +1502,7 @@ INTER_LANCZOS4 = 4    #高质量
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/27/opencv-013/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/03/DenoiseAutoEncoder/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1239,7 +1521,7 @@ INTER_LANCZOS4 = 4    #高质量
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/27/opencv-013/" itemprop="url">opencv-013-图像翻转(Image Flip)</a></h1>
+                <a class="post-title-link" href="/2019/04/03/DenoiseAutoEncoder/" itemprop="url">降噪自动编码器</a></h1>
         
 
         <div class="post-meta">
@@ -1251,8 +1533,8 @@ INTER_LANCZOS4 = 4    #高质量
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T20:24:50+08:00">
-                2019-03-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T21:46:09+08:00">
+                2019-04-03
               </time>
             
 
@@ -1274,478 +1556,8 @@ INTER_LANCZOS4 = 4    #高质量
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/opencv/" itemprop="url" rel="index">
-                    <span itemprop="name">opencv</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          知识点图像翻转的本质像素映射，OpenCV支持三种图像翻转方式
-
-X轴翻转，flipcode = 0
-Y轴翻转, flipcode = 1
-XY轴翻转, flipcode = -1
-
-相关的APIflip(src, dst, flipcode)
-
-src输入参数
-dst 翻转后图像
-flipcode
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/27/opencv-013/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/26/opencv-012/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="fanfan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范范">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/26/opencv-012/" itemprop="url">opencv-012-视频读写</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-26T21:58:47+08:00">
-                2019-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/opencv/" itemprop="url" rel="index">
-                    <span itemprop="name">opencv</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          知识点VideoCapture 视频文件读取、摄像头读取、视频流读取VideoWriter 视频写出、文件保存、
-
-CAP_PROP_FRAME_HEIGHT   #高度
-CAP_PROP_FRAME_WIDTH     #宽度
-CAP_PROP_FRAME_COUNT    #数量
-CAP_PRO
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/26/opencv-012/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/25/opencv-011/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="fanfan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范范">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/25/opencv-011/" itemprop="url">opencv-011-图像像素归一化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T20:28:12+08:00">
-                2019-03-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/opencv/" itemprop="url" rel="index">
-                    <span itemprop="name">opencv</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          知识点OpenCV中提供了四种归一化的方法
-
-NORM_MINMAX
-NORM_INF
-NORM_L1
-NORM_L2
-
-最常用的就是NORM_MINMAX归一化方法.
-
-四种归一化方法示例
-
-代码（c++,python）123456789101112131415161718192021222324
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/25/opencv-011/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/25/opencv-010/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="fanfan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范范">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/25/opencv-010/" itemprop="url">opencv-010-图像像素值统计及应用（普通图像转化为二值图像）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T17:15:13+08:00">
-                2019-03-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/opencv/" itemprop="url" rel="index">
-                    <span itemprop="name">opencv</span>
+                  <a href="/categories/ML-DL/" itemprop="url" rel="index">
+                    <span itemprop="name">ML/DL</span>
                   </a>
                 </span>
 
@@ -1784,21 +1596,171 @@ NORM_L2
         
           
           知识点
-最小(min)
-最大(max)
-均值(mean)
-标准方差(standard deviation)
+参数初始化问题
 
-API知识点
 
-最大最小值minMaxLoc
-计算均值与标准方差meanStdDev
-
-代码（c++,python）1234567891011121314151617181920212223
+代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/25/opencv-010/#more" rel="contents">
+            <a class="btn" href="/2019/04/03/DenoiseAutoEncoder/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/03/AutoEncoder/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fanfan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范范">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/03/AutoEncoder/" itemprop="url">自动编码器(含两个隐藏层)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T21:46:09+08:00">
+                2019-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/ML-DL/" itemprop="url" rel="index">
+                    <span itemprop="name">ML/DL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          知识点
+
+
+
+
+自动编码器分类
+
+
+降噪自动编码器代码
+代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/03/AutoEncoder/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1840,7 +1802,7 @@ API知识点
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1888,7 +1850,7 @@ API知识点
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">178</span>
+                  <span class="site-state-item-count">194</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1910,7 +1872,7 @@ API知识点
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-count">189</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

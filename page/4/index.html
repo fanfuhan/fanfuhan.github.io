@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/24/opencv-114/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/29/opencv-131/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/24/opencv-114/" itemprop="url">opencv-114-KNN算法介绍</a></h1>
+                <a class="post-title-link" href="/2019/05/29/opencv-131/" itemprop="url">opencv-131-DNN 支持YOLOv3-tiny版本实时对象检测</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-24T14:20:20+08:00">
-                2019-05-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-29T09:56:44+08:00">
+                2019-05-29
               </time>
             
 
@@ -386,11 +386,11 @@
       
         
           
-          知识点OpenCV中机器学习模块的最近邻算法KNN， 使用KNN算法实现手写数字识别，OpenCV在sample/data中有一张自带的手写数字数据集图像，0~9 每个有500个样本，总计有5000个数字。图像大小为1000x2000的大小图像，分割为20x20大小的单个数字图像，每个样本400个像
+          知识点YOLOv3的模型在CPU上无法做到实时运行，而YOLO作者提供了个YOLOv3版本的精简版对象检测模型，大小只有30MB左右，但是模型可以在CPU上做到实时运行，这个模型就是YOLOv3-tiny模型，其下载地址如下：YOLO: Real-Time Object Detection相比YOL
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/24/opencv-114/#more" rel="contents">
+            <a class="btn" href="/2019/05/29/opencv-131/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -441,7 +441,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/24/opencv-115/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/26/opencv-128/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -460,7 +460,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/24/opencv-115/" itemprop="url">opencv-115-KNN算法的使用</a></h1>
+                <a class="post-title-link" href="/2019/05/26/opencv-128/" itemprop="url">opencv-128-DNN 直接调用tensorflow的导出模型</a></h1>
         
 
         <div class="post-meta">
@@ -472,8 +472,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-24T14:20:19+08:00">
-                2019-05-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-26T16:33:44+08:00">
+                2019-05-26
               </time>
             
 
@@ -534,12 +534,17 @@
       
         
           
-          知识点OpenCV中机器学习模块的最近邻算法KNN， 对使用KNN训练好的XML文件，可以通过算法接口的load方法加载成为KNN分类器，使用findNearest方法进行预测。OpenCV KNN预测方法参数解释如下：
-123456789101112virtual float cv::ml::KN
+          知识点OpenCV在DNN模块中支持直接调用tensorflow object detection训练导出的模型使用，支持的模型包括
+
+SSD
+Faster-RCNN
+Mask-RCNN
+
+三种经典的对象检测网络，这样就可以实现从tensorflow模型训练、导出模型、在OpenCV DNN调用模型
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/24/opencv-115/#more" rel="contents">
+            <a class="btn" href="/2019/05/26/opencv-128/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -590,7 +595,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/24/opencv-112/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/26/opencv-127/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -609,7 +614,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/24/opencv-112/" itemprop="url">opencv-112-利用KMeans图像分割进行背景替换</a></h1>
+                <a class="post-title-link" href="/2019/05/26/opencv-127/" itemprop="url">opencv-127-DNN 基于残差网络的视频人脸检测</a></h1>
         
 
         <div class="post-meta">
@@ -621,8 +626,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-24T14:20:19+08:00">
-                2019-05-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-26T16:33:44+08:00">
+                2019-05-26
               </time>
             
 
@@ -683,18 +688,12 @@
       
         
           
-          知识点KMeans可以实现简单的证件照片的背景分割提取与替换，大致可以分为如下几步实现
-
-读入图像建立KMenas样本
-使用KMeans图像分割，指定指定分类数目
-取左上角的label得到背景cluster index
-生成mask区域，然后高斯模糊进行背景替换
-
-代码（c++,python）123
+          知识点OpenCV在DNN模块中提供了基于残差SSD网络训练的人脸检测模型，还支持单精度的fp16的检测准确度更好的Caffe模型加载与使用，这里实现了一个基于Caffe Model的视频实时人脸监测模型，基于Python与C++代码CPU运行，帧率均可以到达15以上。非常好用。
+代码（c++,py
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/24/opencv-112/#more" rel="contents">
+            <a class="btn" href="/2019/05/26/opencv-127/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -745,7 +744,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/24/python_list_generation/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/26/opencv-126/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -764,7 +763,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/24/python_list_generation/" itemprop="url">python 列表生成器简单案例</a></h1>
+                <a class="post-title-link" href="/2019/05/26/opencv-126/" itemprop="url">opencv-126-DNN 基于残差网络的人脸检测</a></h1>
         
 
         <div class="post-meta">
@@ -776,157 +775,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-24T13:51:55+08:00">
-                2019-05-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          场景一将文件中逐行读取的一个完整语句，按逗号分割单词，去掉首位的空字符，并过滤掉长度小于 3 的单词，最后返回由单词组成的列表。
-123text = " today,  is , sunday"text_list = [s.strip() for s in text.split(',') if le
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/05/24/python_list_generation/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/23/opencv-111/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="fanfan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范范">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/23/opencv-111/" itemprop="url">opencv-111-KMeans图像分割</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-23T15:27:47+08:00">
-                2019-05-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-26T16:33:43+08:00">
+                2019-05-26
               </time>
             
 
@@ -987,11 +837,11 @@
       
         
           
-          知识点KMean不光可以对数据进行分类，还可以实现对图像分割，什么图像分割，简单的说就要图像的各种像素值，分割为几个指定类别颜色值，这种分割有两个应用，一个可以实现图像主色彩的简单提取，另外针对特定的应用场景可以实现证件照片的背景替换效果，这个方面早期最好的例子就是证件之星上面的背景替换。当然要想实
+          知识点OpenCV在DNN模块中提供了基于残差SSD网络训练的人脸检测模型，该模型分别提供了tensorflow版本，caffe版本，torch版本模型文件，其中tensorflow版本的模型做了更加进一步的压缩优化，大小只有2MB左右，非常适合移植到移动端使用，实现人脸检测功能，而caffe版本的
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/23/opencv-111/#more" rel="contents">
+            <a class="btn" href="/2019/05/26/opencv-126/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1042,7 +892,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/22/opencv-109/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/26/opencv-130/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1061,7 +911,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/22/opencv-109/" itemprop="url">opencv-109-BLOB特征分析(simpleblobdetector使用)</a></h1>
+                <a class="post-title-link" href="/2019/05/26/opencv-130/" itemprop="url">opencv-130-DNN 支持YOLO对象检测网络运行</a></h1>
         
 
         <div class="post-meta">
@@ -1073,8 +923,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T21:23:39+08:00">
-                2019-05-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-26T16:33:43+08:00">
+                2019-05-26
               </time>
             
 
@@ -1135,11 +985,11 @@
       
         
           
-          知识点BLOB是图像中灰度块的一种专业称呼，更加变通一点的可以说它跟我们前面二值图像分析的联通组件类似，通过特征提取中的SimpleBlobDetector可以实现常见的各种灰度BLOB对象组件检测与分离。使用该检测器的时候，可以根据需要输入不同参数，得到的结果跟输入的参数息息相关。常见的BLOB分
+          知识点OpenCV DNN模块支持YOLO对象检测网络，最新的OpenCV4.0支持YOLOv3版本的对象检测网络，YOLOv3版本同时还发布了移动端支持的网络模型YOLOv3-tiny版本，速度可以在CPU端实时运行的对象检测网络，OpenCV中通过对DarkNet框架集成支持实现YOLO网络加载
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/22/opencv-109/#more" rel="contents">
+            <a class="btn" href="/2019/05/26/opencv-130/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1190,7 +1040,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/22/opencv-108/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/26/opencv-125/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1209,7 +1059,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/22/opencv-108/" itemprop="url">opencv-108-特征提取之关键点检测(GFTTDetector)</a></h1>
+                <a class="post-title-link" href="/2019/05/26/opencv-125/" itemprop="url">opencv-125-DNN 基于SSD实现实时视频检测</a></h1>
         
 
         <div class="post-meta">
@@ -1221,8 +1071,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T21:23:39+08:00">
-                2019-05-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-26T16:18:26+08:00">
+                2019-05-26
               </time>
             
 
@@ -1283,12 +1133,12 @@
       
         
           
-          知识点该方法是基于shi-tomas角点检测变化而来的一种特征提取方法，OpenCV创建该检测器的API与goodfeaturetotrack的API参数极其类似：
-1234567891011Ptr&lt;GFTTDetector&gt; cv::GFTTDetector::create(int m
+          知识点SSD的mobilenet版本不仅可以检测图像，还可以检测视频，达到稳定实时的效果。
+代码（c++,python）123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/22/opencv-108/#more" rel="contents">
+            <a class="btn" href="/2019/05/26/opencv-125/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1339,7 +1189,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/22/opencv-110/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/25/opencv-122/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1358,7 +1208,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/22/opencv-110/" itemprop="url">opencv-110-KMeans进行数据分类</a></h1>
+                <a class="post-title-link" href="/2019/05/25/opencv-122/" itemprop="url">opencv-122-DNN 实现图像分类</a></h1>
         
 
         <div class="post-meta">
@@ -1370,8 +1220,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T21:23:39+08:00">
-                2019-05-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T16:49:39+08:00">
+                2019-05-25
               </time>
             
 
@@ -1432,11 +1282,12 @@
       
         
           
-          知识点K-Means算法的作者是MacQueen， K-Means的算法是对数据进行分类的算法，采用的硬分类方式，是属于非监督学习的算法，预先要求知道分为几个类别，然后每个类别有一个中心点，根据距离度量来决定每个数据点属于哪个类别标签，一次循环实现对所有数据点分类之后，会根据标签重新计算各个类型的中
+          知识点使用ImageNet数据集支持1000分类的GoogleNet网络模型， 分别演示了Python与C++语言中的使用该模型实现图像分类标签预测。其中label标签是在一个单独的文本文件中读取，模型从上面的链接中下载即可。读取模型的API：
+123456Net cv::dnn::readNetF
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/22/opencv-110/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/opencv-122/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1487,7 +1338,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/21/opencv-106/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/25/opencv-123/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1506,7 +1357,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/21/opencv-106/" itemprop="url">opencv-106-AKAZE特征与描述子</a></h1>
+                <a class="post-title-link" href="/2019/05/25/opencv-123/" itemprop="url">opencv-123-DNN 为模型运行设置目标设备与计算后台</a></h1>
         
 
         <div class="post-meta">
@@ -1518,8 +1369,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T22:54:32+08:00">
-                2019-05-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T16:49:38+08:00">
+                2019-05-25
               </time>
             
 
@@ -1580,12 +1431,12 @@
       
         
           
-          知识点AKAZE特征提取算法是局部特征描述子算法，可以看成是SIFT算法的改进、采用非线性扩散滤波迭代来提取与构建尺度空间、采用与SIFT类似的方法寻找特征点、在描述子生成阶段采用ORB类似的方法生成描述子，但是描述子比ORB多了旋转不变性特征。ORB采用LDB方法，AKAZE采用 M-LDB。
-代
+          知识点OpenCV中加载网络模型之后，可以设置计算后台与计算目标设备，OpenCV DNN模块支持这两个设置的相关API如下：
+1234567cv::dnn::Net::setPreferableBackend(	int backendId)backendId 表示后台计算id，- DNN_BACK
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/21/opencv-106/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/opencv-123/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1636,7 +1487,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/21/opencv-107/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/25/opencv-124/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1655,7 +1506,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/21/opencv-107/" itemprop="url">opencv-107-Brisk特征提取与描述子匹配</a></h1>
+                <a class="post-title-link" href="/2019/05/25/opencv-124/" itemprop="url">opencv-124-DNN 基于SSD实现对象检测</a></h1>
         
 
         <div class="post-meta">
@@ -1667,8 +1518,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-21T22:54:31+08:00">
-                2019-05-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T16:49:38+08:00">
+                2019-05-25
               </time>
             
 
@@ -1729,16 +1580,169 @@
       
         
           
-          知识点BRISK(Binary robust invariant scalable keypoints)是一种基于尺度空间不变性类似ORB特征描述子的特征提取算法。BRISK主要步骤可以分为如下两步：
-
-构建尺度空间金字塔实现关键点定位
-根据关键点生成描述子
-
-代码（c++,python）12345
+          知识点OpenCV DNN模块支持常见得对象检测模型SSD， 以及它的移动版Mobile Net-SSD，特别是后者在端侧边缘设备上可以实时计算。
+对对象检测网络来说：该API会返回一个四维的tensor，前两个维度是1，后面的两个维度，分别表示检测到BOX数量，以及每个BOX的坐标，对象类别，得分
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/21/opencv-107/#more" rel="contents">
+            <a class="btn" href="/2019/05/25/opencv-124/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/05/25/opencv-121/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fanfan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范范">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/25/opencv-121/" itemprop="url">opencv-121-DNN模块 获取导入模型各层信息</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T16:49:38+08:00">
+                2019-05-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/opencv/" itemprop="url" rel="index">
+                    <span itemprop="name">opencv</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          知识点模型支持1000个类别的图像分类，OpenCV DNN模块支持下面框架的预训练模型的前馈网络(预测图)使用
+
+Caffe
+Tensorflow
+Torch
+DLDT
+Darknet
+
+同时还支持自定义层解析、非最大抑制操作、获取各层的信息等。OpenCV加载模型的通用API为：
+12345Ne
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/25/opencv-121/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1780,7 +1784,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1828,7 +1832,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">178</span>
+                  <span class="site-state-item-count">194</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1850,7 +1854,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-count">189</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

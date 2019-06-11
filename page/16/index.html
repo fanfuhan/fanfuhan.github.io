@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/25/opencv-009/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/03/opencv-024/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/25/opencv-009/" itemprop="url">opencv-009-色彩空间及其应用（提取图像的前景和背景）</a></h1>
+                <a class="post-title-link" href="/2019/04/03/opencv-024/" itemprop="url">opencv-024-图像噪声</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T15:28:06+08:00">
-                2019-03-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T19:31:24+08:00">
+                2019-04-03
               </time>
             
 
@@ -386,27 +386,13 @@
       
         
           
-          知识点
-RGB色彩空间
+          知识点图像噪声产生的原因很复杂，有的可能是数字信号在传输过程中发生了丢失或者受到干扰，有的是成像设备或者环境本身导致成像质量不稳定，反应到图像上就是图像的亮度与颜色呈现某种程度的不一致性。从噪声的类型上，常见的图像噪声可以分为如下几种：
 
-HSV色彩空间 -维基百科  ### 直方图算法中常用
-
-
-YUV色彩空间  
-
-YCrCb色彩空间     # 皮肤检测常用
-
-
-API知识点
-
-色彩空间转换cvtColor
-提取指定色彩范围区域inRange
-
-代码（c++,python）123456789101112
+椒盐噪声，是一种随机在图像中出现的稀疏分布的黑白像素点， 对
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/25/opencv-009/#more" rel="contents">
+            <a class="btn" href="/2019/04/03/opencv-024/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -457,7 +443,7 @@ API知识点
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/24/opencv-008/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/03/opencv-023/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -476,7 +462,7 @@ API知识点
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/24/opencv-008/" itemprop="url">opencv-008-图像通道的分离与合并</a></h1>
+                <a class="post-title-link" href="/2019/04/03/opencv-023/" itemprop="url">opencv-023-中值模糊</a></h1>
         
 
         <div class="post-meta">
@@ -488,8 +474,8 @@ API知识点
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T19:32:21+08:00">
-                2019-03-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T19:22:40+08:00">
+                2019-04-03
               </time>
             
 
@@ -550,16 +536,16 @@ API知识点
       
         
           
-          知识点OpenCV中默认imread函数加载图像文件，加载进来的是三通道彩色图像，色彩空间是RGB色彩空间、通道顺序是BGR（蓝色、绿色、红色）、对于三通道的图像OpenCV中提供了两个API函数用以实现通道分离与合并。
+          知识点中值滤波本质上是统计排序滤波器的一种，中值滤波对图像特定噪声类型（椒盐噪声）会取得比较好的去噪效果，也是常见的图像去噪声与增强的方法之一。中值滤波也是窗口在图像上移动，其覆盖的对应ROI区域下，所有像素值排序，取中值作为中心像素点的输出值。
 
-split     // 通道分类
-merge // 通道合并
 
-扩展在很多
+API
+
+代码（c++,python）12345
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/24/opencv-008/#more" rel="contents">
+            <a class="btn" href="/2019/04/03/opencv-023/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -610,7 +596,7 @@ merge // 通道合并
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/24/opencv-007/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/02/opencv-022/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -629,7 +615,7 @@ merge // 通道合并
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/24/opencv-007/" itemprop="url">opencv-007-图像像素之逻辑操作</a></h1>
+                <a class="post-title-link" href="/2019/04/02/opencv-022/" itemprop="url">opencv-022-图像均值模糊与高斯模糊</a></h1>
         
 
         <div class="post-meta">
@@ -641,8 +627,8 @@ merge // 通道合并
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T16:36:48+08:00">
-                2019-03-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-02T17:22:47+08:00">
+                2019-04-02
               </time>
             
 
@@ -703,22 +689,14 @@ merge // 通道合并
       
         
           
-          知识点下面三个操作类似，都是针对两张图像的位操作
-
-bitwise_and
-bitwise_xor
-bitwise_or
-
-针对输入图像, 图像取反操作，二值图像分析中经常用
-
-bitwise_not
-
-
-代码（c++,python）123456789101112131415161718192021
+          知识点均值模糊 是卷积核的系数完全一致，高斯模糊考虑了中心像素距离的影响，对距离中心像素使用高斯分布公式生成不同的权重系数给卷积核，然后用此卷积核完成图像卷积得到输出结果就是图像高斯模糊之后的输出。
+参考：高斯模糊原理-阮一峰
+API
+void GaussianBlur(    InputArray
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/24/opencv-007/#more" rel="contents">
+            <a class="btn" href="/2019/04/02/opencv-022/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -769,7 +747,7 @@ bitwise_not
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/24/get_faked_data/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/01/opencv-021/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -788,7 +766,7 @@ bitwise_not
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/24/get_faked_data/" itemprop="url">生成假数据用于卷积神经网络模型训练</a></h1>
+                <a class="post-title-link" href="/2019/04/01/opencv-021/" itemprop="url">opencv-021-图像卷积及均值模糊</a></h1>
         
 
         <div class="post-meta">
@@ -800,157 +778,8 @@ bitwise_not
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T10:31:41+08:00">
-                2019-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML-DL/" itemprop="url" rel="index">
-                    <span itemprop="name">ML/DL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          背景在设计神经网络时，用于测试的imageNet等数据集太大，所以生成假数据用来测试神经网络能不能正常运行
-代码123456789101112131415161718192021import tensorflow as tf# 参数设置batch_size = 32image_size = 24im
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/24/get_faked_data/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/23/opencv-006/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="fanfan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范范">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/23/opencv-006/" itemprop="url">opencv-006-Look Up Table(LUT)查找表的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T16:16:22+08:00">
-                2019-03-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-01T19:55:33+08:00">
+                2019-04-01
               </time>
             
 
@@ -1011,24 +840,15 @@ bitwise_not
       
         
           
-          知识点LUT查找表的简单原理
+          知识点图像卷积可以看成是一个窗口区域在另外一个大的图像上移动，对每个窗口覆盖的区域都进行点乘得到的值作为中心像素点的输出值。窗口的移动是从左到右，从上到下。窗口可以理解成一个指定大小的二维矩阵，里面有预先指定的值。（注意与深度学习卷积的区别）
 
-LUT查找表的作用
+API
 
-颜色匹配，比如讲灰度图像进行伪彩色增强
-加快计算速度
-
-API：applyColorMap(src, dst, COLORMAP)
-
-src 表示输入图像
-dst表示输出图像
-匹配到的颜色LUT， OpenCV支持13种颜色风格的查找表映射
-
-C
+代码（c++,python）12345678
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/23/opencv-006/#more" rel="contents">
+            <a class="btn" href="/2019/04/01/opencv-021/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1079,7 +899,7 @@ C
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/23/opencv-005/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/04/01/numpy_None/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1098,7 +918,7 @@ C
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/23/opencv-005/" itemprop="url">opencv-005-像素算术操作</a></h1>
+                <a class="post-title-link" href="/2019/04/01/numpy_None/" itemprop="url">numpy[..., None]的理解</a></h1>
         
 
         <div class="post-meta">
@@ -1110,8 +930,157 @@ C
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-23T15:33:27+08:00">
-                2019-03-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-01T09:12:35+08:00">
+                2019-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          numpy数组维度1import numpy as np
+12arr_1 = np.array([1, 2, 3, 4])print(arr_1, '\n' , 'shape of arr_1:', arr_1.shape, '， dimension of arr_1:',np.ndim(arr_1
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/01/numpy_None/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/30/opencv-020/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fanfan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范范">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/30/opencv-020/" itemprop="url">opencv-020-图像直方图反向投影</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T09:55:16+08:00">
+                2019-03-30
               </time>
             
 
@@ -1172,16 +1141,18 @@ C
       
         
           
-          知识点像素算术操作
+          知识点文字解释图像直方图反向投影是通过构建指定模板图像的二维直方图空间与目标的二维直方图空间，进行直方图数据归一化之后， 进行比率操作，对所有得到非零数值，生成查找表对原图像进行像素映射之后，再进行图像模糊输出的结果。
+直方图反向投影流程
 
-加add、减subtract、乘multiply、除divide
-saturate_cast&lt;T&gt;(value)   # 类型转换注意点：图像的数据类型、通道数目、大小必须相同
-
-代码（c++,python）12345678910111213141516171819
+计算直方图
+计算比率R
+LUT查找表
+卷积模糊
+归一化输出
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/23/opencv-005/#more" rel="contents">
+            <a class="btn" href="/2019/03/30/opencv-020/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1232,7 +1203,7 @@ saturate_cast&lt;T&gt;(value)   # 类型转换注意点：图像的数据类型�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/22/cifar10/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/30/opencv-019/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1251,7 +1222,7 @@ saturate_cast&lt;T&gt;(value)   # 类型转换注意点：图像的数据类型�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/22/cifar10/" itemprop="url">使用tensorflow对cifar10数据集进行图像分类</a></h1>
+                <a class="post-title-link" href="/2019/03/30/opencv-019/" itemprop="url">opencv-019-图像直方图比较</a></h1>
         
 
         <div class="post-meta">
@@ -1263,166 +1234,8 @@ saturate_cast&lt;T&gt;(value)   # 类型转换注意点：图像的数据类型�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T11:14:05+08:00">
-                2019-03-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/ML-DL/" itemprop="url" rel="index">
-                    <span itemprop="name">ML/DL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          步骤
-定义神经网络计算图
-
-
-
-
-运行计算图
-
-
-
-导包12345import tensorflow as tfimport osimport cifar10_input  # tensorflow/modle模块中自带案例，可以去github下载import numpy as npos.envir
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/03/22/cifar10/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/21/opencv-004/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="fanfan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/header.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范范">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/21/opencv-004/" itemprop="url">opencv-004-图像像素读写操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-21T22:42:55+08:00">
-                2019-03-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T09:55:06+08:00">
+                2019-03-30
               </time>
             
 
@@ -1483,22 +1296,13 @@ saturate_cast&lt;T&gt;(value)   # 类型转换注意点：图像的数据类型�
       
         
           
-          知识点
-C++中的像素遍历与访问
-数组遍历
-指针方式遍历
+          知识点图像直方图比较，就是计算两幅图像的直方图数据，比较两组数据的相似性，从而得到两幅图像之间的相似程度，直方图比较在早期的CBIR(以图搜图)中是应用很常见的技术手段，通常会结合边缘处理、词袋等技术一起使用。APIcompareHist(hist1, hist2, method)常见比较方法有
 
 
-Python中的像素遍历与访问
-数组遍历
-
-
-
-代码（c++,python）123456789101112131415161718192021222324252627282930313233343536373839404142434445
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/21/opencv-004/#more" rel="contents">
+            <a class="btn" href="/2019/03/30/opencv-019/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1549,7 +1353,7 @@ Python中的像素遍历与访问
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/21/opencv-003/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/29/opencv-018/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1568,7 +1372,7 @@ Python中的像素遍历与访问
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/21/opencv-003/" itemprop="url">opencv-003-图像对象(Mat)创建与赋值</a></h1>
+                <a class="post-title-link" href="/2019/03/29/opencv-018/" itemprop="url">opencv-018-图像直方图均衡化</a></h1>
         
 
         <div class="post-meta">
@@ -1580,8 +1384,8 @@ Python中的像素遍历与访问
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-21T09:31:05+08:00">
-                2019-03-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-29T15:37:43+08:00">
+                2019-03-29
               </time>
             
 
@@ -1642,16 +1446,17 @@ Python中的像素遍历与访问
       
         
           
-          知识点
-C++中Mat对象与创建
-Python中Numpy数组对象
+          知识点图像直方图均衡化可以用于图像增强、对输入图像进行直方图均衡化处理，提升后续对象检测的准确率，在OpenCV人脸检测的代码演示中已经很常见。此外对医学影像图像与卫星遥感图像也经常通过直方图均衡化来提升图像质量。
 
 
-代码（c++,python）123456789101112131415161718192021222324252627282930#include &lt;opencv2/opencv.hpp&gt;#include &lt;i
+
+API
+equalizeHist(src, dst)
+代码（c++,pytho
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/21/opencv-003/#more" rel="contents">
+            <a class="btn" href="/2019/03/29/opencv-018/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1702,7 +1507,7 @@ Python中Numpy数组对象
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/20/opencv-002/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/28/opencv-017/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -1721,7 +1526,7 @@ Python中Numpy数组对象
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/20/opencv-002/" itemprop="url">opencv-002-色彩空间转换(cvtcolor)与图像保存(imwrite)</a></h1>
+                <a class="post-title-link" href="/2019/03/28/opencv-017/" itemprop="url">opencv-017-图像直方图</a></h1>
         
 
         <div class="post-meta">
@@ -1733,8 +1538,8 @@ Python中Numpy数组对象
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T19:28:55+08:00">
-                2019-03-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T21:54:49+08:00">
+                2019-03-28
               </time>
             
 
@@ -1795,13 +1600,173 @@ Python中Numpy数组对象
       
         
           
-          知识点
-色彩空间转换函数- cvtColor COLOR_BGR2GRAY = 6 彩色到灰度 COLOR_GRAY2BGR = 8 灰度到彩色 COLOR_BGR2HSV = 40 BGR到HSV COLOR_HSV2BGR = 54 HSV到 BGR
-图像保存 - imwrite 第一个参数是图
+          知识点图像直方图的解释图像直方图是图像像素值的统计学特征、计算代价较小，具有图像平移、旋转、缩放不变性等众多优点，广泛地应用于图像处理的各个领域，特别是灰度图像的阈值分割、基于颜色的图像检索以及图像分类、反向投影跟踪。常见的分为
+
+灰度直方图
+颜色直方图
+
+Bins是指直方图的大小范围， 对于像素值
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/03/20/opencv-002/#more" rel="contents">
+            <a class="btn" href="/2019/03/28/opencv-017/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2019/03/28/opencv-016/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fanfan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/header.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范范">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/28/opencv-016/" itemprop="url">opencv-016-图像ROI与ROI操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T21:03:07+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/opencv/" itemprop="url" rel="index">
+                    <span itemprop="name">opencv</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          知识点图像的ROI(region of interest)是指图像中感兴趣区域、在OpenCV中图像设置图像ROI区域，实现只对ROI区域操作。
+
+矩形ROI区域提取
+矩形ROI区域copy
+不规则ROI区域
+ROI区域mask生成
+像素位 and操作
+提取到ROI区域
+加背景or操作
+add 背景
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/28/opencv-016/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1843,7 +1808,7 @@ Python中Numpy数组对象
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1891,7 +1856,7 @@ Python中Numpy数组对象
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">178</span>
+                  <span class="site-state-item-count">194</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1913,7 +1878,7 @@ Python中Numpy数组对象
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">188</span>
+                  <span class="site-state-item-count">189</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
