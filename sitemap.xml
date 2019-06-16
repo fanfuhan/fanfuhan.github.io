@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/06/17/pytorch_tricks_init_L1L2/</loc>
+    
+    <lastmod>2019-06-16T16:40:49.758Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/06/16/pytorch_tensorwatch/</loc>
+    
+    <lastmod>2019-06-16T10:03:01.747Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/06/16/pytorch_trans_learning/</loc>
+    
+    <lastmod>2019-06-16T10:00:00.129Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/06/11/matplotlib-dynamic_update/</loc>
     
     <lastmod>2019-06-11T14:48:56.939Z</lastmod>

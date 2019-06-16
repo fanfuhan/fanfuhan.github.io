@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2019/06/17/pytorch_tricks_init_L1L2/</loc>
+    <lastmod>2019-06-16</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/16/pytorch_tensorwatch/</loc>
+    <lastmod>2019-06-16</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/06/16/pytorch_trans_learning/</loc>
+    <lastmod>2019-06-16</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/06/11/matplotlib-dynamic_update/</loc>
     <lastmod>2019-06-11</lastmod>
   </url>  <url>
