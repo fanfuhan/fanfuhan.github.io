@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[pytorch利用torchsummary实现类似keras的model.summary()输出模型信息]]></title>
+    <url>%2F2019%2F06%2F22%2Fpytorch_torchsummary%2F</url>
+    <content type="text"><![CDATA[详见链接torchsummary 代码123456789101112131415161718192021import torchimport torch.nn as nnfrom torchsummary import summaryclass SimpleConv(nn.Module): def __init__(self): super(SimpleConv, self).__init__() self.features = nn.Sequential( nn.Conv2d(1, 1, kernel_size=3, stride=1, padding=1), nn.ReLU(), ) def forward(self, x, y): x1 = self.features(x) x2 = self.features(y) return x1, x2 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")model = SimpleConv().to(device)summary(model, [(1, 16, 16), (1, 28, 28)]) 结果1234567891011121314151617---------------------------------------------------------------- Layer (type) Output Shape Param #================================================================ Conv2d-1 [-1, 1, 16, 16] 10 ReLU-2 [-1, 1, 16, 16] 0 Conv2d-3 [-1, 1, 28, 28] 10 ReLU-4 [-1, 1, 28, 28] 0================================================================Total params: 20Trainable params: 20Non-trainable params: 0----------------------------------------------------------------Input size (MB): 0.77Forward/backward pass size (MB): 0.02Params size (MB): 0.00Estimated Total Size (MB): 0.78----------------------------------------------------------------]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>pytorch</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[pytorch中的一些技巧-统计参数数量，划分数据集，初始化，正则化]]></title>
     <url>%2F2019%2F06%2F17%2Fpytorch_tricks_init_L1L2%2F</url>
     <content type="text"><![CDATA[统计参数总数量1num_params = sum(param.numel() for param in model.parameters()) 划分训练集和验证集123train_size = int(0.8 * len(full_dataset))test_size = len(full_dataset) - train_sizetrain_dataset, test_dataset = torch.utils.data.random_split(full_dataset, [train_size, test_size]) 参数初始化Xavier 初始化 Xavier初始化的基本思想是保持输入和输出的方差一致，这样就避免了所有输出值都趋向于0。这是通用的方法，适用于任何激活函数。 123for m in model.modules(): if isinstance(m, (nn.Conv2d, nn.Linear)): nn.init.xavier_uniform(m.weight) He 初始化 He 初始化的思想是：在ReLU网络中，假定每一层有一半的神经元被激活，另一半为0。推荐在ReLU网络中使用。 123for m in model.modules(): if isinstance(m, (nn.Conv2d, nn.Linear)): nn.init.kaiming_normal(m.weight, mode=\\'fan_in\\') 正则化一般正则化，只是对模型的权重W参数进行惩罚，而偏置b是不进行惩罚的，如果对权值w和偏置b同时进行惩罚，将会导致严重的欠拟合。 L2 正则化 torch.optim 的优化器固定实现L2正则化，也只实现了L2正则化，若想实现L1正则化，见下。而torch.optim 的优化器weight_decay参数指定的权值衰减是对网络中的所有参数，包括 权值w 和 偏置b 同时进行惩罚，需要特意设置一下，只对 权值w进行惩罚。 123456789101112weight_p, bias_p = [],[]for name, p in model.named_parameters(): if 'bias' in name: bias_p += [p] else: weight_p += [p]# 这里的model中每个参数的名字都是系统自动命名的，只要是权值都是带有weight，偏置都带有biasoptim.SGD([ &#123;'params': weight_p, 'weight_decay':1e-5&#125;, &#123;'params': bias_p, 'weight_decay':0&#125; ], lr=1e-2, momentum=0.9) 另一种实现： 12345678reg = 1e-6l2_loss = Variable(torch.FloatTensor(1), requires_grad=True)for name, param in model.named_parameters(): if 'bias' not in name: l2_loss = l2_loss + 0.5 * reg * torch.sum(torch.pow(param, 2)))classify_loss = criteon(outputs, labels)loss = classify_loss + l2_loss L1 正则化 12345678reg = 1e-6l1_loss = Variable(torch.FloatTensor(1), requires_grad=True)for name, param in model.named_parameters(): if 'bias' not in name: l1_loss = l1_loss + reg * torch.sum(torch.abs(param)))classify_loss = criteon(outputs, labels)loss = classify_loss + l1_loss]]></content>
@@ -2038,18 +2049,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[VS2017配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
-    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>opencv</tag>
-        <tag>VS2017</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[python安装opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
     <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
@@ -2059,6 +2058,18 @@
       <tags>
         <tag>python</tag>
         <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[VS2017配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
+    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>opencv</tag>
+        <tag>VS2017</tag>
       </tags>
   </entry>
   <entry>
@@ -2109,17 +2120,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
-    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>查看linux进程并杀死</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下关于screen命令的使用]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
     <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
@@ -2128,6 +2128,17 @@
       </categories>
       <tags>
         <tag>linux下screen的使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
+    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>查看linux进程并杀死</tag>
       </tags>
   </entry>
   <entry>
