@@ -2189,7 +2189,7 @@
   <entry>
     <title><![CDATA[服务器端安装Anaconda]]></title>
     <url>%2F2018%2F11%2F29%2FinstallAnaconda%2F</url>
-    <content type="text"><![CDATA[步骤打开网址：Anaconda清华镜像，复制要下载的文件地址，执行以下命令：12345678910wget 复制的网址（会下载一个sh文件）sh sh文件名 #执行后，会显示使用条款，按enter继续阅读，会让回答几个问题，全部yesrm -rf sh文件名source ~/.bashrc （使conda生效）#设置清华conda镜像conda config --prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ 注意事项 Anaconda3-5.2.0.Linux-x86_64.sh ==&gt; python3.6 Anaconda3-5.3.1.Linux-x86_64.sh ==&gt; python3.7 若wget显示网络不可达，执行以下操作： 123456#centossudo yum -y install wget#ubuntusudo apt-get updatesudo apt-get install wget 若不能运行jupyter notebook，进行如下配置：jupyter notebook配置]]></content>
+    <content type="text"><![CDATA[步骤打开网址：Anaconda清华镜像，复制要下载的文件地址，执行以下命令：123456789101112wget 复制的网址（会下载一个sh文件）sh sh文件名 #执行后，会显示使用条款，按enter继续阅读，会让回答几个问题，全部yesrm -rf sh文件名source ~/.bashrc （使conda生效）#设置清华conda镜像conda config --prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/conda config --set show_channel_urls yes 注意事项 Anaconda3-5.2.0.Linux-x86_64.sh ==&gt; python3.6 Anaconda3-5.3.1.Linux-x86_64.sh ==&gt; python3.7 若wget显示网络不可达，执行以下操作： 123456#centossudo yum -y install wget#ubuntusudo apt-get updatesudo apt-get install wget 若不能运行jupyter notebook，进行如下配置：jupyter notebook配置]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>

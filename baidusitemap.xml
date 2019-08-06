@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2018/11/29/installAnaconda/</loc>
+    <lastmod>2019-08-06</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/07/14/vscode_remote_ssh/</loc>
     <lastmod>2019-07-14</lastmod>
   </url>  <url>
@@ -590,9 +593,6 @@
     <lastmod>2018-12-08</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2018/11/29/addLinuxUser/</loc>
-    <lastmod>2018-11-29</lastmod>
-  </url>  <url>
-    <loc>https://fanfuhan.github.io/2018/11/29/installAnaconda/</loc>
     <lastmod>2018-11-29</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2018/11/29/beautifyBash/</loc>
