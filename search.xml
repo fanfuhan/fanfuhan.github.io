@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Faster R-CNN论文阅读笔记及相关资料总结]]></title>
+    <url>%2F2019%2F08%2F16%2FFaster%20R-CNN%2F</url>
+    <content type="text"><![CDATA[声明：这几天重新学习Faster R-CNN，找到了很多好的博客资料，在此附上地址，方便以后学习，文中的图均来自于这些资料。 网络整体架构图 论文中给出的架构图是这样的，基本忽略了所有细节，以下是其他资料中的图片： Faster R-CNN = Fast R-CNN + RPN，学习Faster R-CNN最重要的就是搞懂RPN及其Anchor机制，这篇文章并不会深入谈这个，会附上看过的比较好的博客，供学习。学习Faster R-CNN，最重要的还是能看一遍代码实现，毕竟看了论文还是一头雾水。 从原理上讲，Faster R-CNN分为以下四部分： Conv layers。使用VGG、ResNet等网络提取图像的feature maps，该feature maps被共享用于后续的网络。 Region Proposal Networks。RPN网络用于生成region proposals。该层通过softmax判断anchors属于positive或者negative，再利用bounding box regression修正anchors获得精确的proposals。 Roi Pooling。该层收集输入的feature maps和proposals，综合这些信息后提取proposal feature maps，送入后续全连接层判定目标类别。 Classification。利用proposal feature maps计算proposal的类别，同时再次bounding box regression获得检测框最终的精确位置。 从编程角度讲，Faster R-CNN分为以下四部分： Dataset：数据，提供符合要求的数据格式（目前常用数据集是VOC和COCO） Extractor： 即上面提到的Conv layers RPN(Region Proposal Network): 负责提供候选区域rois（每张图给出大概2000个候选框） RoIHead： 负责对rois分类和微调。对RPN找出的rois，判断它是否包含目标，并修正框的位置和座标 特别容易忽略的是数据的处理部分，RPN网络的训练，需要的标签是需要自己生成的： 再附一张以VGG16为特征提取网络的Faster R-CNN网络结构图： 理解Faster R-CNN的几个关键点 Anchor的理解，在feature maps与原图之间如何映射 BBox，全称是bounding box，边界框。有以下几种BBox： Ground Truth Bounding Box是每一张图中人工标注的框的位置，一张图中有几个目标，就有几个框。 Anchor BBox Predict Bounding Box，Faster R-CNN的预测结果 ROIs的理解，如何生成的 Faster R-CNN的四类损失函数的理解，尤其是回归损失： RPN 分类损失：anchor是否为前景（二分类） RPN位置回归损失：anchor位置微调 RoI 分类损失：RoI所属类别（21分类，多了一个类作为背景） RoI位置回归损失：继续对RoI位置微调 三个Creater的理解： AnchorTargetCreator ： 负责在训练RPN的时候，从上万个anchor中选择一些(比如256)进行训练，以使得正负样本比例大概是1:1. 同时给出训练的位置参数目标。 即返回gt_rpn_loc和gt_rpn_label ProposalTargetCreator： 负责在训练RoIHead/Fast R-CNN的时候，从RoIs选择一部分(比如128个)用以训练。同时给定训练目标, 返回（sample_RoI, gt_RoI_loc, gt_RoI_label） ProposalCreator： 在RPN中，从上万个anchor中，选择一定数目（2000或者300），调整大小和位置，生成RoIs，用以Fast R-CNN训练或者测试 其中AnchorTargetCreator和ProposalTargetCreator是为了生成训练的目标，只在训练阶段用到，ProposalCreator是RPN为Fast R-CNN生成RoIs，在训练和测试阶段都会用到。 AnchorTargetCreator将20000多个候选的anchor选出256个anchor进行分类和回归位置。选择过程如下： 对于每一个ground truth bounding box (gt_bbox)，选择和它重叠度（IoU）最高的一个anchor作为正样本 对于剩下的anchor，从中选择和任意一个gt_bbox重叠度超过0.7的anchor，作为正样本，正样本的数目不超过128个。 随机选择和gt_bbox重叠度小于0.3的anchor作为负样本。负样本和正样本的总数为256。 ProposalCreator 生成ROIs的过程如下： 对于每张图片，利用它的feature map， 计算 (H/16)× (W/16)×9（大概20000）个anchor属于前景的概率，以及对应的位置参数。 选取概率较大的12000个anchor 利用回归的位置参数，修正这12000个anchor的位置，得到RoIs 利用非极大值（(Non-maximum suppression, NMS）抑制，选出概率最大的2000个RoIs 注意：在inference的时候，为了提高处理速度，12000和2000分别变为6000和300. 对于2000个RoIs，这2000个RoIs不是都拿去训练，而是利用ProposalTargetCreator 选择128个RoIs用以训练。选择的规则如下： RoIs和gt_bboxes 的IoU大于0.5的，选择一些（比如32个） 选择 RoIs和gt_bboxes的IoU小于等于0（或者0.1）的选择一些（比如 128-32=96个）作为负样本 Faster R-CNN的训练过程的理解： 参考资料 论文 一文读懂Faster RCNN Faster R-CNN 从编程实现角度学习Faster R-CNN（附极简实现） 一文教你如何用PyTorch构建 Faster RCNN pytorch 实现 faster rcnn]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>Faster R-CNN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Jupyter Notebook 中使用Anaconda创建的虚拟环境]]></title>
+    <url>%2F2019%2F08%2F12%2Fjupyter_use_virtual%2F</url>
+    <content type="text"><![CDATA[Jupyter Notebook 默认不能使用Anaconda中创建的虚拟环境，需要进行配置，步骤如下： 12345678910# 创建虚拟环境conda create -n DOTA_devkit python=3.6source activate DOTA_devkit# 安装ipykernel模块conda install ipykernel python -m ipykernel install --user --name DOTA_devkit --display-name "DOTA_devkit"# 启动jupyter notebookjupyter notebook 结果如下：]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>jupyter notebook</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Windows下配置VS Code通过remote ssh进行远程开发]]></title>
     <url>%2F2019%2F07%2F14%2Fvscode_remote_ssh%2F</url>
     <content type="text"><![CDATA[VS Code 的远程开发功能需要通过密钥方式与服务器相连，所以需要先在本地生成密钥对，将公钥上传到服务器，再安装remote ssh 插件，进行远程开发。 1 在本机生成SSH密钥对1ssh-keygen -t rsa 一路回车，密钥对将生成到默认位置 C:\Users\&lt;用户名&gt;\.ssh\，如下图： 2 上传公钥到服务器服务器输入以下命令： 12$ mkdir ~/.ssh &amp;&amp; touch ~/.ssh/authorized_keys$ chmod 700 ~/.ssh &amp;&amp; chmod 600 ~/.ssh/authorized_keys 将id_rsa.pub 上传到服务器的 ~/.ssh 文件夹下，服务器输入以下命令： 1$ cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys 3 本地配置 config 文件简化登陆本地打开C:\Users\&lt;用户名&gt;\.ssh\config 文件，输入以下内容： 1234Host &lt;name-you-want&gt; # ssh连接别名 HostName &lt;server-ip-address&gt; # 服务器ip User &lt;username&gt; # 服务器登陆用户名 PubkeyAuthentication yes 此时，本地可以通过设置的别名连接，如下图，lab 是我设置的别名： 4 VS Code远程配置4.1 安装Remote Development插件 4.2 SSH连接 此时会跳出新的窗口，等待一会，连接成功，如下图： 4.3 打开服务器文件，进行开发 4.4 开发插件配置 不得不提的是，VS Code配置远程开发后，服务器要单独安装需要的插件： 5 总结VS Code 的远程开发功能很强大，但连接以后非常卡顿，基本不能使用。]]></content>
@@ -2071,18 +2093,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[windows下Clion配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
-    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR "D:\\software\\opencv4\\MinGW64_build\\install")set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; "$&#123;CMAKE_SOURCE_DIR&#125;/cmake/")find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>Clion</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -2092,6 +2102,18 @@
       <tags>
         <tag>opencv</tag>
         <tag>VS2017</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[windows下Clion配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
+    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR "D:\\software\\opencv4\\MinGW64_build\\install")set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; "$&#123;CMAKE_SOURCE_DIR&#125;/cmake/")find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>Clion</tag>
+        <tag>opencv</tag>
       </tags>
   </entry>
   <entry>
@@ -2189,7 +2211,7 @@
   <entry>
     <title><![CDATA[服务器端安装Anaconda]]></title>
     <url>%2F2018%2F11%2F29%2FinstallAnaconda%2F</url>
-    <content type="text"><![CDATA[步骤打开网址：Anaconda清华镜像，复制要下载的文件地址，执行以下命令：123456789101112wget 复制的网址（会下载一个sh文件）sh sh文件名 #执行后，会显示使用条款，按enter继续阅读，会让回答几个问题，全部yesrm -rf sh文件名source ~/.bashrc （使conda生效）#设置清华conda镜像conda config --prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/conda config --set show_channel_urls yes 注意事项 Anaconda3-5.2.0.Linux-x86_64.sh ==&gt; python3.6 Anaconda3-5.3.1.Linux-x86_64.sh ==&gt; python3.7 若wget显示网络不可达，执行以下操作： 123456#centossudo yum -y install wget#ubuntusudo apt-get updatesudo apt-get install wget 若不能运行jupyter notebook，进行如下配置：jupyter notebook配置]]></content>
+    <content type="text"><![CDATA[步骤打开网址：Anaconda清华镜像，复制要下载的文件地址，执行以下命令：123456789101112wget 复制的网址（会下载一个sh文件）sh sh文件名 #执行后，会显示使用条款，按enter继续阅读，会让回答几个问题，全部yesrm -rf sh文件名source ~/.bashrc （使conda生效）#设置清华conda镜像conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/conda config --set show_channel_urls yes 注意事项 Anaconda3-5.2.0.Linux-x86_64.sh ==&gt; python3.6 Anaconda3-5.3.1.Linux-x86_64.sh ==&gt; python3.7 若wget显示网络不可达，执行以下操作： 123456#centossudo yum -y install wget#ubuntusudo apt-get updatesudo apt-get install wget 若不能运行jupyter notebook，进行如下配置：jupyter notebook配置]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>
