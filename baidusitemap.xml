@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2019/07/14/cuda_cudnn_version/</loc>
+    <lastmod>2019-08-26</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/08/25/yolo%20v1/</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
@@ -21,9 +24,6 @@
   </url>  <url>
     <loc>https://fanfuhan.github.io/2018/11/29/installAnaconda/</loc>
     <lastmod>2019-08-06</lastmod>
-  </url>  <url>
-    <loc>https://fanfuhan.github.io/2019/07/14/tensorflow_cuda_cudnn_version/</loc>
-    <lastmod>2019-07-14</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2019/06/22/pytorch_torchsummary/</loc>
     <lastmod>2019-06-22</lastmod>
