@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[YOLO v2 相关资料总结]]></title>
+    <url>%2F2019%2F09%2F01%2Fyolo_v2%2F</url>
+    <content type="text"><![CDATA[YOLO v2 网路结构 访问链接：Netscope 查看详细网络结构 理解 YOLO v2 的几个关键点Better 网络输出的理解 使用高分辨率图像微调分类模型 采用了 Anchor Boxs 理解聚类提取 Anchor Boxs 的尺度，如何约束预测边框的位置 passthrough 层 如何进行多尺度图像训练 Faster Darknet-19 Stronger 如何构建 WordTree WordTree 如何表达对象的类别 YOLO 9000 的网络输出 分类检测联合训练 注意 损失函数的理解 label 的构建 参考资料 论文 YOLO v2 的深入理解 重温 YOLO v2 K-means 计算 anchor boxes]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>YOLO v2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[YOLO v1相关资料总结]]></title>
-    <url>%2F2019%2F08%2F25%2Fyolo%20v1%2F</url>
+    <url>%2F2019%2F08%2F25%2Fyolo_v1%2F</url>
     <content type="text"><![CDATA[YOLO 结构 点击 yolo_deploy.prototxt ，打开网址 Netscope ,查看 YOLO v1 网络结构。 理解 YOLO 的几个关键点 输入输出的映射 输出的 7*7*30 具体表示什么 训练样本如何构造 (7*7*30) 损失函数的理解 如何预测 参考资料 论文 图解YOLO YOLO v1 深入理解 YOLO v1 ppt]]></content>
       <categories>
         <category>ML/DL</category>
@@ -69,7 +80,7 @@
   <entry>
     <title><![CDATA[CUDA、Cudnn、nvidia-driver 版本对应关系]]></title>
     <url>%2F2019%2F07%2F14%2Fcuda_cudnn_version%2F</url>
-    <content type="text"><![CDATA[官方网址CUDA 与 nvidia-driver CUDA 与 cu’d’n’n]]></content>
+    <content type="text"><![CDATA[官方网址CUDA 与 nvidia-driver CUDA 与 cudnn]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>

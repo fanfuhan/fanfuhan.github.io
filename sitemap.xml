@@ -2,14 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://fanfuhan.github.io/2019/07/14/cuda_cudnn_version/</loc>
+    <loc>https://fanfuhan.github.io/2019/09/01/yolo_v2/</loc>
     
-    <lastmod>2019-08-26T07:36:33.078Z</lastmod>
+    <lastmod>2019-09-01T09:20:59.680Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://fanfuhan.github.io/2019/08/25/yolo%20v1/</loc>
+    <loc>https://fanfuhan.github.io/2019/07/14/cuda_cudnn_version/</loc>
+    
+    <lastmod>2019-08-27T06:07:44.061Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/08/25/yolo_v1/</loc>
     
     <lastmod>2019-08-25T15:58:34.075Z</lastmod>
     
