@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[YOLO v3 相关资料总结]]></title>
+    <url>%2F2019%2F09%2F08%2Fyolo_v3%2F</url>
+    <content type="text"><![CDATA[网络结构图 理解yolo v3 的几个关键点 基础网络：DarkNet-53 在三个不同尺度上进行检测，类似于FPN anchor 的分配：一共9个anchor，每种尺度分配3个anchor anchor 尺寸是根据数据集通过聚类得到的，如果将 yolo v3 用于自己的数据集，需要通过聚类的方法得到适用于自己数据集的anchor尺寸 输出 255 的含义：3*(4+1+80) yolo v3 对小目标的检测效果好，对大目标反而不好，可以考虑增加下采样次数 yolo v3 在mAP -50 效果很好，iou阈值增大，效果较差 yolo v3 的损失函数分三部分：bbox loss + confidence loss + class loss，其中，bbox loss 采用均方差损失函数， confidence loss 和 class loss 采用二分类的交叉熵损失函数。 参考资料 文章 论文 yolo系列之yolo v3【深度解析】 YOLO v3网络结构分析 What’s new in YOLO v3? 物体检测算法YOLOv3的分析与改进—强烈推荐 代码-版本一 YOLO_v3_tutorial_from_scratch 代码解释-英文版 代码解释-pytorch中文网 代码解释-机器之心翻译-1 代码解释-机器之心翻译-2 代码-版本二 代码]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>YOLO v3</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[YOLO v2 相关资料总结]]></title>
     <url>%2F2019%2F09%2F01%2Fyolo_v2%2F</url>
     <content type="text"><![CDATA[YOLO v2 网路结构 访问链接：Netscope 查看详细网络结构 理解 YOLO v2 的几个关键点Better 网络输出的理解 使用高分辨率图像微调分类模型 采用了 Anchor Boxs 理解聚类提取 Anchor Boxs 的尺度，如何约束预测边框的位置 passthrough 层 如何进行多尺度图像训练 Faster Darknet-19 Stronger 如何构建 WordTree WordTree 如何表达对象的类别 YOLO 9000 的网络输出 分类检测联合训练 注意 损失函数的理解 label 的构建 参考资料 论文 YOLO v2 的深入理解 重温 YOLO v2 K-means 计算 anchor boxes]]></content>
