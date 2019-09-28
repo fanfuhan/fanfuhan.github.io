@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/09/28/python_typing/</loc>
+    
+    <lastmod>2019-09-28T02:27:16.347Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/09/18/python_closure/</loc>
+    
+    <lastmod>2019-09-18T03:47:51.952Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/09/15/iterator_and_generator/</loc>
+    
+    <lastmod>2019-09-15T14:59:46.299Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/09/15/list_copy/</loc>
+    
+    <lastmod>2019-09-15T11:06:25.321Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/09/14/linux_axel/</loc>
+    
+    <lastmod>2019-09-14T05:30:12.923Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/09/13/cascade_rcnn/</loc>
+    
+    <lastmod>2019-09-13T13:51:35.095Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/09/08/yolo_v3/</loc>
     
     <lastmod>2019-09-08T07:18:55.376Z</lastmod>
