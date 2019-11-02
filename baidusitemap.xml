@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2019/11/02/rtf_adjust_parameter/</loc>
+    <lastmod>2019-11-02</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/11/02/rtf_missing_value/</loc>
+    <lastmod>2019-11-02</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/08/16/Faster%20R-CNN/</loc>
+    <lastmod>2019-10-17</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/10/09/Decision_tree/</loc>
+    <lastmod>2019-10-09</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/10/03/Fast-RCNN/</loc>
+    <lastmod>2019-10-03</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/10/03/RCNN/</loc>
+    <lastmod>2019-10-03</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/10/03/SPPNet/</loc>
+    <lastmod>2019-10-03</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/09/28/python_typing/</loc>
     <lastmod>2019-09-28</lastmod>
   </url>  <url>
@@ -39,9 +60,6 @@
   </url>  <url>
     <loc>https://fanfuhan.github.io/2019/07/14/vscode_remote_ssh/</loc>
     <lastmod>2019-08-22</lastmod>
-  </url>  <url>
-    <loc>https://fanfuhan.github.io/2019/08/16/Faster%20R-CNN/</loc>
-    <lastmod>2019-08-17</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2019/08/12/jupyter_use_virtual/</loc>
     <lastmod>2019-08-12</lastmod>
