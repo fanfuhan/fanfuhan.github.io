@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2019/11/05/knn/</loc>
+    <lastmod>2019-11-05</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/11/02/rtf_adjust_parameter/</loc>
     <lastmod>2019-11-02</lastmod>
   </url>  <url>
@@ -654,8 +657,5 @@
   </url>  <url>
     <loc>https://fanfuhan.github.io/2018/11/29/beautifyBash/</loc>
     <lastmod>2018-11-29</lastmod>
-  </url>  <url>
-    <loc>https://fanfuhan.github.io/2018/11/04/weChat/</loc>
-    <lastmod>2018-11-04</lastmod>
   </url>
 </urlset>

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[KNN 算法的介绍和实现]]></title>
+    <url>%2F2019%2F11%2F05%2Fknn%2F</url>
+    <content type="text"><![CDATA[算法原理介绍1. 算法描述 2. KNN 的三要素（1）k 值得选择 （2）距离度量 （3）分类决策规则 KNN 算法的分类决策规则一般是多数表决，即由输入实例的k个邻近的训练实例中的多数类决定输入实例的类。 KNN 算法的实现与测试1. KNN 分类器的实现1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768import numpy as npfrom collections import Counterclass KnnClassifier: """ a KNN classifier with L2 distance """ def __init__(self, k): """ :param k: 最近邻数量 """ self.k = k self.X_train = None self.y_train = None def fit(self, X_train, y_train): """ 训练 KNN 分类器，对于KNN来说，训练仅仅是记录训练集 :param X_train: 训练集，shape ==&gt; (N, D) , N是训练集数量，D是训练数据的维度 :param y_train: 训练集标签， shape ==&gt; (N,) """ self.X_train = X_train self.y_train = y_train def predict(self, X_test): """ 对测试集进行预测 :param X_test: 测试集，shape ==&gt; (n, D)，n是测试集数量，D是测试数据的维度 :return: 预测结果，shape ==&gt; (n,) """ n = X_test.shape[0] y_pred = np.zeros(n) dists = self._compute_dists(X_test) # (n, N) for i in range(n): top_k = self.y_train[np.argsort(dists[i])[:self.k]] ''' the meaning of Counter(top_k).most_common(1): List the n most common elements and their counts from the most common to the least. If n is None, then list all element counts. &gt;&gt;&gt; Counter('abcdeabcdabcaba').most_common(3) ==&gt; [('a', 5), ('b', 4), ('c', 3)] ''' y_pred[i] = Counter(top_k).most_common(1)[0][0] return y_pred def _compute_dists(self, X_test): """ 计算每一个测试数据与训练集的距离 :param X_test: 测试集，shape ==&gt; (n, D)，n是测试集数量，D是测试数据的维度 :return: 测试集和训练集的距离，shape ==&gt; (n, N) ,n是测试集数量，N是训练集数量， 每一行表示一个测试数据和所有训练集的距离 """ n = X_test.shape[0] N = self.X_train.shape[0] dists = np.zeros((n, N)) for i in range(n): dists[i, :] = np.sqrt(np.sum(np.square(self.X_train - X_test[i, :]), axis=1)) return dists 2. 使用sklearn自带的红酒数据集对KNN进行测试导包 12345from knn import KnnClassifierfrom sklearn import datasetsfrom sklearn.model_selection import train_test_splitimport numpy as npimport matplotlib.pyplot as plt 探索数据，并划分训练集和测试集 1234567data = datasets.load_wine()print(data.data.shape, data.target.shape,np.unique(data.target))# output: ((178, 13), (178,), array([0, 1, 2]))X_train, X_test, y_train, y_test = train_test_split(data.data, data.target, test_size=0.2, random_state=1)print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)# output:((142, 13), (36, 13), (142,), (36,)) 简单测试KNN 12345678910knn = KnnClassifier(k=5)knn.fit(X_train, y_train)y_pred = knn.predict(X_test)num_correct = np.sum(y_pred == y_test)acc = float(num_correct)/ len(y_test)print("Got &#123;&#125;/&#123;&#125;, acc = &#123;:0.3f&#125;".format(num_correct, len(y_test), acc))# output: Got 24/36, acc = 0.667 对k的不同取值进行测试 12345678910111213141516171819202122232425accs = []for k in range(1,16): knn = KnnClassifier(k) knn.fit(X_train, y_train) y_pred = knn.predict(X_test) num_correct = np.sum(y_pred == y_test) acc = float(num_correct)/ len(y_test) accs.append(acc)print("max_acc: &#123;&#125;, best_k = &#123;&#125;".format(max(accs), accs.index(max(accs)) + 1))#output: max_acc: 0.75, best_k = 1plt.figure(figsize=[20, 5])plt.plot(range(1,16), accs)plt.xlim(0,16)plt.xticks(range(0,17))plt.xlabel("value of k", fontsize=16, fontweight='normal')plt.ylim(0,1.0)plt.yticks(np.arange(0.0,1.1,0.1))plt.ylabel("value of acc", fontsize=16, fontweight='normal')plt.show() 当前数据集，当 k=1 时，取得最高准确率。 对sklearn自带的KNN分类器进行测试接口 官网链接 导包 12from sklearn.model_selection import cross_val_score, GridSearchCVfrom sklearn.neighbors import KNeighborsClassifier 使用交叉验证和网格搜索测试 1234567param_grid = &#123;'n_neighbors': np.arange(1, 10)&#125;knn = KNeighborsClassifier(n_neighbors=1)GS = GridSearchCV(knn, param_grid, cv=10)GS.fit(data.data, data.target)print(GS.best_params_, GS.best_score_)# output: &#123;'n_neighbors': 1&#125; 0.7471910112359551 KNN 的优缺点KNN 实现简单，是一个判别式、非线性模型，适合在低维度空间中使用，当训练样本大且向量维度高时，计算量非常大，所以需要对大数据量进行一定的处理，此时需要继续学习 kd tree 。 参考 《统计学习方法》 木东居士公众号：KNN 机器学习-KNN算法]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>KNN</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[随机森林在泰坦尼克号数据上的调参]]></title>
     <url>%2F2019%2F11%2F02%2Frtf_adjust_parameter%2F</url>
     <content type="text"><![CDATA[调参基本知识模型复杂度和泛化误差： 当模型太复杂，模型就会过拟合，泛化能力不够，导致泛化误差大；当模型简单，模型就会欠拟合，拟合能力不够，导致泛化误差也大；只有当模型复杂度刚刚好的时候才能够达到泛化误差最小的目标。 树模型是天生复杂度高的模型，我们调整参数，基本是将模型往图像的左边推动。调参的时候一般按照参数的重要程度依次调整，随机森林参数的重要程度如下： 参考 导包123456789from sklearn.ensemble import RandomForestClassifier, RandomForestRegressorfrom sklearn.model_selection import GridSearchCVfrom sklearn.model_selection import cross_val_score, train_test_splitimport matplotlib.pyplot as pltimport pandas as pdimport numpy as npimport warningswarnings.filterwarnings('ignore') 读取并探索数据123456789101112131415161718192021data = pd.read_csv(r'data.csv')print(data.info())# output&lt;class 'pandas.core.frame.DataFrame'&gt;RangeIndex: 891 entries, 0 to 890Data columns (total 12 columns):PassengerId 891 non-null int64Survived 891 non-null int64Pclass 891 non-null int64Name 891 non-null objectSex 891 non-null objectAge 714 non-null float64SibSp 891 non-null int64Parch 891 non-null int64Ticket 891 non-null objectFare 891 non-null float64Cabin 204 non-null objectEmbarked 889 non-null objectdtypes: float64(2), int64(5), object(5)memory usage: 83.6+ KB 1data.head() 1234# 将标签类移动到最后一列tmp = data.pop('Survived')data.insert(len(data.columns), 'Survived', tmp)data.head() 数据预处理123# 筛选特征，删除缺失值过多的列，和观察判断来说和预测的y没有关系的列data.drop(["Cabin", "Name", "Ticket"], axis=1, inplace=True)data.head() 1234567891011121314151617data.info()# output&lt;class 'pandas.core.frame.DataFrame'&gt;RangeIndex: 891 entries, 0 to 890Data columns (total 9 columns):PassengerId 891 non-null int64Pclass 891 non-null int64Sex 891 non-null objectAge 714 non-null float64SibSp 891 non-null int64Parch 891 non-null int64Fare 891 non-null float64Embarked 889 non-null objectSurvived 891 non-null int64dtypes: float64(2), int64(5), object(2)memory usage: 62.7+ KB 12345678910111213141516171819# 去掉“Embarked”缺失值部分所在的行data.dropna(subset=['Embarked'], inplace=True)data.info()# output&lt;class 'pandas.core.frame.DataFrame'&gt;Int64Index: 889 entries, 0 to 890Data columns (total 9 columns):PassengerId 889 non-null int64Pclass 889 non-null int64Sex 889 non-null objectAge 712 non-null float64SibSp 889 non-null int64Parch 889 non-null int64Fare 889 non-null float64Embarked 889 non-null objectSurvived 889 non-null int64dtypes: float64(2), int64(5), object(2)memory usage: 69.5+ KB 12345678# 字符串特征转数值特征，这里只是简单的情况，详细的要再多多学习labels = data['Embarked'].unique().tolist()data['Embarked'] = data['Embarked'].apply(lambda x : labels.index(x))# 'Sex' 只有两个取值，讨巧的做法data['Sex'] = (data['Sex'] == 'male').astype("int")data.head() 12345678910111213141516171819202122232425262728293031323334353637383940# 利用随机森林处理缺失值列 “Age”age_index = data.columns.get_loc('Age')# 构建新特征矩阵和新标签df = datay_new = df.iloc[:, age_index]X_new = df.iloc[:, df.columns != 'Age']# 找出训练集和测试集y_train = y_new[y_new.notnull()]y_test = y_new[y_new.isnull()]x_train = X_new.loc[y_train.index, :]x_test = X_new.loc[y_test.index, :]# 用随机森林回归来填补缺失值rtf = RandomForestRegressor(n_estimators=100)rtf = rtf.fit(x_train, y_train)y_predict = rtf.predict(x_test)# 将填补好的特征返回到原始矩阵data.loc[data.iloc[:,age_index].isnull(), 'Age'] = y_predictdata.info()# output&lt;class 'pandas.core.frame.DataFrame'&gt;Int64Index: 889 entries, 0 to 890Data columns (total 9 columns):PassengerId 889 non-null int64Pclass 889 non-null int64Sex 889 non-null int32Age 889 non-null float64SibSp 889 non-null int64Parch 889 non-null int64Fare 889 non-null float64Embarked 889 non-null int64Survived 889 non-null int64dtypes: float64(2), int32(1), int64(6)memory usage: 106.0 KB 12345# 获取特征和标签X = data.iloc[:, data.columns != 'Survived']y = data.iloc[:, data.columns == 'Survived']X.shape, y.shape # ((889, 8), (889, 1)) 123# 重新调整行索引for x in [X, y]: x.index = range(x.shape[0]) 进行一次简单建模，看模型本身在数据集上的效果1234rtf = RandomForestClassifier(n_estimators=100, random_state=90)score_pre = cross_val_score(rtf, X, y, cv=10).mean()score_pre # 0.8323799795709907 调参参数具有范围的，可以采用网格搜索进行调参，参数没有范围的，采用学习曲线进行调整。接下来按照参数重要性依次调整。 1. n_estimators 123456789101112131415# 利用学习曲线，确定 n_estimators 的大致范围scores = []for i in range(1, 201, 10): rtf = RandomForestClassifier(n_estimators=i, n_jobs=-1, random_state=90) score = cross_val_score(rtf, X, y, cv=10).mean() scores.append(score) print("最大得分: &#123;&#125;, max_n_estimators = &#123;&#125;".format(max(scores), scores.index(max(scores))*10 + 1))plt.figure(figsize=[20, 5])plt.plot(range(1,201,10), scores)plt.show()# output# 最大得分: 0.8357507660878447, max_n_estimators = 41 123456789101112131415# 在确定好的范围内，确定最佳 n_estimatorsscores = []for i in range(25, 50): rtf = RandomForestClassifier(n_estimators=i, n_jobs=-1, random_state=90) score = cross_val_score(rtf, X, y, cv=10).mean() scores.append(score) print("最大得分: &#123;&#125;, max_n_estimators = &#123;&#125;".format(max(scores), [*range(25,50)][scores.index(max(scores))]))plt.figure(figsize=[20, 5])plt.plot(range(25,50), scores)plt.show()# output# 最大得分: 0.8391215526046987, max_n_estimators = 47 总结：准确率从 0.8323 提升到 0.8391 ，泛化误差减小，模型在图像上往左移动。 2. max_depth 12345678# max_depth 的大小根据数据量调整param_grid = &#123;'max_depth': np.arange(1, 20, 1)&#125;rtf = RandomForestClassifier(n_estimators=47, n_jobs=-1, random_state=90)GS = GridSearchCV(rtf, param_grid, cv=10)GS.fit(X, y)print(GS.best_params_, GS.best_score_) # &#123;'max_depth': 10&#125; 0.8413948256467941 总结： 准确率从 0.8391 提升到 0.84139 ，泛化误差减小，模型在图像上往左移动。 3. min_samples_leaf 1234567param_grid = &#123;'min_samples_leaf': np.arange(1, 20, 1)&#125;rtf = RandomForestClassifier(n_estimators=47, max_depth=10, n_jobs=-1, random_state=90)GS = GridSearchCV(rtf, param_grid, cv=10)GS.fit(X, y)print(GS.best_params_, GS.best_score_) # &#123;'min_samples_leaf': 3&#125; 0.84251968503937 总结：准确率从 0.84139 提升到 0.84252 ，泛化误差减小，模型在图像上往左移动。 4. min_samples_split 1234567param_grid = &#123;'min_samples_split': np.arange(2, 22, 1)&#125;rtf = RandomForestClassifier(n_estimators=47, max_depth=10, min_samples_leaf=3, n_jobs=-1, random_state=90)GS = GridSearchCV(rtf, param_grid, cv=10)GS.fit(X, y)print(GS.best_params_, GS.best_score_) # &#123;'min_samples_split': 12&#125; 0.8481439820022497 总结：准确率从 0.84252 提升到 0.84814 ，泛化误差减小，模型在图像上往左移动。 5. max_features 12345678param_grid = &#123;'max_features': np.arange(3, 8, 1)&#125;rtf = RandomForestClassifier(n_estimators=47, max_depth=10, min_samples_leaf=3, min_samples_split=12, n_jobs=-1, random_state=90)GS = GridSearchCV(rtf, param_grid, cv=10)GS.fit(X, y)print(GS.best_params_, GS.best_score_) # &#123;'max_features': 3&#125; 0.843644544431946 总结：调整 max_features 后，准确率下降，说明模型原先已经位于泛化误差曲线最低点，无论怎么调，都让泛化误差升高， 所以忽略此次调参。 6. criterion 12345678param_grid = &#123;'criterion': ['gini', 'entropy']&#125;rtf = RandomForestClassifier(n_estimators=47, max_depth=10, min_samples_leaf=3, min_samples_split=12, n_jobs=-1, random_state=90)GS = GridSearchCV(rtf, param_grid, cv=10)GS.fit(X, y)print(GS.best_params_, GS.best_score_) # &#123;'criterion': 'gini'&#125; 0.8481439820022497 总结：准确率没有提升，{‘criterion’: ‘gini’} 为默认参数，不需要调整 总结通过调参，使得准确率从最初的 0.832 提升到 0.848。 最后的调参结果是： 123456rtf = RandomForestClassifier(n_estimators=47, max_depth=10, min_samples_leaf=3, min_samples_split=12, n_jobs=-1, random_state=90)]]></content>
@@ -2284,18 +2295,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -2305,6 +2304,18 @@
       <tags>
         <tag>opencv</tag>
         <tag>VS2017</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>opencv</tag>
       </tags>
   </entry>
   <entry>
@@ -2428,18 +2439,6 @@
     <content type="text"><![CDATA[博客编写步骤1 进入D:\Blog文件夹下，打开终端 2 输入：hexo new &quot;文件名&quot;，在D:\Blog\source\\_posts目录下创建了文件名.md文件 3 打开文件名.md，编写博客 4 终端输入：hexo d -g提交博客 md文件编写注意事项1234567---title: 博客名categories: 分类名tags: - 标签1 - 标签2--- 更新博客分类与标签页面12hexo cleanhexo d -g]]></content>
       <tags>
         <tag>Hexo发送文章</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[简易安卓聊天软件之思路架构及源码]]></title>
-    <url>%2F2018%2F11%2F04%2FweChat%2F</url>
-    <content type="text"><![CDATA[安卓聊天软件完成的功能罗列1 登陆2 动态显示好友列表3 服务端程序4 客户端程序5 安全退出6 与多好友聊天，屏幕切换，可以保存原信息，每次新登陆，可以读取历史记录7 缓存消息，及离线完成 软件架构图 本地Sqlite数据库设计只有一张表，存储聊天消息，表中有三个属性，分别为：发送者 接收者 消息内容 客户端与服务端传输消息协议约定： 客户端新上线的时候，向服务端发送用户名，服务端向客户端发送好友列表与离线消息 客户端 ==&gt; 服务端：发送者：接收者：消息 服务端 ==&gt; 客户端：发送者：接收者：消息 服务端向客户端发送的是消息还是好友列表，以开头是否是”&amp;”符号区分 客户端目录结构（Android Studio） 客户端的基本思路Service负责与服务器进行网络连接与IO读写，无论是发送消息还是接受消息，Service都先把消息存到本地数据库，FriendListActivity与ChatActivity中ListView的显示，都是直接从数据库读取数据。Service与Activity的通信主要使用Intent和广播来进行。 服务端程序服务端基本思路（具体代码见文末源码地址）： 使用一个List存储所有好友 使用一个Map存储在线好友及对应Socket 使用一个Map存储离线消息 软件开发经验总结这次软件开发是以小组形式进行的，最后算是完成了聊天软件的基本功能，这次开发做的好的地方在于一开始小组就先把真个架构图设计好了，包括数据库，后面写代码基本很顺畅，得到的经验就是开发一个软件，做一个项目，写代码真的是很靠后的事情了，前期一定是先通过写用例，梳理好逻辑，画好架构图，后期按照梳理好的逻辑来写代码。后期还需要努力的地方在于UML类图，希望下次开发前期能把UML类图画出来，这样前期工作会更完善，加油，希望可以成为一个专业的程序员。 源码地址源码：github地址 注意：源码中的ImServeFinal.java文件时服务端程序，应该拿出来用java的IDE运行，记得更改ip与端口]]></content>
-      <categories>
-        <category>Android</category>
-      </categories>
-      <tags>
-        <tag>Android</tag>
-        <tag>java</tag>
       </tags>
   </entry>
 </search>
