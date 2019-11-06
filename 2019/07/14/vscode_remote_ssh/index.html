@@ -402,9 +402,9 @@
 <p>一路回车，密钥对将生成到默认位置 <code>C:\Users\&lt;用户名&gt;\.ssh\</code>，如下图：</p>
 <p><img src="http://ww1.sinaimg.cn/large/e52819ealy1g4zetx8rtwj20gh05kwek.jpg" alt=""></p>
 <h4 id="2-上传公钥到服务器"><a href="#2-上传公钥到服务器" class="headerlink" title="2 上传公钥到服务器"></a>2 上传公钥到服务器</h4><p>服务器输入以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkdir ~/.ssh &amp;&amp; touch ~/.ssh/authorized_keys</span><br><span class="line"><span class="meta">$</span> chmod 700 ~/.ssh &amp;&amp; chmod 600 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir ~/.ssh &amp;&amp; touch ~/.ssh/authorized_keys</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> chmod 700 ~/.ssh &amp;&amp; chmod 600 ~/.ssh/authorized_keys</span></span><br></pre></td></tr></table></figure>
 <p>将<code>id_rsa.pub</code> 上传到服务器的 <code>~/.ssh</code> 文件夹下，服务器输入以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span></span><br></pre></td></tr></table></figure>
 <h4 id="3-本地配置-config-文件简化登陆"><a href="#3-本地配置-config-文件简化登陆" class="headerlink" title="3 本地配置 config 文件简化登陆"></a>3 本地配置 config 文件简化登陆</h4><p>本地打开<code>C:\Users\&lt;用户名&gt;\.ssh\config</code> 文件，输入以下内容：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host &lt;name-you-want&gt;                 # ssh连接别名</span><br><span class="line">  HostName &lt;server-ip-address&gt;       # 服务器ip</span><br><span class="line"> <span class="built_in"> User </span>&lt;username&gt;                    # 服务器登陆用户名</span><br><span class="line">  PubkeyAuthentication <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
 <p>此时，本地可以通过设置的别名连接，如下图，<code>lab</code> 是我设置的别名：</p>
@@ -556,7 +556,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -567,7 +567,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">211</span>
+                  <span class="site-state-item-count">209</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
