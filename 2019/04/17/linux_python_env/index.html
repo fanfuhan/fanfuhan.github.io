@@ -390,10 +390,10 @@
       
         <h3 id="安装-virtualenv"><a href="#安装-virtualenv" class="headerlink" title="安装 virtualenv"></a>安装 <code>virtualenv</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
 <h3 id="创建工作目录"><a href="#创建工作目录" class="headerlink" title="创建工作目录"></a>创建工作目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir myproject</span><br><span class="line">cd myproject</span><br></pre></td></tr></table></figure>
-<h3 id="创建一个独立的python运行环境，命名为-venc"><a href="#创建一个独立的python运行环境，命名为-venc" class="headerlink" title="创建一个独立的python运行环境，命名为 venc"></a>创建一个独立的python运行环境，命名为 <code>venc</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 若要继承已有的环境包，不加此参数</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> --python=python2.7  此处的python版本必须是系统中已经存在的python版本</span></span><br><span class="line">virtualenv --no-site-packages venv --python=python2.7</span><br></pre></td></tr></table></figure>
+<h3 id="创建一个独立的python运行环境，命名为-venc"><a href="#创建一个独立的python运行环境，命名为-venc" class="headerlink" title="创建一个独立的python运行环境，命名为 venc"></a>创建一个独立的python运行环境，命名为 <code>venc</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> --no-site-packages 得到了一个不带任何第三方包的“干净”的Python运行环境</span><br><span class="line"><span class="meta">#</span> 若要继承已有的环境包，不加此参数</span><br><span class="line"><span class="meta">#</span> --python=python2.7  此处的python版本必须是系统中已经存在的python版本</span><br><span class="line">virtualenv --no-site-packages venv --python=python2.7</span><br></pre></td></tr></table></figure>
 <h3 id="进入创建的环境"><a href="#进入创建的环境" class="headerlink" title="进入创建的环境"></a>进入创建的环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source venv/bin/activate</span><br></pre></td></tr></table></figure>
 <p><img src="http://ww1.sinaimg.cn/large/e52819eagy1g25mt4r3z7j20kg06vt8u.jpg" alt=""></p>
-<h3 id="自动生成和安装-requirements-txt-依赖"><a href="#自动生成和安装-requirements-txt-依赖" class="headerlink" title="自动生成和安装 requirements.txt 依赖"></a>自动生成和安装 <code>requirements.txt</code> 依赖</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 生成<span class="selector-tag">requirements</span><span class="selector-class">.txt</span>文件</span><br><span class="line"><span class="selector-tag">pip</span> <span class="selector-tag">freeze</span> &gt; <span class="selector-tag">requirements</span><span class="selector-class">.txt</span></span><br><span class="line"></span><br><span class="line"># 安装<span class="selector-tag">requirements</span><span class="selector-class">.txt</span>依赖</span><br><span class="line"><span class="selector-tag">pip</span> <span class="selector-tag">install</span> <span class="selector-tag">-r</span> <span class="selector-tag">requirements</span><span class="selector-class">.txt</span></span><br></pre></td></tr></table></figure>
+<h3 id="自动生成和安装-requirements-txt-依赖"><a href="#自动生成和安装-requirements-txt-依赖" class="headerlink" title="自动生成和安装 requirements.txt 依赖"></a>自动生成和安装 <code>requirements.txt</code> 依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 生成requirements.txt文件</span><br><span class="line">pip freeze &gt; requirements.txt</span><br><span class="line"></span><br><span class="line"># 安装requirements.txt依赖</span><br><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
 <h3 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
 <h3 id="删除虚拟环境"><a href="#删除虚拟环境" class="headerlink" title="删除虚拟环境"></a>删除虚拟环境</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -r venv</span><br></pre></td></tr></table></figure>
       
@@ -520,7 +520,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">219</span>
+                  <span class="site-state-item-count">220</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -542,7 +542,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

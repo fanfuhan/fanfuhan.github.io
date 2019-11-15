@@ -441,7 +441,7 @@
 SyntaxError: no binding for nonlocal &apos;a&apos; found
 </code></pre><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p><strong>定义：</strong> 延伸了作用域的函数（能访问定义体之外定义的非全局变量）, 闭包是一种函数，它会保留定义函数时存在的外层非全局变量的绑定。</p>
 <p><code>avg</code> 函数如下所示：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; avg(<span class="number">10</span>)</span><br><span class="line"><span class="number">10.0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; avg(<span class="number">11</span>)</span><br><span class="line"><span class="number">10.5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; avg(<span class="number">12</span>)</span><br><span class="line"><span class="number">11</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; avg(10)</span><br><span class="line">10.0</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; avg(11)</span><br><span class="line">10.5</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; avg(12)</span><br><span class="line">11</span><br></pre></td></tr></table></figure>
 <h4 id="用类实现"><a href="#用类实现" class="headerlink" title="用类实现"></a>用类实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Averager</span><span class="params">()</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.series = []</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, new_value)</span>:</span></span><br><span class="line">        self.series.append(new_value)</span><br><span class="line">        total = sum(self.series)</span><br><span class="line">        <span class="keyword">return</span> total/len(self.series)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">avg = Averager()</span><br><span class="line">print(avg(<span class="number">10</span>))</span><br><span class="line">print(avg(<span class="number">11</span>))</span><br><span class="line">print(avg(<span class="number">12</span>))</span><br></pre></td></tr></table></figure>
 <pre><code>10.0
 10.5
@@ -583,7 +583,7 @@ SyntaxError: no binding for nonlocal &apos;a&apos; found
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">219</span>
+                  <span class="site-state-item-count">220</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -605,7 +605,7 @@ SyntaxError: no binding for nonlocal &apos;a&apos; found
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

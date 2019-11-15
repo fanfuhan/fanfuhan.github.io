@@ -429,7 +429,7 @@
 <p><img src="http://ww1.sinaimg.cn/large/007cc5tqgy1g180gxx8tfj30k40iadgf.jpg" alt=""></p>
 </li>
 <li><p>进入输出目录，在cmd 运行下面代码，等待完成</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mingw32-<span class="built_in">make</span> -j8</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mingw32-make -j8</span><br></pre></td></tr></table></figure>
 <p><img src="http://ww1.sinaimg.cn/large/007cc5tqgy1g181q0p9mxj30nu0hrtad.jpg" alt=""></p>
 </li>
 <li><p>运行mingw32-make install，等待片刻，输出目录下会多出install文件夹</p>
@@ -438,7 +438,7 @@
 <li><p>添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量</p>
 </li>
 </ol>
-<h3 id="编辑CMakeLists-txt"><a href="#编辑CMakeLists-txt" class="headerlink" title="编辑CMakeLists.txt"></a>编辑CMakeLists.txt</h3><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(<span class="name">VERSION</span> <span class="number">3.13</span>)</span><br><span class="line">project(<span class="name">learnOpencv</span>)</span><br><span class="line"></span><br><span class="line">set(<span class="name">CMAKE_CXX_STANDARD</span> <span class="number">11</span>)</span><br><span class="line"></span><br><span class="line"># Where to find CMake modules and OpenCV</span><br><span class="line">set(<span class="name">OpenCV_DIR</span> <span class="string">"D:\\software\\opencv4\\MinGW64_build\\install"</span>)</span><br><span class="line">set(<span class="name">CMAKE_MODULE_PATH</span> $&#123;CMAKE_MODULE_PATH&#125; <span class="string">"$&#123;CMAKE_SOURCE_DIR&#125;/cmake/"</span>)</span><br><span class="line">find_package(<span class="name">OpenCV</span> REQUIRED)</span><br><span class="line">include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)</span><br><span class="line"></span><br><span class="line">add_executable(<span class="name">learnOpencv</span> test.cpp)</span><br><span class="line"></span><br><span class="line"># add libs you need</span><br><span class="line">set(<span class="name">OpenCV_LIBS</span> opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)</span><br><span class="line"># linking</span><br><span class="line">target_link_libraries(<span class="name">learnOpencv</span> $&#123;OpenCV_LIBS&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="编辑CMakeLists-txt"><a href="#编辑CMakeLists-txt" class="headerlink" title="编辑CMakeLists.txt"></a>编辑CMakeLists.txt</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.13)</span><br><span class="line">project(learnOpencv)</span><br><span class="line"></span><br><span class="line">set(CMAKE_CXX_STANDARD 11)</span><br><span class="line"></span><br><span class="line"># Where to find CMake modules and OpenCV</span><br><span class="line">set(OpenCV_DIR &quot;D:\\software\\opencv4\\MinGW64_build\\install&quot;)</span><br><span class="line">set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; &quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake/&quot;)</span><br><span class="line">find_package(OpenCV REQUIRED)</span><br><span class="line">include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)</span><br><span class="line"></span><br><span class="line">add_executable(learnOpencv test.cpp)</span><br><span class="line"></span><br><span class="line"># add libs you need</span><br><span class="line">set(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)</span><br><span class="line"># linking</span><br><span class="line">target_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;)</span><br></pre></td></tr></table></figure>
 <p><strong>注意</strong>：opencv4必须要c++11支持</p>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2\opencv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Mat img = imread(<span class="string">"D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png"</span>,WINDOW_AUTOSIZE);</span><br><span class="line">    namedWindow(<span class="string">"刘亦菲"</span>);</span><br><span class="line">    imshow(<span class="string">"刘亦菲"</span>, img);</span><br><span class="line"></span><br><span class="line">    waitKey(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="http://ww1.sinaimg.cn/large/007cc5tqgy1g182uqmmfpj31ib0rt1kx.jpg" alt=""></p>
@@ -474,8 +474,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/19/opencv_vs2017/" rel="next" title="VS2017配置opencv">
-                <i class="fa fa-chevron-left"></i> VS2017配置opencv
+              <a href="/2019/03/02/jupyterPlugin/" rel="next" title="安装jupyter notebook插件">
+                <i class="fa fa-chevron-left"></i> 安装jupyter notebook插件
               </a>
             
           </div>
@@ -484,8 +484,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/19/opencv_python/" rel="prev" title="python安装opencv">
-                python安装opencv <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/19/opencv_vs2017/" rel="prev" title="VS2017配置opencv">
+                VS2017配置opencv <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -565,7 +565,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">219</span>
+                  <span class="site-state-item-count">220</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -587,7 +587,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

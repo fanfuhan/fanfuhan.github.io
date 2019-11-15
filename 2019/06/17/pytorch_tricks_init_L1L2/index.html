@@ -401,7 +401,7 @@
 <p>另一种实现：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">reg = <span class="number">1e-6</span></span><br><span class="line">l2_loss = Variable(torch.FloatTensor(<span class="number">1</span>), requires_grad=<span class="keyword">True</span>)</span><br><span class="line"><span class="keyword">for</span> name, param <span class="keyword">in</span> model.named_parameters():</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'bias'</span> <span class="keyword">not</span> <span class="keyword">in</span> name:</span><br><span class="line">        l2_loss = l2_loss + <span class="number">0.5</span> * reg * torch.sum(torch.pow(param, <span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line">classify_loss = criteon(outputs, labels)</span><br><span class="line">loss = classify_loss + l2_loss</span><br></pre></td></tr></table></figure>
 <p><strong>L1 正则化</strong></p>
-<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">reg = <span class="number">1</span>e-<span class="number">6</span></span><br><span class="line">l1_loss = Variable(torch.FloatTensor(<span class="number">1</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">name</span>, <span class="built_in">param</span> <span class="built_in">in</span> model.named_parameters():</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'bias'</span> <span class="built_in">not</span> <span class="built_in">in</span> <span class="built_in">name</span>:</span><br><span class="line">        l1_loss = l1_loss + reg * torch.sum(torch.<span class="built_in">abs</span>(<span class="built_in">param</span>)))</span><br><span class="line"></span><br><span class="line">classify_loss = criteon(outputs, labels)</span><br><span class="line">loss = classify_loss + l1_loss</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">reg = 1e-6</span><br><span class="line">l1_loss = Variable(torch.FloatTensor(1), requires_grad=True)</span><br><span class="line">for name, param in model.named_parameters():</span><br><span class="line">    if &apos;bias&apos; not in name:</span><br><span class="line">        l1_loss = l1_loss + reg * torch.sum(torch.abs(param)))</span><br><span class="line"></span><br><span class="line">classify_loss = criteon(outputs, labels)</span><br><span class="line">loss = classify_loss + l1_loss</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -523,7 +523,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">219</span>
+                  <span class="site-state-item-count">220</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -545,7 +545,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

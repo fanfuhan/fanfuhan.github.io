@@ -387,9 +387,9 @@
 
       
         <p>无论是 wget 还是 curl 都只是单线程下载，axel 命令默认支持断点续传，并能多线程下载。</p>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ubuntu</span></span><br><span class="line">sudo apt-get install axel</span><br></pre></td></tr></table></figure>
-<h4 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">--max-speed</span>=x , -s x         最高速度x</span><br><span class="line"><span class="attribute">--num-connections</span>=x , -n x   连接数x</span><br><span class="line"><span class="attribute">--output</span>=f , -o f            下载为本地文件f</span><br><span class="line">--search[=x] , -S [x]        搜索镜像</span><br><span class="line"><span class="attribute">--header</span>=x , -H x            添加头文件字符串x（指定 HTTP header）</span><br><span class="line"><span class="attribute">--user-agent</span>=x , -U x        设置用户代理（指定 HTTP<span class="built_in"> user </span>agent）</span><br><span class="line">--no-proxy ， -N             不使用代理服务器</span><br><span class="line">--quiet ， -q                静默模式</span><br><span class="line">--verbose ，-v               更多状态信息</span><br><span class="line">--alternate ， -a            打印进度条信息</span><br><span class="line">--help ，-h                  帮助</span><br><span class="line">--version ，-V               版本信息</span><br></pre></td></tr></table></figure>
-<h4 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用8个线程下载文件，并重命名为ubuntu.iso</span></span><br><span class="line">axel -a -n 8 -o ubuntu.iso http://old-releases.ubuntu.com/releases/16.04.1/ubuntu-16.04-desktop-amd64.iso</span><br></pre></td></tr></table></figure>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ubuntu</span><br><span class="line">sudo apt-get install axel</span><br></pre></td></tr></table></figure>
+<h4 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">--max-speed=x , -s x         最高速度x</span><br><span class="line">--num-connections=x , -n x   连接数x</span><br><span class="line">--output=f , -o f            下载为本地文件f</span><br><span class="line">--search[=x] , -S [x]        搜索镜像</span><br><span class="line">--header=x , -H x            添加头文件字符串x（指定 HTTP header）</span><br><span class="line">--user-agent=x , -U x        设置用户代理（指定 HTTP user agent）</span><br><span class="line">--no-proxy ， -N             不使用代理服务器</span><br><span class="line">--quiet ， -q                静默模式</span><br><span class="line">--verbose ，-v               更多状态信息</span><br><span class="line">--alternate ， -a            打印进度条信息</span><br><span class="line">--help ，-h                  帮助</span><br><span class="line">--version ，-V               版本信息</span><br></pre></td></tr></table></figure>
+<h4 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 使用8个线程下载文件，并重命名为ubuntu.iso</span><br><span class="line">axel -a -n 8 -o ubuntu.iso http://old-releases.ubuntu.com/releases/16.04.1/ubuntu-16.04-desktop-amd64.iso</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -513,7 +513,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">219</span>
+                  <span class="site-state-item-count">220</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -535,7 +535,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
