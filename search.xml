@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[机器学习中的数据预处理]]></title>
+    <url>%2F2019%2F11%2F24%2Fpreprocessing_sklearn%2F</url>
+    <content type="text"><![CDATA[数据挖掘流程1. 获取数据2. 数据预处理数据预处理是从数据中检测，纠正或删除损坏，不准确或不适用于模型的记录的过程。可能面对的问题有：数据类型不同，比如有的是文字，有的是数字，有的含时间序列，有的连续，有的间断。也可能，数据的质量不行，有噪声，有异常，有缺失，数据出错，量纲不一，有重复，数据是偏态，数据量太大或太小。数据预处理的目的：让数据适应模型，匹配模型的需求。 3. 特征工程特征工程是将原始数据转换为更能代表预测模型的潜在问题的特征的过程，可以通过挑选最相关的特征，提取特征以及创造特征来实现。其中创造特征又经常以降维算法的方式实现。可能面对的问题有：特征之间有相关性，特征和标签无关，特征太多或太小，或者干脆就无法表现出应有的数据现象或无法展示数据的真实面貌。特征工程的目的： 降低计算成本，提升模型上限。 4. 建模，测试模型并预测结果5. 上线，验证模型效果sklearn 中的相关模块 模块 preprocessing ：几乎包括数据预处理的所有内容 模块 Impute ：填补缺失值专用 模块 feature_selection ：包括特征选择的各种方法的实践 模块 decomposition ：包含降维算法 数据预处理 1. 数据无量纲化归一化： $x = \frac{x - min(x)}{max(x)-min(x)} \quad$ 标准化：$x = \frac{x - \mu}{\sigma} \quad$ 注意： 大多数机器学习算法中，会选择StandardScaler来进行特征缩放，因为MinMaxScaler对异常值非常敏感。在PCA，聚类，逻辑回归，支持向量机，神经网络这些算法中，StandardScaler往往是最好的选择。MinMaxScaler在不涉及距离度量、梯度、协方差计算以及数据需要被压缩到特定区间时使用广泛，比如数字图像处理中量化像素强度时，都会使用MinMaxScaler将数据压缩于[0,1]区间之中。建议先试试看StandardScaler，效果不好换MinMaxScaler 。 2. 缺失值处理API: 演示： 3. 处理分类型特征：编码和哑变量3.1 处理标签API： 演示： 3.2 处理分类型特征，非独热编码API： 演示： 3.3 分类型特征独热编码，创建哑变量思考一个问题：在舱门Embarked这一列中，我们使用[0,1,2]代表了三个不同的舱门，然而这种转换是正确的吗 ？ API： 链接：OneHotEncoder 演示： 3.4 处理连续性特征：二值化API： 演示： 3.5 处理连续性特征：分段API： 链接：KBinsDiscretizer 演示： 参考资料菜菜的机器学习]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>数据预处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[docker 和 nvidia-docker 的离线安装和基本使用]]></title>
+    <url>%2F2019%2F11%2F22%2Fdocker_based_use%2F</url>
+    <content type="text"><![CDATA[本文介绍 docker 和 nvidia-docker 的安装和基本使用，关于 docker 的具体介绍请查看相关网站进行学习。 环境 ubuntu 16.04 docker 19.03 nvidia-docker2 docker 离线安装在 网站：docker download 下载如下三个文件： 在文件下载目录运行： 1dpkg -i *.deb # 没有先后顺序 若遇到缺少依赖包，使用 apt-get -f install 命令修复后再安装上述包。 运行： 1sudo docker run hello-world 出现上述信息，说明 docker 安装成功。 docker 命令需要使用root用户才能执行，如果希望用非root用户执行 docker命令，可以执行以下语句。 1sudo usermod -aG docker $your-user 注意：执行完成后，需要退出再登陆才能生效。 nvidia-docker 离线安装nvidia-docker 安装之前要先安装好 nvidia 驱动，但不需要安装 CUDA。 1 在一条有网的机器上，运行以下命令： 1234567$ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)$ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -$ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list$ sudo apt-get update 2 执行以下5个命令，下载5个包到当前目录，拷贝这些包到离线服务器上： 123456789apt download libnvidia-container1apt download libnvidia-container-toolsapt download nvidia-container-toolkitapt download nvidia-container-runtimeapt download nvidia-docker2 3 离线服务器上依次运行以下命令，顺序不能颠倒： 123456789dpkg -i libnvidia-container1dpkg -i libnvidia-container-toolsdpkg -i nvidia-container-toolkitdpkg -i nvidia-container-runtimedpkg -i nvidia-docker2 4 运行： 1docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi 出现上述信息，说明 nvidia-docker 安装成功。 镜像加速参考：https://yeasy.gitbooks.io/docker_practice/install/mirror.html 镜像相关操作12345678910111213docker search mmdetection # 搜索镜像docker pull qianjaingyuan/mmdetection # 拉去镜像docker images # 列出镜像docker rmi mmdetection # 删除镜像docker save -o mmdet.tar 镜像ID # 保存镜像为本地文件docker load -i mmdet.tar # 加载镜像文件docker tag 镜像ID mmdet:v1 容器相关操作123456789# 运行容器，如果需要使用GPU，使用nvidia-dockernvidia-docker run -itd --ipc=host -v $PWD/data/:/mmdetection/data/ -v $PWD/result/:/mmdetection/work_dirs 镜像ID /bin/bash# 解释# -i 交互式操作# -t 终端# -d 后台运行# --ipc=host 容器与主机共享内存# -v 将宿主的目录挂载到容器 123456789101112docker ps # 列出当前正在运行的容器docker ps -a # 列出所有容器docker stop &lt;容器 ID&gt; # 停止容器docker restart &lt;容器 ID&gt; # 容器容器docker exec -it &lt;容器 ID&gt; /bin/bash # 进入容器，退出容器终端，不会导致容器的停止docker rm -f &lt;容器 ID&gt; # 删除容器docker commit &lt;容器 ID&gt; &lt;镜像名：镜像标签&gt; # 通过容器提交镜像 12345678# 将主机/www/runoob目录拷贝到容器96f7f14e99ab的/www目录下docker cp /www/runoob 96f7f14e99ab:/www/# 将主机/www/runoob目录拷贝到容器96f7f14e99ab中，目录重命名为wwwdocker cp /www/runoob 96f7f14e99ab:/www# 将容器96f7f14e99ab的/www目录拷贝到主机的/tmp目录中docker cp 96f7f14e99ab:/www /tmp/ docker 命令帮助文档1docker commit --help vscode 中使用 docker首先安装官方的 docker 插件，左侧出现 docker 按钮，可以对镜像和容器进行 简单的操作。 参考 docker 从入门到实践 docker 菜鸟教程]]></content>
+      <categories>
+        <category>环境配置和安装</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[机器学习分类模型的评价指标]]></title>
     <url>%2F2019%2F11%2F15%2Fml_metrics%2F</url>
     <content type="text"><![CDATA[分类指标理论基础精确率和召回率 机器学习中的评价指标 ROC曲线和AUC面积理解 ROC 曲线怎么画？ 详解sklearn的多分类模型评价指标 sklearn API 测评以经典二分类数据集（乳腺癌数据集）为例，测试 sklearn 中模型评估的API 123456789101112131415161718192021222324# 导包import sklearn.datasets as datasetsimport sklearn.metrics as metricsfrom sklearn.linear_model import LogisticRegressionfrom sklearn.model_selection import train_test_splitimport matplotlib.pyplot as plt# 导入数据集data = datasets.load_breast_cancer() X_train, X_test, y_train, y_test = train_test_split(data.data, data.target,test_size=0.2, random_state=1)# 模型训练和预测model = LogisticRegression()model.fit(X_train, y_train)y_predict = model.predict(X_test)decision_scores = model.decision_function(X_test) # 决策得分，不是预测的概率# 评估metrics.accuracy_score(y_test, y_predict) # 准确率：0.956metrics.confusion_matrix(y_test, y_predict) # 混淆矩阵：[[37,5],[0,72]]tn, fp, fn, tp = metrics.confusion_matrix(y_test, y_predict).ravel()metrics.precision_score(y_test, y_predict) # 精确率： 0.935metrics.recall_score(y_test, y_predict) # 召回率：1.0metrics.f1_score(y_test, y_predict) # f1_score: 0.966 PR 曲线 123456789101112precision, recall, thresholds = metrics.precision_recall_curve(y_test, decision_scores)AP = metrics.average_precision_score(y_test, decision_scores)plt.plot(recall, precision, label='AP = %0.4f'% AP)plt.title("PR-curve")plt.xlabel('Recall')plt.ylabel('Precision')plt.ylim([0.0, 1.05])plt.xlim([0.0, 1.0])plt.legend(loc="lower right")plt.fill_between(recall, precision, facecolor='purple', alpha=0.2)plt.show() ROC 曲线 123456789101112fpr, tpr, thresholds = metrics.roc_curve(y_test, decision_scores)AUC = metrics.roc_auc_score(y_test, decision_scores)plt.plot(fpr, tpr, label='AUC = %0.4f'% AUC)plt.title("ROC-curve")plt.xlabel('FPR')plt.ylabel('TPR')plt.ylim([0.0, 1.05])plt.xlim([0.0, 1.0])plt.legend(loc="lower right")plt.fill_between(fpr, tpr, facecolor='purple', alpha=0.2)plt.show() 参考sklearn中的模型评估 sklearn metrics API]]></content>
@@ -2294,18 +2316,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -2326,6 +2336,18 @@
       </categories>
       <tags>
         <tag>Clion</tag>
+        <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
         <tag>opencv</tag>
       </tags>
   </entry>
@@ -2377,17 +2399,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
-    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>查看linux进程并杀死</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下关于screen命令的使用]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
     <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
@@ -2396,6 +2407,17 @@
       </categories>
       <tags>
         <tag>linux下screen的使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
+    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>查看linux进程并杀死</tag>
       </tags>
   </entry>
   <entry>

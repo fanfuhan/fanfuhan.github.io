@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/11/24/preprocessing_sklearn/</loc>
+    
+    <lastmod>2019-11-24T15:04:11.075Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fanfuhan.github.io/2019/11/22/docker_based_use/</loc>
+    
+    <lastmod>2019-11-22T12:22:51.644Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/11/15/ml_metrics/</loc>
     
     <lastmod>2019-11-15T14:07:40.490Z</lastmod>
