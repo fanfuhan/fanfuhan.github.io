@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[简单实现线性回归]]></title>
+    <url>%2F2019%2F12%2F01%2FLinearRegression%2F</url>
+    <content type="text"><![CDATA[原理线性回归详解 线性回归公式推导 代码LinearRegression.py 123456789101112131415161718192021222324252627282930import numpy as npclass LinearRegression: def __init__(self): self.b = None # 偏置 self.W = None # 权重 self.b_W = None # b_W = [b, W] def fit(self, x_trian, y_train): """数值化直接求出参数""" X = np.hstack([np.ones((len(x_trian), 1)), x_trian]) # 完全向量化运算，x_train 第一列添加为1 self.b_W = np.linalg.inv(X.T.dot(X)).dot(X.T).dot(y_train) self.b = self.b_W[0] self.W = self.b_W[1:] def predict(self, x_test): X = np.hstack([np.ones((len(x_test), 1)), x_test]) y_predict = X.dot(self.b_W) return y_predict def score(self, x_test, y_test): X = np.hstack([np.ones((len(x_test), 1)), x_test]) y_predict = X.dot(self.b_W) return self._r2_score(y_test, y_predict) def _r2_score(self, y_test, y_predict): r2_score = 1 - (np.sum((y_test - y_predict) ** 2)) / np.sum((y_test - np.mean(y_test)) ** 2) return r2_score test.py 1234567891011121314151617import numpy as npfrom sklearn import datasetsfrom sklearn.model_selection import train_test_splitfrom LinearRegression import LinearRegressionnp.random.seed(1)boston = datasets.load_boston()X = boston.datay = boston.targetX_train, X_test, y_train, y_test = train_test_split(X, y)model = LinearRegression()model.fit(X_train, y_train)print(model.score(X_test, y_test)) # 0.78]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>线性回归</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[机器学习中的数据预处理]]></title>
     <url>%2F2019%2F11%2F24%2Fpreprocessing_sklearn%2F</url>
     <content type="text"><![CDATA[数据挖掘流程1. 获取数据2. 数据预处理数据预处理是从数据中检测，纠正或删除损坏，不准确或不适用于模型的记录的过程。可能面对的问题有：数据类型不同，比如有的是文字，有的是数字，有的含时间序列，有的连续，有的间断。也可能，数据的质量不行，有噪声，有异常，有缺失，数据出错，量纲不一，有重复，数据是偏态，数据量太大或太小。数据预处理的目的：让数据适应模型，匹配模型的需求。 3. 特征工程特征工程是将原始数据转换为更能代表预测模型的潜在问题的特征的过程，可以通过挑选最相关的特征，提取特征以及创造特征来实现。其中创造特征又经常以降维算法的方式实现。可能面对的问题有：特征之间有相关性，特征和标签无关，特征太多或太小，或者干脆就无法表现出应有的数据现象或无法展示数据的真实面貌。特征工程的目的： 降低计算成本，提升模型上限。 4. 建模，测试模型并预测结果5. 上线，验证模型效果sklearn 中的相关模块 模块 preprocessing ：几乎包括数据预处理的所有内容 模块 Impute ：填补缺失值专用 模块 feature_selection ：包括特征选择的各种方法的实践 模块 decomposition ：包含降维算法 数据预处理 1. 数据无量纲化归一化： $x = \frac{x - min(x)}{max(x)-min(x)} \quad$ 标准化：$x = \frac{x - \mu}{\sigma} \quad$ 注意： 大多数机器学习算法中，会选择StandardScaler来进行特征缩放，因为MinMaxScaler对异常值非常敏感。在PCA，聚类，逻辑回归，支持向量机，神经网络这些算法中，StandardScaler往往是最好的选择。MinMaxScaler在不涉及距离度量、梯度、协方差计算以及数据需要被压缩到特定区间时使用广泛，比如数字图像处理中量化像素强度时，都会使用MinMaxScaler将数据压缩于[0,1]区间之中。建议先试试看StandardScaler，效果不好换MinMaxScaler 。 2. 缺失值处理API: 演示： 3. 处理分类型特征：编码和哑变量3.1 处理标签API： 演示： 3.2 处理分类型特征，非独热编码API： 演示： 3.3 分类型特征独热编码，创建哑变量思考一个问题：在舱门Embarked这一列中，我们使用[0,1,2]代表了三个不同的舱门，然而这种转换是正确的吗 ？ API： 链接：OneHotEncoder 演示： 3.4 处理连续性特征：二值化API： 演示： 3.5 处理连续性特征：分段API： 链接：KBinsDiscretizer 演示： 参考资料菜菜的机器学习]]></content>
@@ -2316,15 +2327,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[VS2017配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
-    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>
       <tags>
+        <tag>python</tag>
         <tag>opencv</tag>
-        <tag>VS2017</tag>
       </tags>
   </entry>
   <entry>
@@ -2340,15 +2351,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+    <title><![CDATA[VS2017配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
+    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>
       <tags>
-        <tag>python</tag>
         <tag>opencv</tag>
+        <tag>VS2017</tag>
       </tags>
   </entry>
   <entry>
@@ -2399,17 +2410,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下关于screen命令的使用]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
-    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux下screen的使用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
     <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
@@ -2418,6 +2418,17 @@
       </categories>
       <tags>
         <tag>查看linux进程并杀死</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下关于screen命令的使用]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
+    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux下screen的使用</tag>
       </tags>
   </entry>
   <entry>
