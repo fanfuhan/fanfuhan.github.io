@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[python 实现计时器]]></title>
+    <url>%2F2019%2F12%2F03%2Fpython_timer%2F</url>
+    <content type="text"><![CDATA[方式一：建立一个类代码 12345678910111213141516171819202122232425262728293031323334353637383940414243import timeclass Timer: def __init__(self, func=time.perf_counter): self.elapsed = 0.0 self._func = func self._start = None def start(self): if self._start is not None: raise RuntimeError('Already started') self._start = self._func() def stop(self): if self._start is None: raise RuntimeError('Not started') end = self._func() self.elapsed += end - self._start self._start = None def reset(self): self.elapsed = 0.0 @property def running(self): return self._start is not None def __enter__(self): self.start() return self def __exit__(self, *args): self.stop()def timer(func): @wraps(func) def wrapper(*args, **kwargs): start = time.perf_counter() func(*args, **kwargs) end = time.perf_counter() print('&#123;&#125;.&#123;&#125; : &#123;&#125;'.format(func.__module__, func.__name__, end - start)) return wrapper 演示 12345678910111213141516171819from timer import Timerdef countdown(n): while n &gt; 0: n -= 1# Use 1: Explicit start/stopt = Timer()t.start()countdown(1000000)t.stop()print(t.elapsed) # 0.0429959# Use 2: As a context managerwith Timer() as t: countdown(1000000)print(t.elapsed) # 0.0440638 方式二：装饰器代码 1234567891011import timefrom functools import wrapsdef timer(func): @wraps(func) def wrapper(*args, **kwargs): start = time.perf_counter() func(*args, **kwargs) end = time.perf_counter() print('&#123;&#125;.&#123;&#125; : &#123;&#125;'.format(func.__module__, func.__name__, end - start)) return wrapper 演示 123456789from timer import timer@timerdef countdown(n): while n &gt; 0: n -= 1countdown(1000000) # __main__.countdown : 0.0442 注意事项 time.perf_counter() 记录的是钟表时间，包含了所有休眠时间 time.process_time() 只计算该进程所花费的CPU时间 单位是秒]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>pyhton</tag>
+        <tag>计时器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[简单实现线性回归]]></title>
     <url>%2F2019%2F12%2F01%2FLinearRegression%2F</url>
     <content type="text"><![CDATA[原理线性回归详解 线性回归公式推导 代码LinearRegression.py 123456789101112131415161718192021222324252627282930import numpy as npclass LinearRegression: def __init__(self): self.b = None # 偏置 self.W = None # 权重 self.b_W = None # b_W = [b, W] def fit(self, x_trian, y_train): """数值化直接求出参数""" X = np.hstack([np.ones((len(x_trian), 1)), x_trian]) # 完全向量化运算，x_train 第一列添加为1 self.b_W = np.linalg.inv(X.T.dot(X)).dot(X.T).dot(y_train) self.b = self.b_W[0] self.W = self.b_W[1:] def predict(self, x_test): X = np.hstack([np.ones((len(x_test), 1)), x_test]) y_predict = X.dot(self.b_W) return y_predict def score(self, x_test, y_test): X = np.hstack([np.ones((len(x_test), 1)), x_test]) y_predict = X.dot(self.b_W) return self._r2_score(y_test, y_predict) def _r2_score(self, y_test, y_predict): r2_score = 1 - (np.sum((y_test - y_predict) ** 2)) / np.sum((y_test - np.mean(y_test)) ** 2) return r2_score test.py 1234567891011121314151617import numpy as npfrom sklearn import datasetsfrom sklearn.model_selection import train_test_splitfrom LinearRegression import LinearRegressionnp.random.seed(1)boston = datasets.load_boston()X = boston.datay = boston.targetX_train, X_test, y_train, y_test = train_test_split(X, y)model = LinearRegression()model.fit(X_train, y_train)print(model.score(X_test, y_test)) # 0.78]]></content>
@@ -2327,18 +2339,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[windows下Clion配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
     <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR &quot;D:\\software\\opencv4\\MinGW64_build\\install&quot;)set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; &quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake/&quot;)find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
@@ -2360,6 +2360,18 @@
       <tags>
         <tag>opencv</tag>
         <tag>VS2017</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>opencv</tag>
       </tags>
   </entry>
   <entry>
