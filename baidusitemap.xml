@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2019/12/12/LogisticRegression/</loc>
+    <lastmod>2019-12-12</lastmod>
+  </url>  <url>
+    <loc>https://fanfuhan.github.io/2019/12/11/Polynomial_regression/</loc>
+    <lastmod>2019-12-11</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2019/12/07/LinearRegression_gd/</loc>
     <lastmod>2019-12-07</lastmod>
   </url>  <url>
