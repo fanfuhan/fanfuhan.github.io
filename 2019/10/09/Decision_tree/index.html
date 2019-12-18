@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/e52819ealy1g7s2mhx19fj20e104sjrb.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/e52819ealy1g7s2n2mkhyj20ds04s0sn.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/e52819ealy1g7s2ozremgj20b0078glo.jpg">
-<meta property="og:updated_time" content="2019-10-09T09:28:47.160Z">
+<meta property="og:updated_time" content="2019-12-18T12:35:29.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sklearn-使用决策树进行数据预测">
 <meta name="twitter:description" content="导包12345import numpy as npimport pandas as pdimport sklearn.tree as treefrom sklearn.model_selection import train_test_split, GridSearchCV, cross_val_scoreimport matplotlib.pyplot as plt 读取数据1data = pd">
@@ -425,6 +425,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># output</span><br><span class="line"></span><br><span class="line">&#123;&apos;criterion&apos;: &apos;gini&apos;,</span><br><span class="line"> &apos;max_depth&apos;: 6,</span><br><span class="line"> &apos;min_samples_leaf&apos;: 1,</span><br><span class="line"> &apos;splitter&apos;: &apos;random&apos;&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 网格搜索后的模型评价</span></span><br><span class="line">GS.best_score_  <span class="comment"># 0.82</span></span><br></pre></td></tr></table></figure>
 <p><strong>注：</strong>网格搜索比较慢，而且不一定能得到最好的结果</p>
+<h4 id="文章推荐"><a href="#文章推荐" class="headerlink" title="文章推荐"></a>文章推荐</h4><ul>
+<li><a href="https://mp.weixin.qq.com/s/k_OjObExgsi4DaHMSGUUMA" target="_blank" rel="noopener">决策树1：初识决策树</a></li>
+<li><a href="https://mp.weixin.qq.com/s/yFxysYAx2Fe--11kJ4M3tg" target="_blank" rel="noopener">决策树2: 特征选择中的相关概念</a></li>
+<li><a href="https://mp.weixin.qq.com/s/lP5ZqfhDCd4Tt3IYpQm-Lg" target="_blank" rel="noopener">决策树3: 特征选择之寻找最优划分</a></li>
+<li><a href="https://mp.weixin.qq.com/s/poI_7bBnoxgIciaIQYB_Iw" target="_blank" rel="noopener">决策树4：构建算法之ID3、C4.5</a></li>
+<li><a href="https://mp.weixin.qq.com/s/YzNH1DybIlBTcJsacAEQwA" target="_blank" rel="noopener">决策树5：剪枝与sklearn中的决策树</a></li>
+<li><a href="https://mp.weixin.qq.com/s/XAJnl9HggdQ6-Rab9GJiVw" target="_blank" rel="noopener">决策树6：分类与回归树CART</a></li>
+</ul>
 
       
     </div>
@@ -603,7 +611,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#导包"><span class="nav-number">1.</span> <span class="nav-text">导包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取数据"><span class="nav-number">2.</span> <span class="nav-text">读取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#探索数据"><span class="nav-number">3.</span> <span class="nav-text">探索数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据预处理"><span class="nav-number">4.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#划分训练集和测试集"><span class="nav-number">5.</span> <span class="nav-text">划分训练集和测试集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建模型训练"><span class="nav-number">6.</span> <span class="nav-text">构建模型训练</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#导包"><span class="nav-number">1.</span> <span class="nav-text">导包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取数据"><span class="nav-number">2.</span> <span class="nav-text">读取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#探索数据"><span class="nav-number">3.</span> <span class="nav-text">探索数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据预处理"><span class="nav-number">4.</span> <span class="nav-text">数据预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#划分训练集和测试集"><span class="nav-number">5.</span> <span class="nav-text">划分训练集和测试集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建模型训练"><span class="nav-number">6.</span> <span class="nav-text">构建模型训练</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文章推荐"><span class="nav-number">7.</span> <span class="nav-text">文章推荐</span></a></li></ol></div>
             
 
           </div>

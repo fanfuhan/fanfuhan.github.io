@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fanfuhan.github.io/2019/10/09/Decision_tree/</loc>
+    
+    <lastmod>2019-12-18T12:35:29.417Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fanfuhan.github.io/2019/11/22/docker_based_use/</loc>
     
     <lastmod>2019-12-18T08:11:12.890Z</lastmod>
@@ -82,13 +89,6 @@
     <loc>https://fanfuhan.github.io/2019/08/16/Faster%20R-CNN/</loc>
     
     <lastmod>2019-10-17T08:30:46.193Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://fanfuhan.github.io/2019/10/09/Decision_tree/</loc>
-    
-    <lastmod>2019-10-09T09:28:47.160Z</lastmod>
     
   </url>
   
