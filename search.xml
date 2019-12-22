@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[二分查找的几种情况-C++实现]]></title>
+    <url>%2F2019%2F12%2F22%2FbinarySearch%2F</url>
+    <content type="text"><![CDATA[文章阅读二分查找详解 思路前提： 已排序数组 思路： 从已经排好序的数组或区间中取出中间位置的元素，判断该元素是否满足要搜索的条件，如果满足，停止搜索，程序结束。 如果正中间的元素不满足条件，则从它两边的区域进行搜索。由于数组是排好序的，可以利用排除法，确定接下来应该从这两个区间中的哪一个去搜索。 通过判断，如果发现真正要找的元素在左半区间的话，就继续在左半区间里进行二分搜索。反之，就在右半区间里进行二分搜索。 难点： 判断逻辑，什么时候返回 基本的二分查找题目： 从一个排好序的数组里 {1, 3, 4, 6, 7, 8, 10, 13, 14}查看一下数字 8 是否在里面，如果在，返回它的下标，否则返回 -1。 递归实现： 12345678910111213141516#include &lt;vector&gt;using namespace std;int binarySearch_recursion(const vector&lt;int&gt; &amp;nums, int target, int low, int high)&#123; if (low &gt; high) return -1; int middle = low + (high - low) / 2; if (nums[middle] == target) return middle; if (target &lt; nums[middle]) return binarySearch_recursion(nums, target, low, middle - 1); else return binarySearch_recursion(nums, target, middle + 1, high);&#125; 迭代实现： 1234567891011121314int binarySearch_iteration(const vector&lt;int&gt; &amp;nums, int target, int low, int high) &#123; while (low &lt;= high)&#123; int middle = low + (high - low) / 2; if (nums[middle] == target) return middle; if (target &lt; nums[middle]) high = middle - 1; else low = middle + 1; &#125; return -1;&#125; 查找确定的边界题目： 输入的数组是：{1, 3, 4, 6, 8, 8, 8, 13, 14}，目标数是 8，那么返回 {4, 6}，其中 4 是 8 第一次出现的下标位置，6 是 8 最后一次出现的下标位置。 迭代实现： 1234567891011121314151617181920212223242526272829// 下边界int searchLowerBound(const vector&lt;int&gt; &amp;nums, int target, int low, int high)&#123; while (low &lt;= high)&#123; int middle = low + (high - low) / 2; if (nums[middle] == target &amp;&amp; (middle == 0 || nums[middle-1] &lt; target)) return middle; if (target &lt;= nums[middle]) high = middle - 1; else low = middle + 1; &#125; return -1;&#125;// 上边界int searchUpperBound(const vector&lt;int&gt; &amp;nums, int target, int low, int high)&#123; while (low &lt;= high)&#123; int middle = low + (high - low) / 2; if (nums[middle] == target &amp;&amp; (middle == nums.size() - 1 || nums[middle+1] &gt; target)) return middle; if (target &lt; nums[middle]) high = middle - 1; else low = middle + 1; &#125;&#125; 查找模糊的边界题目： 从数组 {1, 3, 4, 6, 7, 8, 10, 13, 14}中找到第一个大于 8 的数。 迭代实现： 123456789101112int firstGreaterThan(const vector&lt;int&gt; &amp;nums, int target, int low, int high)&#123; while (low &lt;= high)&#123; int middle = low + (high - low) / 2; if (nums[middle] &gt; target &amp;&amp; (middle == 0 || nums[middle-1] &lt;= target)) return middle; if (target &lt; nums[middle]) high = middle - 1; else low = middle + 1; &#125;&#125; 测试1234567891011121314151617181920int main() &#123; vector&lt;int&gt; nums = &#123;1, 3, 4, 6, 7, 8, 10, 13, 14&#125;; vector&lt;int&gt; nums_1 = &#123;1, 3, 4, 6, 8, 8, 8, 13, 14&#125;; int target = 8; int low = 0; int high = nums.size(); // 查找指定值，递归写法 cout &lt;&lt; binarySearch_recursion(nums, target, low, high) &lt;&lt; endl; // 5 cout &lt;&lt; binarySearch_iteration(nums, target, low, high) &lt;&lt; endl; // 5 // 查找上下边界 cout &lt;&lt; searchLowerBound(nums_1, target, low, high) &lt;&lt; endl; // 4 cout &lt;&lt; searchUpperBound(nums_1, target, low, high) &lt;&lt; endl; // 6 // 查找模糊边界 cout &lt;&lt; firstGreaterThan(nums, target, low, high) &lt;&lt; endl; // 6 return 0;&#125;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>二分查找</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python实现逻辑回归]]></title>
     <url>%2F2019%2F12%2F12%2FLogisticRegression%2F</url>
     <content type="text"><![CDATA[原理及相关参考资料 出场率No.1的逻辑回归算法，是怎样“炼成”的？ 逻辑回归的本质及其损失函数的推导、求解 逻辑回归代码实现与调用 逻辑回归的决策边界及多项式 sklearn中的逻辑回归中及正则化 一文详尽系列之逻辑回归 简单易懂的softmax交叉熵损失函数求导 Logistics到softmax推导整理 逻辑回归的实现LogisticRegression.py 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101import numpy as npclass LogisticRegression: def __init__(self): self.b = None # 偏置 self.W = None # 权重 self.b_W = None # b_W = [b, W] def _sigmoid(self, x): """ sigmoid 函数 """ return 1. / (1 + np.exp(-x)) def fit_sgd(self, x_trian, y_train, epoch=50, t0=5, t1=50): """ 随机梯度下降 :param t0 t1: lr = t0 / (iter + t1) ,iter 为迭代次数 """ def lr(t): return t0 / (t + t1) def dJ_sgd(b_W, X_i, y_train_i): """ 求梯度 """ y_hat_i = self._sigmoid(X_i.T.dot(b_W)) return X_i * (y_hat_i - y_train_i) def sgd(X, y_train, init_b_W, epoch): """ 随机梯度下降 """ b_W = init_b_W m = len(X) for iter in range(epoch): indexes = np.random.permutation(m) # 打乱顺序 X = X[indexes, :] y_train = y_train[indexes] for i in range(m): gradient = dJ_sgd(b_W, X[i], y_train[i]) b_W -= lr(iter * m + i) * gradient return b_W X = np.hstack([np.ones((len(x_trian), 1)), x_trian]) # 完全向量化运算，x_train 第一列添加为1 init_b_W = np.random.randn(X.shape[1]) self.b_W = sgd(X, y_train, init_b_W, epoch) self.b = self.b_W[0] self.W = self.b_W[1:] def fit_gd(self, x_trian, y_train, lr=0.01, max_iters=1e4, epsilon=1e-8): """ 批量梯度下降法求解 """ def J(b_W, X, y_train): """ 求损失函数 """ y_hat = self._sigmoid(X.dot(b_W)) try: return -np.sum(y_train*np.log(y_hat) + (1-y_train)*np.log(1-y_hat)) / len(y_train) except: return float('inf') def dJ(b_W, X, y_train): """ 求梯度 """ return X.T.dot(self._sigmoid(X.dot(b_W)) - y_train) / len(y_train) def gradient_descent(X, y_train, init_b_W, lr, max_iters, epsilon): """ 批量梯度下降 """ b_W = init_b_W cur_iter = 0 while cur_iter &lt; max_iters: gradient = dJ(b_W, X, y_train) last_b_W = b_W.copy() b_W -= lr * gradient if(abs(J(b_W, X, y_train) - J(last_b_W, X, y_train)) &lt; epsilon): break cur_iter += 1 return b_W X = np.hstack([np.ones((len(x_trian), 1)), x_trian]) # 完全向量化运算，x_train 第一列添加为1 init_b_W = np.zeros(X.shape[1]) self.b_W = gradient_descent(X, y_train, init_b_W, lr, max_iters, epsilon) self.b = self.b_W[0] self.W = self.b_W[1:] def fit(self, x_trian, y_train, lr=0.01, max_iters=1e4, epsilon=1e-8): self.fit_gd(x_trian, y_train, lr=0.01, max_iters=1e4, epsilon=1e-8) def predict(self, x_test): X = np.hstack([np.ones((len(x_test), 1)), x_test]) y_proba = self._sigmoid(X.dot(self.b_W)) # 预测的概率 y_predict = np.array(y_proba &gt;= 0.5, dtype='int') # 预测的类别 return y_predict def score(self, x_test, y_test): y_predict = self.predict(x_test) def acc_score(y_test, y_predict): """ 计算准确率 """ return np.sum(y_test == y_predict) / len(y_test) return acc_score(y_test, y_predict) 调用逻辑回归导包 12345678910import numpy as npimport pandas as pdimport matplotlib.pyplot as pltfrom sklearn import datasetsfrom LogisticRegression import LogisticRegressionfrom sklearn.model_selection import train_test_splitfrom sklearn.preprocessing import PolynomialFeaturesfrom sklearn.pipeline import Pipelinefrom sklearn.preprocessing import StandardScaler 准备数据 1234567891011121314iris = datasets.load_iris()X = iris.datay = iris.target# 取出其中两个类别、两个特征进行分类indexs = np.argwhere(y &lt; 2).squeeze()X = X[indexs, :2]y = y[indexs]plt.scatter(X[y==0,0], X[y==0,1], color="red", label='0')plt.scatter(X[y==1,0], X[y==1,1], color="blue", label='1')plt.legend()plt.show() 训练及结果展示 123456789101112131415X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=666)log_reg = LogisticRegression()log_reg.fit_gd(X_train, y_train)log_reg.score(X_test, y_test) # 1.0# 画决策边界x1 = np.arange(4, 8)x2 = -(log_reg.W[0]*x1 + log_reg.b)/log_reg.W[1] # 决策边界：w1*x1+w2*x2+b=0plt.plot(x1, x2)plt.scatter(X[y==0,0], X[y==0,1], color="red", label='0')plt.scatter(X[y==1,0], X[y==1,1], color="blue", label='1')plt.legend(loc='upper left')plt.show() 多项式逻辑回归拟合非线性数据准备数据 12345678np.random.seed(666)X = np.random.normal(0, 1, size=(200, 2))y = np.array((X[:,0]**2+X[:,1]**2)&lt;1.5, dtype='int')plt.scatter(X[y==0,0], X[y==0,1])plt.scatter(X[y==1,0], X[y==1,1])plt.show() 绘制决策边界函数 1234567891011def plot_decision_boundary(model, axis): x0, x1 = np.meshgrid( np.linspace(axis[0], axis[1], int((axis[1]-axis[0])*100)).reshape(-1, 1), np.linspace(axis[2], axis[3], int((axis[3]-axis[2])*100)).reshape(-1, 1), ) X_new = np.c_[x0.ravel(), x1.ravel()] y_predict = model.predict(X_new) zz = y_predict.reshape(x0.shape) from matplotlib.colors import ListedColormap custom_cmap = ListedColormap(['#EF9A9A','#FFF59D','#90CAF9']) plt.contourf(x0, x1, zz, linewidth=5, cmap=custom_cmap) 逻辑回归拟合 12345678log_reg = LogisticRegression()log_reg.fit_gd(X, y)log_reg.score(X, y) # 0.605,欠拟合plot_decision_boundary(log_reg, axis=[-4, 4, -4, 4])plt.scatter(X[y==0,0], X[y==0,1])plt.scatter(X[y==1,0], X[y==1,1])plt.show() 多项式逻辑回归拟合 1234567891011121314151617# 为逻辑回归添加多项式项的管道def PolynomialLogisticRegression(degree): return Pipeline([ ('poly', PolynomialFeatures(degree=degree)), ('std_scaler', StandardScaler()), ('log_reg', LogisticRegression()) ])# 使用管道得到对象poly_log_reg = PolynomialLogisticRegression(degree=3)poly_log_reg.fit(X, y)poly_log_reg.score(X, y) # 0.955plot_decision_boundary(poly_log_reg, axis=[-4, 4, -4, 4])plt.scatter(X[y==0,0], X[y==0,1])plt.scatter(X[y==1,0], X[y==1,1])plt.show()]]></content>
@@ -2456,17 +2467,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
-    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>查看linux进程并杀死</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下关于screen命令的使用]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
     <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
@@ -2475,6 +2475,17 @@
       </categories>
       <tags>
         <tag>linux下screen的使用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
+    <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>查看linux进程并杀死</tag>
       </tags>
   </entry>
   <entry>
