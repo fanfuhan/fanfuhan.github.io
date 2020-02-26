@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[pytorch 固定随机数种子]]></title>
+    <url>%2F2020%2F02%2F26%2Fpytorch_seed%2F</url>
+    <content type="text"><![CDATA[1234567891011121314151617181920import torchimport numpy as npimport randomseed=0random.seed(seed)np.random.seed(seed)if torch.cuda.is_available(): torch.cuda.manual_seed_all(seed)torch.manual_seed(seed)torch.cuda.manual_seed(seed)torch.cuda.manual_seed_all(seed)# Remove randomness (may be slower on Tesla GPUs)# https://pytorch.org/docs/stable/notes/randomness.htmlif seed == 0: torch.backends.cudnn.deterministic = True torch.backends.cudnn.benchmark = False]]></content>
+      <categories>
+        <category>ML/DL</category>
+      </categories>
+      <tags>
+        <tag>pytorch</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python 实现 Kmeans 算法]]></title>
     <url>%2F2019%2F12%2F29%2Fkmeans%2F</url>
     <content type="text"><![CDATA[KMeans 算法原理算法流程图 评价指标 实现kmeans.py 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556import numpy as npclass KMeans: def __init__(self, k): self._k = k # 聚类簇数 self.centroids = None # 聚类中心 # 聚类标签，第一列为样本聚类结果的中心，第二列为样本和聚类中心的距离 self.clusterLabel = None def _euclDistance(self, sample, centroid): """ 计算一个样本和所有聚类中心的距离 """ return np.sum((sample - centroid) ** 2, axis=1) def fit(self, X): numSamples = X.shape[0] self.centroids = X[np.random.choice(numSamples, self._k), :] # 随机采样 self.clusterLabel = np.zeros((numSamples, 2)) clusterChanged = True # 标记聚类中心是否改变 # 循环，直到聚类中心不再改变 while clusterChanged: clusterChanged = False # 遍历每个样本 for i in range(numSamples): # 计算样本和每个聚类中心的距离，并找到最小距离 distances = self._euclDistance(X[i, :], self.centroids) minIndex = np.argmin(distances) # 更新样本的聚类结果 if self.clusterLabel[i, 0] != minIndex: self.clusterLabel[i, :] = minIndex, distances[minIndex] # 更新聚类中心 for i in range(self._k): # 取出第 i 蔟 的所有点 pointsInCluster = X[np.nonzero(self.clusterLabel[:, 0] == i)[0]] # 新的聚类中心 new_centroid = np.mean(pointsInCluster, axis=0) # 若聚类中心改变，进行更新 if (self.centroids[i, :] != new_centroid).all(): clusterChanged = True self.centroids[i, :] = new_centroid def predict(self, X_test): y_pred = np.zeros(len(X_test)) for i in range(len(X_test)): distances = self._euclDistance(X_test[i, :], self.centroids) y_pred[i] = np.argmin(distances) return y_pred 测试 12345from sklearn.datasets import make_blobsimport matplotlib.pyplot as pltimport numpy as npimport pandas as pdfrom kmeans import KMeans 123456789# 制作数据集X, y = make_blobs(n_samples=500, n_features=2, centers=4, random_state=100)# 展示数据color = ["red","pink","orange","gray"]fig, ax = plt.subplots(1)for i in range(4): ax.scatter(X[y==i, 0], X[y==i, 1], marker='o', s=8, c=color[i])plt.show() 12345678910111213kmeans = KMeans(4)kmeans.fit(X)centroids = kmeans.centroids# 展示结果color = ["red","pink","orange","gray"]fig, ax = plt.subplots(1)for i in range(4): ax.scatter(X[y==i, 0], X[y==i, 1], marker='o', s=8, c=color[i])ax.scatter(centroids[:, 0], centroids[:, 1], marker='x', s=50, c='black')plt.show() 调用 sklearn 库API 重要参数：init 代码 12345from sklearn.cluster import KMeansfrom sklearn.metrics import silhouette_score # 轮廓系数kmeans = KMeans(n_clusters=4).fit(X)silhouette_score(X, kmeans.labels_) # 0.729 KMeans 优缺点优点 原理简单，实现容易 聚类效果较优 只有簇数K需要调参 缺点 K值得选取不好把握，实际中可以通过轮廓系数画学习曲线，确定最优K值 聚类中心得随机初始化对结果影响较大，实际中可以通过 kmeans++ 的改进来初始化 对于不是凸的数据集难收敛，可以改用基于密度的聚类算法，比如：DESCAN]]></content>
@@ -2395,6 +2406,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[windows下Clion配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
+    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR &quot;D:\\software\\opencv4\\MinGW64_build\\install&quot;)set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; &quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake/&quot;)find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>Clion</tag>
+        <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -2415,18 +2438,6 @@
       </categories>
       <tags>
         <tag>python</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[windows下Clion配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
-    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR &quot;D:\\software\\opencv4\\MinGW64_build\\install&quot;)set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; &quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake/&quot;)find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>Clion</tag>
         <tag>opencv</tag>
       </tags>
   </entry>
