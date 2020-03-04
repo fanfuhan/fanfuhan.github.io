@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-15-数组题-三数之和]]></title>
+    <url>%2F2020%2F03%2F04%2Fleetcode_15%2F</url>
+    <content type="text"><![CDATA[题目 解法12345678910111213141516171819202122232425262728293031323334353637383940414243class Solution &#123;public: void changePosAdd(int &amp;pos, vector&lt;int&gt;&amp; nums, int n)&#123; while((pos + 1 &lt; n) &amp;&amp; (nums[pos + 1] == nums[pos])) ++pos; ++pos; &#125; void changePosSub(int &amp;pos, vector&lt;int&gt;&amp; nums)&#123; while((pos - 1 &gt; 0) &amp;&amp; (nums[pos - 1] == nums[pos])) --pos; --pos; &#125; vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) &#123; int n = nums.size(); sort(nums.begin(), nums.end()); // 排序 vector&lt;vector&lt;int&gt;&gt; results; int now = 0; while(now &lt; n-2)&#123; int low = now + 1; int high = n - 1; while(low &lt; high)&#123; if(nums[low] + nums[high] == -nums[now])&#123; vector&lt;int&gt; res&#123;nums[now], nums[low], nums[high]&#125;; results.push_back(res); changePosAdd(low, nums, n); changePosSub(high, nums); &#125;else if(nums[low] + nums[high] &gt; -nums[now])&#123; changePosSub(high, nums); &#125;else&#123; changePosAdd(low, nums, n); &#125; &#125; changePosAdd(now, nums, n); &#125; return results; &#125;&#125;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-27-数组题-移除元素]]></title>
     <url>%2F2020%2F03%2F03%2Fleetcode_27%2F</url>
     <content type="text"><![CDATA[题目 解法12345678910111213141516171819202122232425262728293031323334353637class Solution &#123;public: // 双指针 int removeElement(vector&lt;int&gt;&amp; nums, int val) &#123; int n = nums.size(); if(n == 0) return 0; int i = 0; for(int j = 0; j &lt; n; ++j)&#123; if(nums[j] != val)&#123; nums[i++] = nums[j]; &#125; &#125; return i; &#125; // 双指针-移除元素很少时，避免重复对不需要删除的元素赋值 int removeElement(vector&lt;int&gt;&amp; nums, int val) &#123; int n = nums.size(); if(n == 0) return 0; int i = 0; while(i &lt; n)&#123; if(nums[i] == val)&#123; nums[i] = nums[n-1]; --n; &#125;else&#123; ++i; &#125; &#125; return n; &#125;&#125;;]]></content>
