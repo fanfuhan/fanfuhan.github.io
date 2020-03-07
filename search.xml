@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-21-数组题-合并两个有序链表]]></title>
+    <url>%2F2020%2F03%2F07%2Fleetcode_21%2F</url>
+    <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253/** * Definition for singly-linked list. * struct ListNode &#123; * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) &#123;&#125; * &#125;; */// 递归class Solution &#123;public: ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) &#123; if(!l1 &amp;&amp; !l2) return NULL; if(!l1) return l2; if(!l2) return l1; if(l1-&gt;val &lt;= l2-&gt;val)&#123; l1-&gt;next = mergeTwoLists(l1-&gt;next, l2); return l1; &#125;else&#123; l2-&gt;next = mergeTwoLists(l1, l2-&gt;next); return l2; &#125; &#125;&#125;;// 迭代class Solution &#123;public: ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) &#123; if(!l1 &amp;&amp; !l2) return NULL; if(!l1) return l2; if(!l2) return l1; ListNode *res = new ListNode(-1); ListNode *temp = res; while(l1 &amp;&amp; l2)&#123; if(l1-&gt;val &lt;= l2-&gt;val)&#123; temp-&gt;next = l1; l1 = l1-&gt;next; &#125;else&#123; temp-&gt;next = l2; l2 = l2-&gt;next; &#125; temp = temp-&gt;next; &#125; temp-&gt;next = l1 ? l1 : l2; return res-&gt;next; &#125;&#125;;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-123-数组题-买卖股票的最佳时机 III]]></title>
     <url>%2F2020%2F03%2F06%2Fleetcode_123%2F</url>
     <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223// 动态规划，dp[i][k][0 or 1] 表示第i天至多还有k次交易，没有或有持有股票的最大利润class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices) &#123; int n = prices.size(); if (n &lt;= 1) return 0; int max_k = 2; int dp[n][max_k + 1][2] = &#123;0&#125;; for (int i = 0; i &lt; n; i++) &#123; for (int k = max_k; k &gt;= 1; k--) &#123; if (i - 1 == -1) &#123; dp[i][k][0] = 0; dp[i][k][1] = -prices[i]; continue; &#125; dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i]); dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i]); &#125; &#125; // 穷举了 n × max_k × 2 个状态，正确。 return dp[n - 1][max_k][0]; &#125;&#125;; 资料链接]]></content>
@@ -2472,6 +2483,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -2492,18 +2515,6 @@
       </categories>
       <tags>
         <tag>Clion</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
         <tag>opencv</tag>
       </tags>
   </entry>
@@ -2555,17 +2566,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下关于screen命令的使用]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
-    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux下screen的使用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
     <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
@@ -2574,6 +2574,17 @@
       </categories>
       <tags>
         <tag>查看linux进程并杀死</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下关于screen命令的使用]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
+    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux下screen的使用</tag>
       </tags>
   </entry>
   <entry>
