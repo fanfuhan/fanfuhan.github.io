@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[leetcode-21-数组题-合并两个有序链表]]></title>
+    <title><![CDATA[leetcode-21-链表题-合并两个有序链表]]></title>
     <url>%2F2020%2F03%2F07%2Fleetcode_21%2F</url>
     <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253/** * Definition for singly-linked list. * struct ListNode &#123; * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) &#123;&#125; * &#125;; */// 递归class Solution &#123;public: ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) &#123; if(!l1 &amp;&amp; !l2) return NULL; if(!l1) return l2; if(!l2) return l1; if(l1-&gt;val &lt;= l2-&gt;val)&#123; l1-&gt;next = mergeTwoLists(l1-&gt;next, l2); return l1; &#125;else&#123; l2-&gt;next = mergeTwoLists(l1, l2-&gt;next); return l2; &#125; &#125;&#125;;// 迭代class Solution &#123;public: ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) &#123; if(!l1 &amp;&amp; !l2) return NULL; if(!l1) return l2; if(!l2) return l1; ListNode *res = new ListNode(-1); ListNode *temp = res; while(l1 &amp;&amp; l2)&#123; if(l1-&gt;val &lt;= l2-&gt;val)&#123; temp-&gt;next = l1; l1 = l1-&gt;next; &#125;else&#123; temp-&gt;next = l2; l2 = l2-&gt;next; &#125; temp = temp-&gt;next; &#125; temp-&gt;next = l1 ? l1 : l2; return res-&gt;next; &#125;&#125;;]]></content>
       <categories>
