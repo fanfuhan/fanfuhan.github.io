@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-5-字符串题-最长回文子串]]></title>
+    <url>%2F2020%2F03%2F17%2Fleetcode_5%2F</url>
+    <content type="text"><![CDATA[题目 解法12345678910111213141516171819202122232425// 动态规划// store[i][j] 表示字符串下标i到j的子串是否回文子串class Solution &#123;public: string longestPalindrome(string s) &#123; if(s.empty()) return ""; int n = s.size(); vector&lt;vector&lt;bool&gt;&gt; store(n, vector&lt;bool&gt;(n, false)); string res(""); for(int len = 1; len &lt;= n; ++len)&#123; for(int i = 0; i &lt; n; ++i)&#123; int j = i + len - 1; if(j &gt;= n) break; store[i][j] = s[i] == s[j] &amp;&amp; (len == 1 || len == 2 || store[i+1][j-1]); if(store[i][j] &amp;&amp; len &gt; res.size()) res = s.substr(i, len); &#125; &#125; return res; &#125;&#125;;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-3-字符串题-无重复字符的最长字串]]></title>
     <url>%2F2020%2F03%2F16%2Fleetcode_3%2F</url>
     <content type="text"><![CDATA[题目 解法12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455// 滑动窗口class Solution &#123;public: int lengthOfLongestSubstring(string s) &#123; int n = s.size(); if(s.empty()) return 0; if(n == 1) return 1; unordered_map&lt;char, int&gt; charIndex; int maxLen = 0; for(int i = 0, j = 0; j &lt; n; ++j)&#123; if(charIndex.count(s[j]) &gt; 0)&#123; i = max(i, charIndex[s[j]]); charIndex[s[j]] = j+1; &#125;else&#123; charIndex.insert(&#123;s[j], j+1&#125;); &#125; maxLen = max(maxLen, j-i+1); &#125; return maxLen; &#125;&#125;；// 动态规划class Solution &#123;public: int lengthOfLongestSubstring(string s) &#123; int n = s.size(); if(s.empty()) return 0; if(n == 1) return 1; unordered_map&lt;char, int&gt; charIndex; int curLen = 0; int maxLen = 0; for(int i = 0; i &lt; n; ++i)&#123; if(charIndex.count(s[i]) &gt; 0)&#123; if(i - charIndex[s[i]] &gt; curLen)&#123; ++curLen; &#125;else&#123; if(curLen &gt; maxLen) maxLen = curLen; curLen = i - charIndex[s[i]]; &#125; charIndex[s[i]] = i; &#125;else&#123; ++curLen; charIndex.insert(&#123;s[i], i&#125;); &#125; &#125; if(curLen &gt; maxLen) maxLen = curLen; return maxLen; &#125;&#125;;]]></content>
@@ -2582,6 +2593,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[windows下Clion配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
+    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR &quot;D:\\software\\opencv4\\MinGW64_build\\install&quot;)set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; &quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake/&quot;)find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>Clion</tag>
+        <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python安装opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
     <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
@@ -2603,18 +2626,6 @@
       <tags>
         <tag>opencv</tag>
         <tag>VS2017</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[windows下Clion配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
-    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR &quot;D:\\software\\opencv4\\MinGW64_build\\install&quot;)set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; &quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake/&quot;)find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>Clion</tag>
-        <tag>opencv</tag>
       </tags>
   </entry>
   <entry>
@@ -2665,17 +2676,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[linux下关于screen命令的使用]]></title>
-    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
-    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>linux下screen的使用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[linux下查看端口占用进程及杀死进程]]></title>
     <url>%2F2018%2F12%2F08%2Flinux-kill-process%2F</url>
     <content type="text"><![CDATA[直接查看进程1ps 通过端口查看进程1lsof –i:端口号 杀死进程1kill -9 pid号]]></content>
@@ -2684,6 +2684,17 @@
       </categories>
       <tags>
         <tag>查看linux进程并杀死</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下关于screen命令的使用]]></title>
+    <url>%2F2018%2F12%2F08%2Flinux-screen%2F</url>
+    <content type="text"><![CDATA[因为进入服务器只有一个窗口，当我们用这个窗口跑代码时，就没有办法同时用命令编辑一些文件。为了解决这个问题，我们可以使用screen开启多个进程，用一个进程跑代码，然后将这个窗口折叠到后台，创建新的进程来编辑代码。 当我们想要断开服务器连接仍然让一些程序运行的时候，可以使用screen让程序在后台一直运行。 安装screen (ubuntu系统)1sudo apt-get install screen 创建进程1screen -S 进程名 之后，会进入一个干净的窗口，可以执行相应操作，连续按Ctrl+A、Ctrl+D回到主线程，之前执行的操作会一直在后台运行，直到杀死该进程。 这条命令可以多次使用，创建多个进程。 查看当前screen进程1screen -ls 进入某一进程123#两条命令选其一screen -r 进程名screen -r 进程pid号 终止进程12345#方法一screen -X -S 进程名 quit#方法二先进入要杀死的进程，然后输入exit]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux下screen的使用</tag>
       </tags>
   </entry>
   <entry>
