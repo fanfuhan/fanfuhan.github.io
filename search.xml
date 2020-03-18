@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-10-字符串题-正则表达式匹配]]></title>
+    <url>%2F2020%2F03%2F18%2Fleetcode_10%2F</url>
+    <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677// 动态规划, 12msclass Solution &#123;public: struct pair_hash &#123; template&lt;class T1, class T2&gt; std::size_t operator() (const std::pair&lt;T1, T2&gt;&amp; p) const &#123; auto h1 = std::hash&lt;T1&gt;&#123;&#125;(p.first); auto h2 = std::hash&lt;T2&gt;&#123;&#125;(p.second); return h1 ^ h2; &#125; &#125;; unordered_map&lt;pair&lt;int, int&gt;, bool, pair_hash&gt; dp; bool isMatch(string s, string p) &#123; if (p.empty()) return s.empty(); return helper(s, p, 0, 0); &#125; bool helper(string &amp;s, string &amp;p, int i, int j)&#123; auto i_j = make_pair(i, j); if(dp.count(i_j) &gt; 0) return dp[i_j]; if(j == p.size()) return i == s.size(); bool first_match = (i &lt; s.size()) &amp;&amp; (s[i] == p[j] || p[j] == '.'); bool ans; if(p[j+1] == '*')&#123; ans = helper(s, p, i, j+2) || (first_match &amp;&amp; helper(s, p, i+1, j)); &#125;else&#123; ans = first_match &amp;&amp; helper(s, p, i+1, j+1); &#125; dp[i_j] = ans; return ans; &#125;&#125;;// 使用字符串指针 20msclass Solution &#123;public: bool isMatch(string s, string p) &#123; return isMatch(s.c_str(), p.c_str()); &#125; bool isMatch(const char* s, const char* p) &#123; if(*p == 0) return *s == 0; bool first_match = *s &amp;&amp; (*s == *p || *p == '.'); if(*(p+1) == '*')&#123; return isMatch(s, p+2) || (first_match &amp;&amp; isMatch(++s, p)); &#125; else&#123; return first_match &amp;&amp; isMatch(++s, ++p); &#125; &#125;&#125;;// 260ms，创建了大量字符串副本class Solution &#123;public: bool isMatch(string s, string p) &#123; if (p.empty()) return s.empty(); bool first_match = !s.empty() &amp;&amp; (s[0] == p[0] || p[0] == '.'); if (p[1] == '*') &#123; return isMatch(s, p.substr(2)) || (first_match &amp;&amp; (isMatch(s.substr(1), p))); &#125; else &#123; return first_match &amp;&amp; isMatch(s.substr(1), p.substr(1)); &#125; &#125;&#125;; 参考链接]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-5-字符串题-最长回文子串]]></title>
     <url>%2F2020%2F03%2F17%2Fleetcode_5%2F</url>
     <content type="text"><![CDATA[题目 解法12345678910111213141516171819202122232425// 动态规划// store[i][j] 表示字符串下标i到j的子串是否回文子串class Solution &#123;public: string longestPalindrome(string s) &#123; if(s.empty()) return ""; int n = s.size(); vector&lt;vector&lt;bool&gt;&gt; store(n, vector&lt;bool&gt;(n, false)); string res(""); for(int len = 1; len &lt;= n; ++len)&#123; for(int i = 0; i &lt; n; ++i)&#123; int j = i + len - 1; if(j &gt;= n) break; store[i][j] = s[i] == s[j] &amp;&amp; (len == 1 || len == 2 || store[i+1][j-1]); if(store[i][j] &amp;&amp; len &gt; res.size()) res = s.substr(i, len); &#125; &#125; return res; &#125;&#125;;]]></content>
