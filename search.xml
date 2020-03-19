@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-100-树题-相同的树]]></title>
+    <url>%2F2020%2F03%2F19%2Fleetcode_100%2F</url>
+    <content type="text"><![CDATA[题目 解法123456789101112131415161718/** * Definition for a binary tree node. * struct TreeNode &#123; * int val; * TreeNode *left; * TreeNode *right; * TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125; * &#125;; */class Solution &#123;public: bool isSameTree(TreeNode* p, TreeNode* q) &#123; if(!p &amp;&amp; !q) return true; if((p &amp;&amp; !q) || (!p &amp;&amp; q) || p-&gt;val != q-&gt;val) return false; return isSameTree(p-&gt;left, q-&gt;left) &amp;&amp; isSameTree(p-&gt;right, q-&gt;right); &#125;&#125;;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-10-字符串题-正则表达式匹配]]></title>
     <url>%2F2020%2F03%2F18%2Fleetcode_10%2F</url>
     <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677// 动态规划, 12msclass Solution &#123;public: struct pair_hash &#123; template&lt;class T1, class T2&gt; std::size_t operator() (const std::pair&lt;T1, T2&gt;&amp; p) const &#123; auto h1 = std::hash&lt;T1&gt;&#123;&#125;(p.first); auto h2 = std::hash&lt;T2&gt;&#123;&#125;(p.second); return h1 ^ h2; &#125; &#125;; unordered_map&lt;pair&lt;int, int&gt;, bool, pair_hash&gt; dp; bool isMatch(string s, string p) &#123; if (p.empty()) return s.empty(); return helper(s, p, 0, 0); &#125; bool helper(string &amp;s, string &amp;p, int i, int j)&#123; auto i_j = make_pair(i, j); if(dp.count(i_j) &gt; 0) return dp[i_j]; if(j == p.size()) return i == s.size(); bool first_match = (i &lt; s.size()) &amp;&amp; (s[i] == p[j] || p[j] == '.'); bool ans; if(p[j+1] == '*')&#123; ans = helper(s, p, i, j+2) || (first_match &amp;&amp; helper(s, p, i+1, j)); &#125;else&#123; ans = first_match &amp;&amp; helper(s, p, i+1, j+1); &#125; dp[i_j] = ans; return ans; &#125;&#125;;// 使用字符串指针 20msclass Solution &#123;public: bool isMatch(string s, string p) &#123; return isMatch(s.c_str(), p.c_str()); &#125; bool isMatch(const char* s, const char* p) &#123; if(*p == 0) return *s == 0; bool first_match = *s &amp;&amp; (*s == *p || *p == '.'); if(*(p+1) == '*')&#123; return isMatch(s, p+2) || (first_match &amp;&amp; isMatch(++s, p)); &#125; else&#123; return first_match &amp;&amp; isMatch(++s, ++p); &#125; &#125;&#125;;// 260ms，创建了大量字符串副本class Solution &#123;public: bool isMatch(string s, string p) &#123; if (p.empty()) return s.empty(); bool first_match = !s.empty() &amp;&amp; (s[0] == p[0] || p[0] == '.'); if (p[1] == '*') &#123; return isMatch(s, p.substr(2)) || (first_match &amp;&amp; (isMatch(s.substr(1), p))); &#125; else &#123; return first_match &amp;&amp; isMatch(s.substr(1), p.substr(1)); &#125; &#125;&#125;; 参考链接]]></content>
@@ -2604,15 +2615,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[windows下Clion配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
-    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR &quot;D:\\software\\opencv4\\MinGW64_build\\install&quot;)set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; &quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake/&quot;)find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
+    <title><![CDATA[VS2017配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
+    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>
       <tags>
-        <tag>Clion</tag>
         <tag>opencv</tag>
+        <tag>VS2017</tag>
       </tags>
   </entry>
   <entry>
@@ -2628,15 +2639,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[VS2017配置opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
-    <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
+    <title><![CDATA[windows下Clion配置opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_Clion%2F</url>
+    <content type="text"><![CDATA[所需环境MinGw + Cmake + Clion + opencv 安装MinGw参考：install MinGw 安装Cmake参考：install Cmake Cmake下载网址：Cmake download 注：Cmake最好安装跟Clion中配置一样的版本，省的麻烦 安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： Clion 配置 编译opencv源码 打开Cmake-GUI，选择源码路径和输出路径 点击Configure，选择MinGW Makefiles，点击Finish，开始编译 等待一段时间后，会有很多报红，再次点击Configure，红色消失，点击Generate 进入输出目录，在cmd 运行下面代码，等待完成 1mingw32-make -j8 运行mingw32-make install，等待片刻，输出目录下会多出install文件夹 添加…\install\x64\mingw\bin 添加到path系统环境变量环境变量 编辑CMakeLists.txt1234567891011121314151617cmake_minimum_required(VERSION 3.13)project(learnOpencv)set(CMAKE_CXX_STANDARD 11)# Where to find CMake modules and OpenCVset(OpenCV_DIR &quot;D:\\software\\opencv4\\MinGW64_build\\install&quot;)set(CMAKE_MODULE_PATH $&#123;CMAKE_MODULE_PATH&#125; &quot;$&#123;CMAKE_SOURCE_DIR&#125;/cmake/&quot;)find_package(OpenCV REQUIRED)include_directories($&#123;OpenCV_INCLUDE_DIRS&#125;)add_executable(learnOpencv test.cpp)# add libs you needset(OpenCV_LIBS opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)# linkingtarget_link_libraries(learnOpencv $&#123;OpenCV_LIBS&#125;) 注意：opencv4必须要c++11支持 测试12345678910111213#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("D:\\code-workspace\\Clion-workspace\\learnOpencv\\images\\1.png",WINDOW_AUTOSIZE); namedWindow("刘亦菲"); imshow("刘亦菲", img); waitKey(0); return 0;&#125;]]></content>
       <categories>
         <category>环境配置与安装</category>
       </categories>
       <tags>
+        <tag>Clion</tag>
         <tag>opencv</tag>
-        <tag>VS2017</tag>
       </tags>
   </entry>
   <entry>
