@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-1143-线性DP-最长公共子序列]]></title>
+    <url>%2F2020%2F04%2F13%2Fleetcode_1143%2F</url>
+    <content type="text"><![CDATA[题目 解法123456789101112131415161718class Solution &#123;public: int longestCommonSubsequence(string text1, string text2) &#123; if(text1.empty() || text2.empty()) return 0; int len1 = text1.size(); int len2 = text2.size(); // 对于 text1[1..i] 和 text2[1..j]，它们的 LCS 长度是 dp[i][j] vector&lt;vector&lt;int&gt;&gt; dp(len1 + 1, vector&lt;int&gt;(len2 + 1, 0)); for(int i = 1; i &lt;= len1; ++i) for(int j = 1; j &lt;= len2; ++j) if(text1[i-1] == text2[j-1]) dp[i][j] = dp[i-1][j-1] + 1; else dp[i][j] = max(dp[i-1][j], dp[i][j-1]); return dp[len1][len2]; &#125;&#125;;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-300-线性DP-最长上升子序列]]></title>
     <url>%2F2020%2F04%2F12%2Fleetcode_300%2F</url>
     <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738// 动态规划，O（n^2）class Solution &#123;public: int lengthOfLIS(vector&lt;int&gt;&amp; nums) &#123; int n = nums.size(); if(n == 0) return 0; // dp[i] 表示以第i个数字结尾的最长上升子序列 vector&lt;int&gt; dp(n, 1); for(int i = 0; i &lt; n; ++i) for(int j = 0; j &lt; i; ++j) if(nums[i] &gt; nums[j]) dp[i] = max(dp[i], dp[j] + 1); return *max_element(dp.begin(), dp.end()); &#125;&#125;;// 动态规划 + 二分查找class Solution &#123;public: int lengthOfLIS(vector&lt;int&gt;&amp; nums) &#123; int n = nums.size(); int res = 0; // dp[i] 表示每一个最长上升子序列对应末位数字的最小数值 vector&lt;int&gt; dp(n, 0); for(int num : nums)&#123; int i = 0, j = res; while(i &lt; j)&#123; int m = i + (j - i) / 2; if(dp[m] &lt; num) i = m + 1; else j = m; &#125; dp[i] = num; if(res == j) ++res; &#125; return res; &#125;&#125;;]]></content>
