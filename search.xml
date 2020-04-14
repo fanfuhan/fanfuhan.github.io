@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-120-线性DP-三角形最小路径和]]></title>
+    <url>%2F2020%2F04%2F14%2Fleetcode_120%2F</url>
+    <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374// 动态规划 空间复杂度O(n^2)// 自顶向下求解class Solution &#123;public: int minimumTotal(vector&lt;vector&lt;int&gt;&gt;&amp; triangle) &#123; int n = triangle.size(); if(triangle.empty()) return 0; if(n == 1) return triangle[0][0]; // dp[i][i] = x 表示走到第i行第j列时的最小路径和 vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(n, -1)); dp[0][0] = triangle[0][0]; for(int i = 1; i &lt; n; ++i)&#123; for(int j = 0; j &lt;= i; ++j)&#123; if(j == 0) dp[i][j] = dp[i-1][j] + triangle[i][j]; else if(j == i) dp[i][j] = dp[i-1][j-1] + triangle[i][j]; else dp[i][j] = min(dp[i-1][j-1], dp[i-1][j]) + triangle[i][j]; &#125; &#125; return *min_element(dp[n-1].begin(), dp[n-1].end()); &#125;&#125;;// 动态规划 空间复杂度O(n^2)// 自底向上求解class Solution &#123;public: int minimumTotal(vector&lt;vector&lt;int&gt;&gt;&amp; triangle) &#123; int n = triangle.size(); if(triangle.empty()) return 0; if(n == 1) return triangle[0][0]; // 自底向上，先初试化最后一行 // dp[i][i] = x 表示走到第i行第j列时的最小路径和 vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(n, -1)); dp[n-1] = triangle[n-1]; for(int i = n-2; i &gt;= 0; --i)&#123; for(int j = 0; j &lt;= i; ++j)&#123; dp[i][j] = min(dp[i+1][j], dp[i+1][j+1]) + triangle[i][j]; &#125; &#125; return dp[0][0]; &#125;&#125;;// 动态规划 空间复杂度O(n)// 自底向上求解class Solution &#123;public: int minimumTotal(vector&lt;vector&lt;int&gt;&gt;&amp; triangle) &#123; int n = triangle.size(); if(triangle.empty()) return 0; if(n == 1) return triangle[0][0]; // 自底向上求解，dp保存最后一行数值，然后逐次向上求解 vector&lt;int&gt; dp(triangle.back()); for(int i = n-2; i &gt;= 0; --i)&#123; for(int j = 0; j &lt;= i; ++j)&#123; dp[j] = min(dp[j], dp[j+1]) + triangle[i][j]; &#125; &#125; return dp[0]; &#125;&#125;;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-1143-线性DP-最长公共子序列]]></title>
     <url>%2F2020%2F04%2F13%2Fleetcode_1143%2F</url>
     <content type="text"><![CDATA[题目 解法123456789101112131415161718class Solution &#123;public: int longestCommonSubsequence(string text1, string text2) &#123; if(text1.empty() || text2.empty()) return 0; int len1 = text1.size(); int len2 = text2.size(); // 对于 text1[1..i] 和 text2[1..j]，它们的 LCS 长度是 dp[i][j] vector&lt;vector&lt;int&gt;&gt; dp(len1 + 1, vector&lt;int&gt;(len2 + 1, 0)); for(int i = 1; i &lt;= len1; ++i) for(int j = 1; j &lt;= len2; ++j) if(text1[i-1] == text2[j-1]) dp[i][j] = dp[i-1][j-1] + 1; else dp[i][j] = max(dp[i-1][j], dp[i][j-1]); return dp[len1][len2]; &#125;&#125;;]]></content>
