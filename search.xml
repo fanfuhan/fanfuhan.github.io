@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[leetcode-53-线性DP-最大子序和]]></title>
     <url>%2F2020%2F04%2F15%2Fleetcode_53%2F</url>
-    <content type="text"><![CDATA[题目 解法123456789101112131415161718// 动态规划class Solution &#123;public: int maxSubArray(vector&lt;int&gt;&amp; nums) &#123; int n = nums.size(); if(n == 0) return 0; if(n == 1) return nums[0]; // dp[i] = x 表示以第i个元素结尾的子序列的最大子序和 vector&lt;int&gt; dp(n); dp[0] = nums[0]; for(int i = 1; i &lt; n; ++i)&#123; dp[i] = dp[i-1] + nums[i] &gt; nums[i] ? dp[i-1] + nums[i] : nums[i]; &#125; return *max_element(dp.begin(), dp.end()); &#125;&#125;;]]></content>
+    <content type="text"><![CDATA[题目 解法12345678910111213141516171819202122232425262728293031323334353637// 动态规划class Solution &#123;public: int maxSubArray(vector&lt;int&gt;&amp; nums) &#123; int n = nums.size(); if(n == 0) return 0; if(n == 1) return nums[0]; // dp[i] = x 表示以第i个元素结尾的子序列的最大子序和 vector&lt;int&gt; dp(n); dp[0] = nums[0]; for(int i = 1; i &lt; n; ++i)&#123; dp[i] = max(dp[i-1] + nums[i], nums[i]); &#125; return *max_element(dp.begin(), dp.end()); &#125;&#125;;// 动态规划优化空间复杂度class Solution &#123;public: int maxSubArray(vector&lt;int&gt;&amp; nums) &#123; int n = nums.size(); if(n == 0) return 0; if(n == 1) return nums[0]; int tempSum = nums[0]; // 第i个元素结尾时的临时子序列的和 int res = tempSum; // 最终结果 for(int i = 1; i &lt; n; ++i)&#123; tempSum = max(tempSum + nums[i], nums[i]); res = max(res, tempSum); &#125; return res; &#125;&#125;;]]></content>
       <categories>
         <category>数据结构与算法</category>
       </categories>
