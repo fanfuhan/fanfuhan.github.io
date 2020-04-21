@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-198-线性DP-打家劫舍]]></title>
+    <url>%2F2020%2F04%2F21%2Fleetcode_198%2F</url>
+    <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950// 递归 + 备忘录class Solution &#123;public: int rob(vector&lt;int&gt;&amp; nums) &#123; if(nums.empty()) return 0; vector&lt;int&gt; memo(nums.size(), -1); return helper(nums, 0, memo); &#125; // 从索引start开始偷取获得的最大利润 int helper(vector&lt;int&gt; &amp;nums, int start, vector&lt;int&gt; &amp;memo)&#123; if(start &gt;= nums.size()) return 0; if(memo[start] != -1) return memo[start]; int res = max(nums[start] + helper(nums, start+2, memo), helper(nums, start+1, memo)); memo[start] = res; return res; &#125;&#125;;// 动态规划class Solution &#123;public: int rob(vector&lt;int&gt;&amp; nums) &#123; if(nums.empty()) return 0; // memo[i] = x 表示从第i间房子开始抢劫，最大收益为x vector&lt;int&gt; memo(nums.size()+2, 0); for(int i = nums.size()-1; i &gt;= 0; --i)&#123; memo[i] = max(nums[i] + memo[i+2], memo[i+1]); &#125; return memo[0]; &#125;&#125;;// 动态规划，优化空间复杂度class Solution &#123;public: int rob(vector&lt;int&gt;&amp; nums) &#123; if(nums.empty()) return 0; int memo_i_1 = 0, memo_i_2 = 0; int memo_i = 0; for(int i = nums.size()-1; i &gt;= 0; --i)&#123; memo_i = max(nums[i] + memo_i_2, memo_i_1); memo_i_2 = memo_i_1; memo_i_1 = memo_i; &#125; return memo_i; &#125;&#125;;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-354-线性DP-俄罗斯套娃信封问题]]></title>
     <url>%2F2020%2F04%2F18%2Fleetcode_354%2F</url>
     <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132// 动态规划，O（n^2），可用二分查找优化class Solution &#123;public: struct compare&#123; // 排序，w升序，w相同时，h降序 // 两个宽度相同的信封不能相互包含，逆序排序保证在 w 相同的数对中最多只选取一个 bool operator()(vector&lt;int&gt; &amp;a, vector&lt;int&gt; &amp;b)&#123; return a[0] &lt; b[0] || (a[0] == b[0] &amp;&amp; a[1] &gt; b[1]); &#125; &#125;; int maxEnvelopes(vector&lt;vector&lt;int&gt;&gt;&amp; envelopes) &#123; if(envelopes.empty()) return 0; sort(envelopes.begin(), envelopes.end(), compare()); // 最长上升子序列问题 int n = envelopes.size(); vector&lt;int&gt; dp(n, 1); int res = 1; for(int i = 0; i &lt; n; ++i)&#123; for(int j = 0; j &lt; i; ++j)&#123; if(envelopes[j][1] &lt; envelopes[i][1]) dp[i] = max(dp[i], dp[j] + 1); &#125; res = max(res, dp[i]); &#125; return res; &#125;&#125;;]]></content>
