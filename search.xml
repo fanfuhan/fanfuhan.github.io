@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-213-线性DP-打家劫舍II]]></title>
+    <url>%2F2020%2F04%2F21%2Fleetcode_213%2F</url>
+    <content type="text"><![CDATA[题目 解法12345678910111213141516171819202122// 动态规划class Solution &#123;public: int rob(vector&lt;int&gt;&amp; nums) &#123; int n = nums.size(); if(n == 0) return 0; if(n == 1) return nums[0]; // 首间房选或不选 return max(helper(nums, 0, n-2), helper(nums,1,n-1)); &#125; int helper(vector&lt;int&gt; &amp;nums, int start, int end)&#123; int memo_i_1 = 0, memo_i_2 = 0; int memo_i = 0; for(int i = end; i &gt;= start; --i)&#123; memo_i = max(nums[i] + memo_i_2, memo_i_1); memo_i_2 = memo_i_1; memo_i_1 = memo_i; &#125; return memo_i; &#125;&#125;; 参考打家劫舍]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-198-线性DP-打家劫舍]]></title>
     <url>%2F2020%2F04%2F21%2Fleetcode_198%2F</url>
     <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950// 递归 + 备忘录class Solution &#123;public: int rob(vector&lt;int&gt;&amp; nums) &#123; if(nums.empty()) return 0; vector&lt;int&gt; memo(nums.size(), -1); return helper(nums, 0, memo); &#125; // 从索引start开始偷取获得的最大利润 int helper(vector&lt;int&gt; &amp;nums, int start, vector&lt;int&gt; &amp;memo)&#123; if(start &gt;= nums.size()) return 0; if(memo[start] != -1) return memo[start]; int res = max(nums[start] + helper(nums, start+2, memo), helper(nums, start+1, memo)); memo[start] = res; return res; &#125;&#125;;// 动态规划class Solution &#123;public: int rob(vector&lt;int&gt;&amp; nums) &#123; if(nums.empty()) return 0; // memo[i] = x 表示从第i间房子开始抢劫，最大收益为x vector&lt;int&gt; memo(nums.size()+2, 0); for(int i = nums.size()-1; i &gt;= 0; --i)&#123; memo[i] = max(nums[i] + memo[i+2], memo[i+1]); &#125; return memo[0]; &#125;&#125;;// 动态规划，优化空间复杂度class Solution &#123;public: int rob(vector&lt;int&gt;&amp; nums) &#123; if(nums.empty()) return 0; int memo_i_1 = 0, memo_i_2 = 0; int memo_i = 0; for(int i = nums.size()-1; i &gt;= 0; --i)&#123; memo_i = max(nums[i] + memo_i_2, memo_i_1); memo_i_2 = memo_i_1; memo_i_1 = memo_i; &#125; return memo_i; &#125;&#125;;]]></content>
