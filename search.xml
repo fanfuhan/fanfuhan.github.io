@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[leetcode-1-线性DP-两数之和]]></title>
+    <title><![CDATA[leetcode-123-线性DP-买卖股票的最佳时机III]]></title>
+    <url>%2F2020%2F04%2F24%2Fleetcode_123%2F</url>
+    <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829// 动态规划class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices) &#123; int n = prices.size(); if(prices.empty() || n == 1) return 0; // dp[i][k][0]=x,表示今天没有持有股票,当前最大利润为x,当前最多进行k次交易 // dp[i][k][1]=x,表示今天持有股票,当前最大利润为x,当前最多进行k次交易 int max_k = 2; int dp[n][max_k+1][2]; ::memset(dp, 0, sizeof(dp)); for(int i = 0; i &lt; n; ++i)&#123; for(int k = max_k; k &gt;= 1; --k)&#123; if(i == 0)&#123; dp[i][k][0] = 0; dp[i][k][1] = -prices[i]; continue; &#125; // 状态转移 dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i]); dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i]); &#125; &#125; return dp[n-1][max_k][0]; &#125;&#125;;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[leetcode-122-线性DP-买卖股票的最佳时机II]]></title>
     <url>%2F2020%2F04%2F24%2Fleetcode_122_%2F</url>
     <content type="text"><![CDATA[题目 解法123456789101112131415161718192021222324252627282930313233343536373839// 动态规划class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices) &#123; if(prices.empty() || prices.size() == 1) return 0; // dp[i][0]=x,表示今天没有持有股票,当前最大利润为x // dp[i][1]=x,表示今天持有股票,当前最大利润为x vector&lt;vector&lt;int&gt;&gt; dp(prices.size(), vector&lt;int&gt;(2, 0));、 dp[0][0] = 0; dp[0][1] = -prices[0]; for(int i = 1; i &lt; prices.size(); ++i)&#123; // 状态转移 dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i]); dp[i][1] = max(dp[i-1][1], dp[i-1][0] - prices[i]); &#125; return dp[prices.size() - 1][0]; &#125;&#125;;// 动态规划，优化空间复杂度class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices) &#123; int n = prices.size(); if(prices.empty() || n == 1) return 0; int dp_i_0 = 0; int dp_i_1 = -prices[0]; for(int i = 1; i &lt; n; ++i)&#123; int temp = dp_i_0; dp_i_0 = max(dp_i_0, dp_i_1 + prices[i]); dp_i_1 = max(dp_i_1, temp - prices[i]); &#125; return dp_i_0; &#125;&#125;;]]></content>
       <categories>
@@ -323,17 +334,6 @@
     <title><![CDATA[leetcode-21-链表题-合并两个有序链表]]></title>
     <url>%2F2020%2F03%2F07%2Fleetcode_21%2F</url>
     <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253/** * Definition for singly-linked list. * struct ListNode &#123; * int val; * ListNode *next; * ListNode(int x) : val(x), next(NULL) &#123;&#125; * &#125;; */// 递归class Solution &#123;public: ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) &#123; if(!l1 &amp;&amp; !l2) return NULL; if(!l1) return l2; if(!l2) return l1; if(l1-&gt;val &lt;= l2-&gt;val)&#123; l1-&gt;next = mergeTwoLists(l1-&gt;next, l2); return l1; &#125;else&#123; l2-&gt;next = mergeTwoLists(l1, l2-&gt;next); return l2; &#125; &#125;&#125;;// 迭代class Solution &#123;public: ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) &#123; if(!l1 &amp;&amp; !l2) return NULL; if(!l1) return l2; if(!l2) return l1; ListNode *res = new ListNode(-1); ListNode *temp = res; while(l1 &amp;&amp; l2)&#123; if(l1-&gt;val &lt;= l2-&gt;val)&#123; temp-&gt;next = l1; l1 = l1-&gt;next; &#125;else&#123; temp-&gt;next = l2; l2 = l2-&gt;next; &#125; temp = temp-&gt;next; &#125; temp-&gt;next = l1 ? l1 : l2; return res-&gt;next; &#125;&#125;;]]></content>
-      <categories>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[leetcode-123-数组题-买卖股票的最佳时机 III]]></title>
-    <url>%2F2020%2F03%2F06%2Fleetcode_123%2F</url>
-    <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223// 动态规划，dp[i][k][0 or 1] 表示第i天至多还有k次交易，没有或有持有股票的最大利润class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices) &#123; int n = prices.size(); if (n &lt;= 1) return 0; int max_k = 2; int dp[n][max_k + 1][2] = &#123;0&#125;; for (int i = 0; i &lt; n; i++) &#123; for (int k = max_k; k &gt;= 1; k--) &#123; if (i - 1 == -1) &#123; dp[i][k][0] = 0; dp[i][k][1] = -prices[i]; continue; &#125; dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i]); dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i]); &#125; &#125; // 穷举了 n × max_k × 2 个状态，正确。 return dp[n - 1][max_k][0]; &#125;&#125;; 资料链接]]></content>
       <categories>
         <category>数据结构与算法</category>
       </categories>
