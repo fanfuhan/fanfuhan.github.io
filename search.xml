@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-1-线性DP-两数之和]]></title>
+    <url>%2F2020%2F04%2F24%2Fleetcode_122_%2F</url>
+    <content type="text"><![CDATA[题目 解法123456789101112131415161718192021222324252627282930313233343536373839// 动态规划class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices) &#123; if(prices.empty() || prices.size() == 1) return 0; // dp[i][0]=x,表示今天没有持有股票,当前最大利润为x // dp[i][1]=x,表示今天持有股票,当前最大利润为x vector&lt;vector&lt;int&gt;&gt; dp(prices.size(), vector&lt;int&gt;(2, 0));、 dp[0][0] = 0; dp[0][1] = -prices[0]; for(int i = 1; i &lt; prices.size(); ++i)&#123; // 状态转移 dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i]); dp[i][1] = max(dp[i-1][1], dp[i-1][0] - prices[i]); &#125; return dp[prices.size() - 1][0]; &#125;&#125;;// 动态规划，优化空间复杂度class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices) &#123; int n = prices.size(); if(prices.empty() || n == 1) return 0; int dp_i_0 = 0; int dp_i_1 = -prices[0]; for(int i = 1; i &lt; n; ++i)&#123; int temp = dp_i_0; dp_i_0 = max(dp_i_0, dp_i_1 + prices[i]); dp_i_1 = max(dp_i_1, temp - prices[i]); &#125; return dp_i_0; &#125;&#125;;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-121-线性DP-买卖股票的最佳时机]]></title>
     <url>%2F2020%2F04%2F22%2Fleetcode_121%2F</url>
     <content type="text"><![CDATA[题目 解法1234567891011121314151617181920212223242526272829303132333435363738// 动态规划class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices) &#123; if(prices.empty() || prices.size() == 1) return 0; // dp[i][0]=x,表示今天没有持有股票,当前最大利润为x // dp[i][1]=x,表示今天持有股票,当前最大利润为x vector&lt;vector&lt;int&gt;&gt; dp(prices.size(), vector&lt;int&gt;(2, 0));、 dp[0][0] = 0; dp[0][1] = -prices[0]; for(int i = 1; i &lt; prices.size(); ++i)&#123; // 状态转移 dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i]); dp[i][1] = max(dp[i-1][1], - prices[i]); &#125; return dp[prices.size() - 1][0]; &#125;&#125;;// 动态规划，优化空间复杂度class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices) &#123; int n = prices.size(); if(prices.empty() || n == 1) return 0; int dp_i_0 = 0; int dp_i_1 = -prices[0]; for(int i = 1; i &lt; n; ++i)&#123; dp_i_0 = max(dp_i_0, dp_i_1 + prices[i]); dp_i_1 = max(dp_i_1, - prices[i]); &#125; return dp_i_0; &#125;&#125;;]]></content>
@@ -2791,6 +2802,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -2811,18 +2834,6 @@
       </categories>
       <tags>
         <tag>Clion</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
         <tag>opencv</tag>
       </tags>
   </entry>
