@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[leetcode-72-线性DP-编辑距离]]></title>
+    <url>%2F2020%2F04%2F27%2Fleetcode_72%2F</url>
+    <content type="text"><![CDATA[题目 解法12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273// 递归 + 备忘录class Solution &#123;public: typedef tuple&lt;int, int&gt; key; struct key_hash : public unary_function&lt;key, size_t &gt;&#123; size_t operator()(const key &amp;k) const&#123; return get&lt;0&gt;(k) * 100 + get&lt;1&gt;(k); &#125; &#125;; unordered_map&lt;key, int, key_hash&gt; help; int minDistance(string word1, string word2) &#123; return dp(word1, word2, word1.size()-1, word2.size()-1); &#125; int dp(string word1, string word2, int i, int j)&#123; auto i_j = make_tuple(i, j); if(help.count(i_j) &gt; 0) return help[i_j]; if(i == -1) return j+1; if(j == -1) return i+1; if(word1[i] == word2[j])&#123; help[i_j] = dp(word1, word2, i-1, j-1); &#125;else&#123; // 替换, 删除， 插入 help[i_j] = m_min( dp(word1, word2, i-1, j-1) + 1, dp(word1, word2, i-1, j) + 1, dp(word1, word2, i, j-1) + 1 ); &#125; return help[i_j]; &#125; int m_min(int a, int b, int c)&#123; return min(a, min(b, c)); &#125;&#125;;// 动态规划class Solution &#123;public: int minDistance(string word1, string word2) &#123; int m = word1.size(), n = word2.size(); vector&lt;vector&lt;int&gt;&gt; dp(m+1, vector&lt;int&gt;(n+1)); for(int i = 0; i &lt;= m; ++i) dp[i][0] = i; for(int j = 0; j &lt;= n; ++j) dp[0][j] = j; for(int i = 1; i &lt;= m; ++i)&#123; for(int j = 1; j &lt;= n; ++j)&#123; if(word1[i-1] == word2[j-1])&#123; dp[i][j] = dp[i-1][j-1]; &#125;else&#123; dp[i][j] = m_min( dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i-1][j-1] + 1 ); &#125; &#125; &#125; return dp[m][n]; &#125; int m_min(int a, int b, int c)&#123; return min(a, min(b, c)); &#125;&#125;;]]></content>
+      <categories>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[leetcode-714-线性DP-买卖股票的最佳时机含手续费]]></title>
     <url>%2F2020%2F04%2F26%2Fleetcode_714%2F</url>
     <content type="text"><![CDATA[题目 解法123456789101112131415161718// 动态规划，优化空间复杂度class Solution &#123;public: int maxProfit(vector&lt;int&gt;&amp; prices, int fee) &#123; int n = prices.size(); if(prices.empty() || n == 1) return 0; int dp_i_0 = 0; int dp_i_1 = -prices[0]; for(int i = 0; i &lt; n; ++i)&#123; int temp = dp_i_0; dp_i_0 = max(dp_i_0, dp_i_1 + prices[i] - fee); dp_i_1 = max(dp_i_1, temp - prices[i]); &#125; return dp_i_0; &#125;&#125;;]]></content>
@@ -2824,18 +2835,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python安装opencv]]></title>
-    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
-    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
-      <categories>
-        <category>环境配置与安装</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>opencv</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[VS2017配置opencv]]></title>
     <url>%2F2019%2F03%2F19%2Fopencv_vs2017%2F</url>
     <content type="text"><![CDATA[安装 opencv 下载地址 ：opencv download 解压到 opencv4文件夹中 解压后： 配置环境变量： VS2017中配置opencv 新建一个工程 依次点击：视图 ==&gt; 其他窗口 ==&gt; 属性管理器 添加包含目录 添加库目录 添加附加依赖项 重启VS2017 测试 测试代码 1234567891011121314#include &lt;opencv2\opencv.hpp&gt;using namespace cv;int main()&#123; Mat img = imread("1.png"); namedWindow("hahaha"); imshow("hahaha", img); waitKey(0); return 0;&#125; 测试结果]]></content>
@@ -2856,6 +2855,18 @@
       </categories>
       <tags>
         <tag>Clion</tag>
+        <tag>opencv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python安装opencv]]></title>
+    <url>%2F2019%2F03%2F19%2Fopencv_python%2F</url>
+    <content type="text"><![CDATA[安装opencv123456# opencv-python 和 opencv-contrib-python只能安装一个，后者带有扩展包，建议直接安后者pip install opencv-python# 安装opencv-contrib-python前，要先卸载opencv-pythonpip uninstall opencv-pythonpip install opencv-contrib-python 更新opencv1pip install --upgrade opencv-python]]></content>
+      <categories>
+        <category>环境配置与安装</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
         <tag>opencv</tag>
       </tags>
   </entry>
