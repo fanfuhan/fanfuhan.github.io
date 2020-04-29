@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://fanfuhan.github.io/2020/04/29/leetcode_10/</loc>
+    <lastmod>2020-04-29</lastmod>
+  </url>  <url>
     <loc>https://fanfuhan.github.io/2020/04/28/leetcode_44/</loc>
     <lastmod>2020-04-28</lastmod>
   </url>  <url>
@@ -69,9 +72,6 @@
   </url>  <url>
     <loc>https://fanfuhan.github.io/2020/03/19/leetcode_100/</loc>
     <lastmod>2020-03-19</lastmod>
-  </url>  <url>
-    <loc>https://fanfuhan.github.io/2020/03/18/leetcode_10/</loc>
-    <lastmod>2020-03-18</lastmod>
   </url>  <url>
     <loc>https://fanfuhan.github.io/2020/03/17/leetcode_5/</loc>
     <lastmod>2020-03-17</lastmod>

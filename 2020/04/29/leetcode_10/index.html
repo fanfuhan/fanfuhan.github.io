@@ -80,20 +80,20 @@
 
 
 
-<meta name="description" content="题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677// 动态规划, 12msclass Solution &amp;#123;public:    struc">
+<meta name="description" content="题目 解法123456789101112131415161718// 递归 + 备忘录class Solution:    def isMatch(self, s: str, p: str) -&amp;gt; bool:        memo = dict()        def dp(i, j):            if (i, j) in memo : return memo[(i, j)]">
 <meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-10-字符串题-正则表达式匹配">
-<meta property="og:url" content="https://fanfuhan.github.io/2020/03/18/leetcode_10/index.html">
+<meta property="og:title" content="leetcode-10-线性DP-正则表达式匹配">
+<meta property="og:url" content="https://fanfuhan.github.io/2020/04/29/leetcode_10/index.html">
 <meta property="og:site_name" content="范范">
-<meta property="og:description" content="题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677// 动态规划, 12msclass Solution &amp;#123;public:    struc">
+<meta property="og:description" content="题目 解法123456789101112131415161718// 递归 + 备忘录class Solution:    def isMatch(self, s: str, p: str) -&amp;gt; bool:        memo = dict()        def dp(i, j):            if (i, j) in memo : return memo[(i, j)]">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/e52819ealy1gcyhud7ex8j20mi0hhjs4.jpg">
-<meta property="og:updated_time" content="2020-03-18T15:23:22.217Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/e52819ealy1geaygf1bj3j20r30hc751.jpg">
+<meta property="og:updated_time" content="2020-04-29T13:25:57.242Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="leetcode-10-字符串题-正则表达式匹配">
-<meta name="twitter:description" content="题目 解法1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677// 动态规划, 12msclass Solution &amp;#123;public:    struc">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/e52819ealy1gcyhud7ex8j20mi0hhjs4.jpg">
+<meta name="twitter:title" content="leetcode-10-线性DP-正则表达式匹配">
+<meta name="twitter:description" content="题目 解法123456789101112131415161718// 递归 + 备忘录class Solution:    def isMatch(self, s: str, p: str) -&amp;gt; bool:        memo = dict()        def dp(i, j):            if (i, j) in memo : return memo[(i, j)]">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/e52819ealy1geaygf1bj3j20r30hc751.jpg">
 
 
 
@@ -123,14 +123,14 @@
 
 
 
-  <link rel="canonical" href="https://fanfuhan.github.io/2020/03/18/leetcode_10/">
+  <link rel="canonical" href="https://fanfuhan.github.io/2020/04/29/leetcode_10/">
 
 
 <meta name="google-site-verification" content="UEyEKq1HPEEwvXN8IKUs4MWiU4oNmSsZ49YysJ45u7M">
 
 
 
-  <title>leetcode-10-字符串题-正则表达式匹配 | 范范</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>leetcode-10-线性DP-正则表达式匹配 | 范范</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2020/03/18/leetcode_10/">
+    <link itemprop="mainEntityOfPage" href="https://fanfuhan.github.io/2020/04/29/leetcode_10/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fanfan">
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">leetcode-10-字符串题-正则表达式匹配</h1>
+          <h1 class="post-title" itemprop="name headline">leetcode-10-线性DP-正则表达式匹配</h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-18T23:20:25+08:00">
-                2020-03-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-29T21:23:59+08:00">
+                2020-04-29
               </time>
             
 
@@ -388,9 +388,9 @@
       
 
       
-        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p><img src="http://ww1.sinaimg.cn/large/e52819ealy1gcyhud7ex8j20mi0hhjs4.jpg" alt="1.png"></p>
-<h4 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 动态规划, 12ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">pair_hash</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T1</span>, <span class="title">class</span> <span class="title">T2</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="title">std</span>:</span>:<span class="keyword">size_t</span> <span class="keyword">operator</span>() (<span class="keyword">const</span> <span class="built_in">std</span>::pair&lt;T1, T2&gt;&amp; p) <span class="keyword">const</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">auto</span> h1 = <span class="built_in">std</span>::hash&lt;T1&gt;&#123;&#125;(p.first);</span><br><span class="line">            <span class="keyword">auto</span> h2 = <span class="built_in">std</span>::hash&lt;T2&gt;&#123;&#125;(p.second);</span><br><span class="line">            <span class="keyword">return</span> h1 ^ h2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">unordered_map</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;, <span class="keyword">bool</span>, pair_hash&gt; dp;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (p.empty()) <span class="keyword">return</span> s.empty();</span><br><span class="line">        <span class="keyword">return</span> helper(s, p, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">helper</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="built_in">string</span> &amp;p, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">auto</span> i_j = make_pair(i, j);</span><br><span class="line">        <span class="keyword">if</span>(dp.count(i_j) &gt; <span class="number">0</span>) <span class="keyword">return</span> dp[i_j];</span><br><span class="line">        <span class="keyword">if</span>(j == p.size()) <span class="keyword">return</span> i == s.size();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">bool</span> first_match = (i &lt; s.size()) &amp;&amp; (s[i] == p[j] || p[j] == <span class="string">'.'</span>);</span><br><span class="line">        <span class="keyword">bool</span> ans;</span><br><span class="line">        <span class="keyword">if</span>(p[j+<span class="number">1</span>] == <span class="string">'*'</span>)&#123;</span><br><span class="line">            ans = helper(s, p, i, j+<span class="number">2</span>) || (first_match &amp;&amp; helper(s, p, i+<span class="number">1</span>, j));</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            ans = first_match &amp;&amp; helper(s, p, i+<span class="number">1</span>, j+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        dp[i_j] = ans;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用字符串指针 20ms</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> isMatch(s.c_str(), p.c_str());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* s, <span class="keyword">const</span> <span class="keyword">char</span>* p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(*p == <span class="number">0</span>) <span class="keyword">return</span> *s == <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">bool</span> first_match = *s &amp;&amp; (*s == *p || *p == <span class="string">'.'</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(*(p+<span class="number">1</span>) == <span class="string">'*'</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> isMatch(s, p+<span class="number">2</span>) || (first_match &amp;&amp; isMatch(++s, p));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> first_match &amp;&amp; isMatch(++s, ++p);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 260ms，创建了大量字符串副本</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isMatch</span><span class="params">(<span class="built_in">string</span> s, <span class="built_in">string</span> p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (p.empty()) <span class="keyword">return</span> s.empty();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">bool</span> first_match = !s.empty() &amp;&amp; (s[<span class="number">0</span>] == p[<span class="number">0</span>] || p[<span class="number">0</span>] == <span class="string">'.'</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (p[<span class="number">1</span>] == <span class="string">'*'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> isMatch(s, p.substr(<span class="number">2</span>)) || (first_match &amp;&amp; (isMatch(s.substr(<span class="number">1</span>), p)));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> first_match &amp;&amp; isMatch(s.substr(<span class="number">1</span>), p.substr(<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/dong-tai-gui-hua-zhi-zheng-ze-biao-da" target="_blank" rel="noopener">链接</a></p>
+        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><p><img src="http://ww1.sinaimg.cn/large/e52819ealy1geaygf1bj3j20r30hc751.jpg" alt="1.png"></p>
+<h4 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 递归 + 备忘录</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    def isMatch(self, s: str, p: str) -&gt; bool:</span><br><span class="line">        memo = dict()</span><br><span class="line">        def dp(i, j):</span><br><span class="line">            <span class="keyword">if</span> (i, j) in memo : <span class="keyword">return</span> memo[(i, j)]</span><br><span class="line">            <span class="keyword">if</span>(j == len(p)): <span class="keyword">return</span> i == len(s)</span><br><span class="line"></span><br><span class="line">            first_match = (i &lt; len(s)) <span class="keyword">and</span> p[j] in &#123;s[i], <span class="string">'.'</span>&#125;</span><br><span class="line">            <span class="keyword">if</span>((j &lt;= len(p)<span class="number">-2</span>) <span class="keyword">and</span> (p[j+<span class="number">1</span>] == <span class="string">'*'</span>)):</span><br><span class="line">                ans = dp(i, j+<span class="number">2</span>) <span class="keyword">or</span> (first_match <span class="keyword">and</span> dp(i+<span class="number">1</span>, j))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ans = first_match <span class="keyword">and</span> dp(i+<span class="number">1</span>, j+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">            memo[(i,j)] = ans</span><br><span class="line">            <span class="keyword">return</span> ans</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dp(<span class="number">0</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://labuladong.gitbook.io/algo/dong-tai-gui-hua-xi-lie/dong-tai-gui-hua-zhi-zheng-ze-biao-da" target="_blank" rel="noopener">正则表达式匹配</a></p>
 
       
     </div>
@@ -421,8 +421,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/17/leetcode_5/" rel="next" title="leetcode-5-字符串题-最长回文子串">
-                <i class="fa fa-chevron-left"></i> leetcode-5-字符串题-最长回文子串
+              <a href="/2020/04/28/leetcode_44/" rel="next" title="leetcode-44-线性DP-通配符匹配">
+                <i class="fa fa-chevron-left"></i> leetcode-44-线性DP-通配符匹配
               </a>
             
           </div>
@@ -430,10 +430,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/19/leetcode_100/" rel="prev" title="leetcode-100-树题-相同的树">
-                leetcode-100-树题-相同的树 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
